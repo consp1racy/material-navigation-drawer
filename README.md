@@ -30,3 +30,29 @@ dependencies {
     compile 'net.xpece.material:navigation-drawer:0.1.1'
 }
 ```
+Customization
+-------------
+
+`NavigationSectionDescriptor`
+
+ - Use `heading(String)` to set optional section heading.
+ - Use `addItem(NavigationItemDescriptor)` or `addItems(List<NavigationItemDescriptor>)`. These allow you to chain calls as opposed to standard `List` methods.
+ 
+`NavigationItemDescriptor`
+
+- Use `sticky()` and `notSticky()` to specify whether the item should stay selected on click or not.
+- Use `icon(int)` to specify a drawable resource. Typically this would be a 24dp by 24dp icon. This gets colored automatically.
+- Use `text(String)` or `text(int)` to set item label.
+- Use `badge(String)` or `badge(int)` to set badge text. Badge will be hidden when supplied value is `null`;
+- Use `activeColor(int)` and its derivatives to specify color of selected icon and text.
+- Use `passiveColor(int)` and its derivatives to specify color of unselected icon. Note that unselected text always takes color of `android:textColorPrimary`.
+- Use `badgeColor(int)` and its derivatives to specify background color of the badge. Text color is calculated automatically.
+ 
+Work TBD
+--------
+
+ - Better styling options.
+ - Pinned section for settings and help.
+ - Check for exceptions like `ResourceNotFound`.
+ - Lower API requirement preferrably to level 4 and ditch dependencies.
+ - Code resources and deploy as jar instead of aar.
