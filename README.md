@@ -27,7 +27,7 @@ repositories {
 }
 
 dependencies {
-    compile 'net.xpece.material:navigation-drawer:0.1.1'
+    compile 'net.xpece.material:navigation-drawer:0.1.1@aar'
 }
 ```
 Customization
