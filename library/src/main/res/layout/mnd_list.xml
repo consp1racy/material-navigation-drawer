@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ListView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="Overdraw"
+    tools:listitem="@layout/mnd_item"
+    android:id="@+id/mnd_list"
+    android:dividerHeight="0dp"
+    android:divider="@android:color/transparent"
+    android:background="?android:colorForegroundInverse"
+    android:choiceMode="singleChoice"
+    android:layout_width="0dp"
+    tools:layout_width="match_parent"
+    android:layout_height="match_parent">
+  <!--android:divider="@android:color/transparent"-->
+
+</ListView>

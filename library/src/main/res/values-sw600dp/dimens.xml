@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <dimen name="mnd_drawer_max_width">320dp</dimen>
+  <dimen name="mnd_drawer_margin">64dp</dimen>
+
+  <dimen name="mnd_padding_horizontal">8dp</dimen>
+</resources>
