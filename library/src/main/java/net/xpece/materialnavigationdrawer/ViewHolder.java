@@ -4,7 +4,7 @@ import android.util.SparseArray;
 import android.view.View;
 
 /**
- * Sauce: http://www.piwai.info/android-adapter-good-practices/
+ * Sauce: Pierre-Yves Ricau http://www.piwai.info/android-adapter-good-practices/
  */
 class ViewHolder {
   @SuppressWarnings("unchecked")

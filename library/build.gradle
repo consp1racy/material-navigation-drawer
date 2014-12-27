@@ -16,19 +16,21 @@ android {
       minifyEnabled false
       proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
     }
+    debug {
+    }
   }
 }
 
 dependencies {
 //  compile fileTree(dir: 'libs', include: ['*.jar'])
   compile 'com.android.support:support-v4:21.0.3'
-  compile 'com.android.support:appcompat-v7:21.0.3'
+//  compile 'com.android.support:appcompat-v7:21.0.3'
 }
 
 ext {
   PUBLISH_GROUP_ID = 'net.xpece.material'
   PUBLISH_ARTIFACT_ID = 'navigation-drawer'
-  PUBLISH_VERSION = '0.1.1'
+  PUBLISH_VERSION = '0.2.1'
 }
 
 apply from: '../android-release-aar.gradle'

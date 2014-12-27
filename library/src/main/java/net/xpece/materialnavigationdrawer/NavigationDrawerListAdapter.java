@@ -28,7 +28,13 @@ class NavigationDrawerListAdapter extends BaseAdapter {
   private List<NavigationSectionDescriptor> mSections = new ArrayList<>(0);
   private SparseIntArray mViewTypes = new SparseIntArray();
   private SparseArray<Object> mItems = new SparseArray<>();
-  private LongSparseArray<Integer> mPositions = new LongSparseArray<>();
+  private LongSparseArray<Integer> mPositions = null;
+
+  private boolean mDrawLastDivider = false;
+  private View mLastDividerView = null;
+
+  private int mSelectedPosition = -1;
+  private long mPendingSelectedId = -1;
 
   // each section consists of the following
   // section heading OR padding
@@ -40,6 +46,36 @@ class NavigationDrawerListAdapter extends BaseAdapter {
     mSections = sections;
     calculateViewTypesAndItems();
     notifyDataSetChanged();
+  }
+
+  @Deprecated
+  public void setDrawLastDivider(boolean draw) {
+    mDrawLastDivider = draw;
+    if (mLastDividerView != null) {
+      mLastDividerView.setVisibility(draw ? View.VISIBLE : View.INVISIBLE);
+    }
+  }
+
+  public void setActivatedItem(int position) {
+    mPendingSelectedId = -1;
+    if (mSelectedPosition != position) {
+      mSelectedPosition = position;
+      notifyDataSetChanged();
+    }
+  }
+
+  @Override
+  public void notifyDataSetInvalidated() {
+    mPositions = null;
+
+    mLastDividerView = null;
+    super.notifyDataSetInvalidated();
+  }
+
+  @Override
+  public void notifyDataSetChanged() {
+    mLastDividerView = null;
+    super.notifyDataSetChanged();
   }
 
   @Override
@@ -69,9 +105,13 @@ class NavigationDrawerListAdapter extends BaseAdapter {
 
   @Override
   public int getCount() {
+    return getRealItemCount() + 2 * mSections.size();
+  }
+
+  private int getRealItemCount() {
     int count = 0;
     for (NavigationSectionDescriptor section : mSections) {
-      count = count + section.size() + 2;
+      count += section.size();
     }
     return count;
   }
@@ -124,42 +164,14 @@ class NavigationDrawerListAdapter extends BaseAdapter {
           view = convertView;
         }
 
-        Context context = parent.getContext();
-
-        ImageView icon = ViewHolder.get(view, R.id.icon);
-        TextView text = ViewHolder.get(view, R.id.text);
-        TextView badge = ViewHolder.get(view, R.id.badge);
-
         NavigationItemDescriptor item = (NavigationItemDescriptor) getItem(position);
 
-        Drawable iconDrawable = item.getIcon(context);
-        int passiveColor = item.getPassiveColor(context);
-        int activeColor = item.getActiveColor(context);
-        int badgeColor = item.getBadgeColor(context);
-        String textString = item.getText(context);
-        String badgeString = item.getBadge(context);
-        int textColor = Utils.getColor(context, android.R.attr.textColorPrimary, 0);
-
-        if (iconDrawable != null) {
-          icon.setImageDrawable(Utils.createStateListDrawable(iconDrawable, passiveColor, activeColor));
-//          icon.setImageDrawable(Utils.tintDrawable(iconDrawable, activeColor));
-          icon.setVisibility(View.VISIBLE);
-        } else {
-          icon.setVisibility(View.GONE);
-          icon.setImageDrawable(null);
-        }
-        text.setText(textString);
-        text.setTextColor(Utils.createColorStateList(textColor, activeColor));
-        if (badgeString != null) {
-          badge.setText(badgeString);
-          badge.setBackgroundColor(badgeColor);
-          badge.setTextColor(Utils.computeTextColor(context, badgeColor));
-          badge.setVisibility(View.VISIBLE);
-        } else {
-          badge.setVisibility(View.GONE);
+        if (mPendingSelectedId >= 0 && mPendingSelectedId == item.getId()) {
+          mPendingSelectedId = -1;
+          mSelectedPosition = position;
         }
 
-        Utils.setBackground(view, Utils.createStateListDrawable(0, Utils.createDividerColor(context)));
+        loadNavigationItem(view, item, position == mSelectedPosition);
 
         break;
       }
@@ -172,20 +184,73 @@ class NavigationDrawerListAdapter extends BaseAdapter {
         }
 
         Context context = parent.getContext();
+        int lastPosition = getCount() - 1;
         View divider = ViewHolder.get(view, R.id.divider);
         divider.setBackgroundColor(Utils.createDividerColor(context));
-        divider.setVisibility(position == getCount() - 1 ? View.INVISIBLE : View.VISIBLE);
+        divider.setVisibility(position < lastPosition || mDrawLastDivider ? View.VISIBLE : View.INVISIBLE);
+        if (position == lastPosition) mLastDividerView = divider;
         break;
       }
     }
     return view;
   }
 
+  public static View createNavigationItem(Context context, ViewGroup parent, NavigationItemDescriptor item) {
+    View view = LayoutInflater.from(context).inflate(R.layout.mnd_item, parent, false);
+    loadNavigationItem(view, item, false);
+    return view;
+  }
+
+  public static void loadNavigationItem(View view, NavigationItemDescriptor item, boolean selected) {
+    Context context = view.getContext();
+
+    ImageView icon = ViewHolder.get(view, R.id.icon);
+    TextView text = ViewHolder.get(view, R.id.text);
+    TextView badge = ViewHolder.get(view, R.id.badge);
+
+    Drawable iconDrawable = item.getIcon(context);
+    int passiveColor = item.getPassiveColor(context);
+    int activeColor = item.getActiveColor(context);
+    int badgeColor = item.getBadgeColor(context);
+    String textString = item.getText(context);
+    String badgeString = item.getBadge(context);
+    int textColor = Utils.getColor(context, android.R.attr.textColorPrimary, 0);
+
+    if (iconDrawable != null) {
+      icon.setImageDrawable(Utils.createActivatedDrawable(iconDrawable, passiveColor, activeColor));
+//          icon.setImageDrawable(Utils.tintDrawable(iconDrawable, activeColor));
+      icon.setVisibility(View.VISIBLE);
+    } else {
+      icon.setVisibility(View.GONE);
+      icon.setImageDrawable(null);
+    }
+    text.setText(textString);
+    if (selected) {
+      text.setTextAppearance(context, R.style.TextAppearance_MaterialNavigationDrawer_Item_Selected);
+    } else {
+      text.setTextAppearance(context, R.style.TextAppearance_MaterialNavigationDrawer_Item);
+    }
+    text.setTextColor(Utils.createActivatedColor(textColor, activeColor));
+    if (badgeString != null) {
+      badge.setText(badgeString);
+      Utils.setBackground(badge, Utils.createRoundRect(context, badgeColor));
+      badge.setTextColor(Utils.computeTextColor(context, badgeColor));
+      badge.setVisibility(View.VISIBLE);
+    } else {
+      badge.setVisibility(View.GONE);
+    }
+
+    Utils.setBackground(view, Utils.createActivatedDrawable(0, Utils.createDividerColor(context)));
+  }
+
   private void calculateViewTypesAndItems() {
     mViewTypes.clear();
     mItems.clear();
-    mPositions.clear();
-    if (mSections == null) return;
+    if (mSections == null) {
+      mPositions = new LongSparseArray<>(0);
+      return;
+    }
+    LongSparseArray<Integer> positions = new LongSparseArray<>();
 
     int position = 0;
     for (int i = 0; i < mSections.size(); i++) {
@@ -201,16 +266,23 @@ class NavigationDrawerListAdapter extends BaseAdapter {
 
         mViewTypes.put(position, TYPE_ITEM);
         mItems.put(position, item);
-        mPositions.put(item.getId(), position);
+        positions.put(item.getId(), position);
         position++;
       }
 
       mViewTypes.put(position, TYPE_SEPARATOR);
       position++;
     }
+
+    mPositions = positions;
   }
 
-  public int getPositionById(long id) {
-    return mPositions.get(id, -1);
+  public int getPositionById(long id) throws Exception {
+    try {
+      return mPositions.get(id, -1);
+    } catch (NullPointerException ex) {
+      mPendingSelectedId = id;
+      throw new IllegalStateException(ex);
+    }
   }
 }

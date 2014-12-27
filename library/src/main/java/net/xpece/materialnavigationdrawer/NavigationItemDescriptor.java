@@ -30,24 +30,24 @@ public class NavigationItemDescriptor {
   /** Color of item icon and text when selected. */
   private int activeColor = 0xff000000;
   @ColorRes
-  private int activeColorId = R.color.primary_text_default_material_light;
+  private int activeColorId = R.color.mnd_text_primary_light;
   @AttrRes
   int activeColorAttr = android.R.attr.textColorPrimary;
   /** Color of item icon when not selected. Should be 54% black or 100% white. */
   private int passiveColor = 0xde000000;
   @ColorRes
-  private int passiveColorId = R.color.secondary_text_default_material_light;
+  private int passiveColorId = R.color.mnd_text_secondary_light;
   @AttrRes
   int passiveColorAttr = android.R.attr.textColorSecondary;
   /** Background color of badge. Text color is calculated automatically. */
   int badgeColor = 0xff000000;
   @ColorRes
-  int badgeColorId = R.color.material_deep_teal_500;
+  int badgeColorId = android.R.color.black;
   @AttrRes
-  int badgeColorAttr = R.attr.colorAccent;
+  int badgeColorAttr = android.R.attr.colorForeground;
 
   public NavigationItemDescriptor() {
-    this.id = 0;
+    this.id = -1;
   }
 
   public NavigationItemDescriptor(long id) {
@@ -64,9 +64,9 @@ public class NavigationItemDescriptor {
   }
 
   public Drawable getIcon(Context context) {
-    try {
-      return context.getResources().getDrawable(iconId);
-    } catch (Exception ex) {
+    if (iconId != 0) {
+      return context.getResources().getDrawable(iconId).mutate();
+    } else {
       return null;
     }
   }

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <color name="mnd_text_primary_light">#de000000</color>
+  <color name="mnd_text_secondary_light">#8a000000</color>
+  <color name="mnd_text_primary_dark">#ffffffff</color>
+  <color name="mnd_text_secondary_dark">#b3ffffff</color>
+</resources>

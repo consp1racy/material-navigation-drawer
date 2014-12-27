@@ -1,9 +1,21 @@
-<android.support.v4.widget.DrawerLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
+  <fragment
+      android:layout_gravity="start"
+      android:name="net.xpece.materialnavigationdrawer.NavigationDrawerFragment"
+      android:id="@+id/navigation_drawer"
+      android:layout_width="wrap_content"
+      android:layout_height="match_parent"
+      tools:layout="@layout/mnd_list"/>
+
+  <View
+      android:background="?android:dividerVertical"
+      android:layout_width="1dp"
+      android:layout_height="match_parent"/>
 
   <RelativeLayout
       android:id="@+id/content"
@@ -21,12 +33,4 @@
         android:layout_height="wrap_content"/>
 
   </RelativeLayout>
-
-  <fragment
-      android:layout_gravity="start"
-      android:name="net.xpece.materialnavigationdrawer.NavigationDrawerFragment"
-      android:id="@+id/navigation_drawer"
-      android:layout_width="wrap_content"
-      android:layout_height="match_parent"
-      tools:layout="@layout/mnd_list"/>
-</android.support.v4.widget.DrawerLayout>
+</LinearLayout>

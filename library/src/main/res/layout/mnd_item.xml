@@ -33,14 +33,15 @@
       android:layout_marginRight="@dimen/mnd_unit_double"
       android:layout_centerVertical="true"
       android:gravity="center"
-      android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+      android:textAppearance="@style/TextAppearance.MaterialNavigationDrawer.Badge"
       android:paddingLeft="@dimen/mnd_unit_half"
       android:paddingRight="@dimen/mnd_unit_half"
+      android:ellipsize="middle"
       android:maxLines="1"
-      android:maxWidth="@dimen/mnd_icon_size_large"
       android:minWidth="@dimen/mnd_icon_size_small"
       android:layout_width="wrap_content"
       android:layout_height="@dimen/mnd_icon_size_small"/>
+  <!--android:maxWidth="@dimen/mnd_icon_size_large"-->
 
   <TextView
       android:layout_marginLeft="@dimen/mnd_unit_double"
@@ -56,6 +57,6 @@
       android:layout_toStartOf="@+id/badge"
       android:layout_alignWithParentIfMissing="true"
       android:layout_centerVertical="true"
-      android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+      android:textAppearance="@style/TextAppearance.MaterialNavigationDrawer.Item"
       android:maxLines="1"/>
 </RelativeLayout>

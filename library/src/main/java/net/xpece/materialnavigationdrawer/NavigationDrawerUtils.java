@@ -1,6 +1,9 @@
 package net.xpece.materialnavigationdrawer;
 
+import android.content.Context;
 import android.support.v4.widget.DrawerLayout;
+import android.view.View;
+import android.view.ViewTreeObserver;
 
 import java.lang.reflect.Field;
 
@@ -29,5 +32,21 @@ public class NavigationDrawerUtils {
     } catch (Exception e) {
       e.printStackTrace();
     }
+  }
+
+  public static void setProperNavigationDrawerWidth(final View view) {
+    final Context context = view.getContext();
+    view.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+      @Override
+      public void onGlobalLayout() {
+        Utils.removeOnGlobalLayoutListener(view, this);
+
+        view.getLayoutParams().width = Math.min(
+            context.getResources().getDimensionPixelSize(R.dimen.mnd_drawer_max_width),
+            context.getResources().getDisplayMetrics().widthPixels - context.getResources().getDimensionPixelOffset(R.dimen.mnd_drawer_margin)
+        );
+        view.requestLayout();
+      }
+    });
   }
 }

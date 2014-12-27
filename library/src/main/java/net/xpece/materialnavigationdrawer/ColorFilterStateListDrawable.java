@@ -8,7 +8,7 @@ import android.graphics.drawable.StateListDrawable;
 import android.util.SparseArray;
 
 /**
- * @author Daniele Segato http://stackoverflow.com/a/19111613/2444099
+ * @author CC-BY-SA Daniele Segato http://stackoverflow.com/a/19111613/2444099
  * // TODO consider replacing by something similar http://stackoverflow.com/a/23222355/2444099
  */
 class ColorFilterStateListDrawable extends StateListDrawable {

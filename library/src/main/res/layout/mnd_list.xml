@@ -1,17 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ListView
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:ignore="Overdraw"
-    tools:listitem="@layout/mnd_item"
-    android:id="@+id/mnd_list"
-    android:dividerHeight="0dp"
-    android:divider="@android:color/transparent"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
     android:background="?android:colorForegroundInverse"
-    android:choiceMode="singleChoice"
-    android:layout_width="0dp"
-    tools:layout_width="match_parent"
-    android:layout_height="match_parent">
-  <!--android:divider="@android:color/transparent"-->
+    tools:ignore="Overdraw">
+  <!--android:orientation="vertical"-->
 
-</ListView>
+  <ListView
+      tools:listitem="@layout/mnd_item"
+      android:id="@+id/mnd_list"
+      android:dividerHeight="0dp"
+      android:divider="@android:color/transparent"
+      android:choiceMode="singleChoice"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content">
+
+  </ListView>
+
+  <LinearLayout
+      android:layout_alignBottom="@+id/mnd_list"
+      android:id="@+id/mnd_section_pinned"
+      android:visibility="gone"
+      android:orientation="vertical"
+      android:background="?android:colorForegroundInverse"
+      android:paddingBottom="@dimen/mnd_unit"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content">
+    <!--android:paddingTop="@dimen/mnd_unit"-->
+    <!--android:clipChildren="false"-->
+    <View
+        android:id="@+id/mnd_divider_pinned"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginBottom="7dp"/>
+    <!--android:translationY="-1dp"-->
+  </LinearLayout>
+</RelativeLayout>

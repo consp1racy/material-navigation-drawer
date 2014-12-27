@@ -2,8 +2,8 @@
 <TextView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:text="@string/app_name"
-    android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+    tools:text="@android:string/untitled"
+    android:textAppearance="@style/TextAppearance.MaterialNavigationDrawer.Section"
     android:textColor="?android:textColorSecondary"
     android:gravity="center_vertical"
     android:paddingLeft="@dimen/mnd_horizontal_margin"

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <style name="TextAppearance.MaterialNavigationDrawer.Section" parent="">
+    <item name="android:textSize">14sp</item>
+    <item name="android:fontFamily">sans-serif-medium</item>
+    <item name="android:textColor">?android:textColorSecondary</item>
+  </style>
+
+  <style name="TextAppearance.MaterialNavigationDrawer.Item" parent="">
+    <item name="android:textSize">14sp</item>
+    <item name="android:fontFamily">sans-serif-medium</item>
+    <item name="android:textColor">?android:textColorPrimary</item>
+  </style>
+
+  <style name="TextAppearance.MaterialNavigationDrawer.Item.Selected">
+  </style>
+
+  <style name="TextAppearance.MaterialNavigationDrawer.Badge" parent="">
+    <item name="android:textSize">12sp</item>
+    <item name="android:fontFamily">sans-serif-medium</item>
+    <item name="android:textColor">?android:textColorSecondary</item>
+  </style>
+</resources>
