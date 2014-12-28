@@ -53,7 +53,7 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
         .addItem(new NavigationItemDescriptor(5).text("Oh no")
             .icon(R.drawable.ic_star_black_24dp)
             .passiveColorResource(R.color.material_amber_500));
-    SECTIONS.add(section2);
+//    SECTIONS.add(section2);
     NavigationSectionDescriptor section3 = new NavigationSectionDescriptor()
         .addItem(new NavigationItemDescriptor(6).text("Settings")
             .icon(R.drawable.ic_settings_black_24dp))
@@ -156,7 +156,7 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
   }
 
   @Override
-  public void onNavigationItemSelected(View view, int position, long id) {
+  public void onNavigationItemSelected(View view, int position, long id, NavigationItemDescriptor item) {
     if (mToast != null) mToast.cancel();
     mToast = Toast.makeText(this, "Item #" + id + " on position " + position + " selected!", Toast.LENGTH_SHORT);
     mToast.show();

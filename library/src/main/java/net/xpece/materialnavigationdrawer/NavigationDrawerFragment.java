@@ -20,6 +20,8 @@ import android.widget.ListView;
 import java.util.ArrayList;
 import java.util.List;
 
+import hugo.weaving.DebugLog;
+
 /**
  * Created by pechanecjr on 14. 12. 2014.
  */
@@ -29,7 +31,7 @@ public class NavigationDrawerFragment extends Fragment implements
 
   private static final Callbacks DUMMY_CALLBACKS = new Callbacks() {
     @Override
-    public void onNavigationItemSelected(View view, int position, long id) {
+    public void onNavigationItemSelected(View view, int position, long id, NavigationItemDescriptor item) {
       //
     }
   };
@@ -41,13 +43,19 @@ public class NavigationDrawerFragment extends Fragment implements
 
   private final ViewTreeObserver.OnGlobalLayoutListener mPinnedContainerOnGlobalLayoutListener = new ViewTreeObserver.OnGlobalLayoutListener() {
     @Override
+    @DebugLog
     public void onGlobalLayout() {
       // Problem: in portrait the list has extra space at the bottom (5dp, 8px)
       // Solution: calculate the extra space and subtract it from padding
+      // Solution part 2: ask for actual list's adapter to account for headers and footers
       int fix = 0;
-      if (mListView.getLastVisiblePosition() == mAdapter.getCount() - 1) {
+      final int lastVisible = mListView.getLastVisiblePosition();
+      final int lastPosition = mListView.getAdapter().getCount() - 1; // mAdapter.getCount() - 1;
+//      Timber.d("listVisible=%s, lastPosition=%s", lastVisible, lastPosition);
+      if (lastVisible == lastPosition) {
         int listHeight = mListView.getMeasuredHeight();
         int lastBottom = mListView.getChildAt(mListView.getLastVisiblePosition() - mListView.getFirstVisiblePosition()).getBottom();
+//        Timber.d("listHeight=%s, lastBottom=%s", listHeight, lastBottom);
         // if last item ends before the list ends there's extra space
         if (lastBottom < listHeight) {
           fix = listHeight - lastBottom;
@@ -55,18 +63,20 @@ public class NavigationDrawerFragment extends Fragment implements
       }
       // modify padding only after pinned section has been measured and it changed
       // padding = pinned section height - listview extra space - 1dp divider alignment
-      int pinnedHeight = mPinnedContainer.getMeasuredHeight() - fix - Utils.dpToPixelOffset(getActivity(), 1);
-      if (pinnedHeight > 0 && mListView.getPaddingBottom() != pinnedHeight) {
+      final int pinnedHeight = mPinnedContainer.getMeasuredHeight() - fix - Utils.dpToPixelOffset(getActivity(), 1);
+      final int paddingBottom = mListView.getPaddingBottom();
+//      Timber.d("pinnedHeight=%s, paddingBottom=%s", pinnedHeight, paddingBottom);
+      if (pinnedHeight > 0 && paddingBottom != pinnedHeight) {
         mListView.setPadding(0, 0, 0, pinnedHeight);
       }
 
       // if pinned section is at the very bottom elevate it
-      int parentHeight = getView().getHeight();
-      int pinnedBottom = mPinnedContainer.getBottom();
+      final int parentHeight = getView().getHeight();
+      final int pinnedBottom = mPinnedContainer.getBottom();
       if (pinnedBottom >= parentHeight) {
         ViewCompat.setElevation(mPinnedContainer, getActivity().getResources().getDimension(R.dimen.mnd_unit));
         if (Build.VERSION.SDK_INT >= 21) {
-          mPinnedDivider.setVisibility(View.INVISIBLE);
+          mPinnedDivider.setVisibility(View.GONE);
         } else {
           mPinnedDivider.setVisibility(View.VISIBLE);
         }
@@ -168,6 +178,7 @@ public class NavigationDrawerFragment extends Fragment implements
     }
   }
 
+  @DebugLog
   private void updateSections() {
     mAdapter.setSections(mSections);
   }
@@ -186,8 +197,9 @@ public class NavigationDrawerFragment extends Fragment implements
     }
   }
 
+  @DebugLog
   private void updatePinnedSection() {
-    final int offset = 1; // plus 1 for the divider view
+    final int offset = 2; // plus 1 for the divider view plus 1 for padding
     int targetCount = mPinnedSection == null ? 0 : mPinnedSection.size();
     while (mPinnedContainer.getChildCount() > targetCount + offset) {
       View view = mPinnedContainer.getChildAt(offset);
@@ -211,7 +223,7 @@ public class NavigationDrawerFragment extends Fragment implements
         @Override
         public void onClick(View v) {
 //          mCallbacks.onNavigationItemSelected(v, mAdapter.getCount() + relativePosition, item.getId());
-          onItemClick(v, mAdapter.getCount() + relativePosition, item.getId());
+          onItemClick(v, mAdapter.getCount() + relativePosition, item.getId(), item);
         }
       });
     }
@@ -223,18 +235,24 @@ public class NavigationDrawerFragment extends Fragment implements
   }
 
   /**
-   * Use this method to add a header view. This header is selectable by default so you can use it as
+   * Use this method to set a header view. This header is selectable by default so you can use it as
    * a no-op close drawer button. Alternatively you would set up an {@link android.view.View.OnClickListener}
    * beforehand. <em>The header view is not managed by this class, it's completely in your hands.</em>
    *
    * @param view
    */
-  public void addHeaderView(View view) {
+  public void setHeaderView(View view) {
+    if (view == mHeader) return;
+    mListView.removeHeaderView(view);
     mHeader = view;
     if (mListView != null) {
-      if (mListView.getAdapter() != null) mListView.setAdapter(null);
-      mListView.addHeaderView(mHeader);
-      if (mAdapter != null) mListView.setAdapter(mAdapter);
+      if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) {
+        if (mListView.getAdapter() != null) mListView.setAdapter(null);
+        mListView.addHeaderView(mHeader);
+        if (mAdapter != null) mListView.setAdapter(mAdapter);
+      } else {
+        mListView.addHeaderView(mHeader);
+      }
     }
   }
 
@@ -311,13 +329,15 @@ public class NavigationDrawerFragment extends Fragment implements
         trySelectPosition(position);
 //        mListView.setSelection(mLastSelected);
       } catch (Exception ex) {
-        //
+        // id has been stored in adapter and the item will be marked accordingly when loaded
+        // TODO the choice will not be preserved on screen orientation change yet
       }
     } else {
       throw new IllegalStateException("No adapter yet!");
     }
   }
 
+  @DebugLog
   private void trySelectPosition(final int itemPosition) {
     final int listPosition = itemPosition + mListView.getHeaderViewsCount();
     if (listPosition == mLastSelected) return;
@@ -351,11 +371,12 @@ public class NavigationDrawerFragment extends Fragment implements
    */
   @Override
   public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-    onItemClick(view, position, id);
+    NavigationItemDescriptor item = (NavigationItemDescriptor) parent.getItemAtPosition(position);
+    onItemClick(view, position, id, item);
 //    parent.setSelection(position);
   }
 
-  private void onItemClick(View view, int position, long id) {
+  private void onItemClick(View view, int position, long id, NavigationItemDescriptor item) {
     // header views and items from pinned section are not sticky, don't even try
     if (position >= 0 && position < mListView.getHeaderViewsCount()) {
 //        || position > mListView.getHeaderViewsCount() + mAdapter.getCount()) {
@@ -364,7 +385,7 @@ public class NavigationDrawerFragment extends Fragment implements
       final int itemPosition = position - mListView.getHeaderViewsCount();
       trySelectPosition(itemPosition);
     }
-    mCallbacks.onNavigationItemSelected(view, position, id);
+    mCallbacks.onNavigationItemSelected(view, position, id, item);
   }
 
   /**
@@ -372,6 +393,6 @@ public class NavigationDrawerFragment extends Fragment implements
    * has been selected.
    */
   public static interface Callbacks {
-    public void onNavigationItemSelected(View view, int position, long id);
+    public void onNavigationItemSelected(View view, int position, long id, NavigationItemDescriptor item);
   }
 }

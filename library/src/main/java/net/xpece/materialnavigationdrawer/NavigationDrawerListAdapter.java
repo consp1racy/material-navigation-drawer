@@ -169,6 +169,7 @@ class NavigationDrawerListAdapter extends BaseAdapter {
         if (mPendingSelectedId >= 0 && mPendingSelectedId == item.getId()) {
           mPendingSelectedId = -1;
           mSelectedPosition = position;
+          if (item.isSticky()) view.setActivated(true);
         }
 
         loadNavigationItem(view, item, position == mSelectedPosition);

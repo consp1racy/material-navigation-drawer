@@ -1,5 +1,6 @@
 apply plugin: 'com.android.library'
 apply plugin: 'maven'
+apply plugin: 'hugo'
 
 android {
   compileSdkVersion 21
@@ -19,18 +20,19 @@ android {
     debug {
     }
   }
+  publishNonDefault true
+  defaultPublishConfig "release"
 }
 
 dependencies {
-//  compile fileTree(dir: 'libs', include: ['*.jar'])
   compile 'com.android.support:support-v4:21.0.3'
-//  compile 'com.android.support:appcompat-v7:21.0.3'
+//  compile 'com.jakewharton.timber:timber:2.5.0' // logging
 }
 
 ext {
   PUBLISH_GROUP_ID = 'net.xpece.material'
   PUBLISH_ARTIFACT_ID = 'navigation-drawer'
-  PUBLISH_VERSION = '0.2.1'
+  PUBLISH_VERSION = '0.2.2'
 }
 
 apply from: '../android-release-aar.gradle'
