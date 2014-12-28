@@ -3,6 +3,8 @@ Material Navigation Drawer
 
 Navigation Drawer according to Material Design spec.
 
+Screenshots here: https://bintray.com/consp1racy/maven/net.xpece.material%3Anavigation-drawer/view
+
 How it works
 ------------
 
