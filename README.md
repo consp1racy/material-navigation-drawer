@@ -21,7 +21,7 @@ Minimum API is 11, because activated selector is introduced just then. As recomm
 To use this library add the following to your module's `build.gradle`:
 ```groovy
 dependencies {
-    compile 'net.xpece.material:navigation-drawer:0.2.2@aar'
+    compile 'net.xpece.material:navigation-drawer:0.3.0@aar'
 }
 ```
 
@@ -44,7 +44,8 @@ You can modify the navigation list background by accessing one of `NavigationDra
 `NavigationItemDescriptor`
 
 - Use `sticky()` and `notSticky()` to specify whether the item should stay selected on click or not.
-- Use `icon(int)` to specify a drawable resource. Typically this would be a 24dp by 24dp icon. This gets colored automatically.
+- Use ~~`icon(int)`~~ `iconResource(int)` to specify a drawable resource. Typically this would be a 24dp by 24dp icon. This gets colored automatically. Width limit is 40dp.
+- Use `iconColorAlwaysPassiveOn()` to override the icon color in any state by the passive color.
 - Use `text(String)` or `text(int)` to set item label.
 - Use `badge(String)` or `badge(int)` to set badge text. Badge will be hidden when supplied value is `null`;
 - Use `activeColor(int)` and its derivatives to specify color of selected icon and text.
@@ -53,6 +54,18 @@ You can modify the navigation list background by accessing one of `NavigationDra
  
 Changelog
 ---------
+
+**0.3.0**
+- Item padding is clamped at 16dp even on tablets (everybody does this and it aligns with the back arrow)
+- Different text style for badges without background (as in Gmail app)
+- Badge minWidth is now 40dp instead of 24dp (as in Gmail app)
+- Badge right margin is set to zero to allow the text to be 16dp from the right edge (as in Gmail app)
+- Better compatibility with dark themes
+ - Pinned section divider is shown when shadow would not be recognizable
+ - Default icon color is 100% white on dark themes
+ - Added screenshots to `/docs`
+- Ability to override icon color through `NavigationItemDescriptor.iconColorAlwaysPassiveOn()`
+- Drawer width on phones is now always `smallestWidthDp` minus `56dp` (the `5 * 56dp` limit still applies).
 
 **0.2.2**
 
@@ -81,5 +94,3 @@ Work TBD
 --------
 
  - Better API, factories, copying element prototypes.
- - ~~Lower API requirement preferrably to level 4 and ditch dependencies.~~ Time consumed / usability ratio is too low.
- - ~~Code resources and deploy as jar instead of aar.~~ Not needed.
