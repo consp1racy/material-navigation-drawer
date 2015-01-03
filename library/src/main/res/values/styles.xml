@@ -21,4 +21,8 @@
     <item name="android:textStyle">normal</item>
     <item name="android:textColor">?android:textColorSecondary</item>
   </style>
+
+  <style name="TextAppearance.MaterialNavigationDrawer.Badge.NoBackground">
+    <item name="android:textStyle">bold</item>
+  </style>
 </resources>

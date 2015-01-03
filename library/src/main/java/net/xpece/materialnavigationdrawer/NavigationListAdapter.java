@@ -1,6 +1,7 @@
 package net.xpece.materialnavigationdrawer;
 
 import android.content.Context;
+import android.content.res.ColorStateList;
 import android.graphics.drawable.Drawable;
 import android.support.v4.util.LongSparseArray;
 import android.util.SparseArray;
@@ -18,7 +19,7 @@ import java.util.List;
 /**
  * Created by pechanecjr on 14. 12. 2014.
  */
-class NavigationDrawerListAdapter extends BaseAdapter {
+class NavigationListAdapter extends BaseAdapter {
 
   protected static final int TYPE_ITEM = 0; // 48dp tall item
   protected static final int TYPE_HEADING = 1; // 48dp tall heading
@@ -210,19 +211,23 @@ class NavigationDrawerListAdapter extends BaseAdapter {
     TextView badge = ViewHolder.get(view, R.id.badge);
 
     Drawable iconDrawable = item.getIcon(context);
+    boolean tintIcon = item.getTintIcon();
     int passiveColor = item.getPassiveColor(context);
     int activeColor = item.getActiveColor(context);
     int badgeColor = item.getBadgeColor(context);
     String textString = item.getText(context);
     String badgeString = item.getBadge(context);
-    int textColor = Utils.getColor(context, android.R.attr.textColorPrimary, 0);
+    int textColor = Utils.getColor(context, android.R.attr.textColorPrimary, 0xde000000);
 
     if (iconDrawable != null) {
-      icon.setImageDrawable(Utils.createActivatedDrawable(iconDrawable, passiveColor, activeColor));
-//          icon.setImageDrawable(Utils.tintDrawable(iconDrawable, activeColor));
+      if (tintIcon) {
+        icon.setImageDrawable(Utils.createActivatedDrawable(iconDrawable, passiveColor, activeColor));
+      } else {
+        icon.setImageDrawable(Utils.tintDrawable(iconDrawable, passiveColor));
+      }
       icon.setVisibility(View.VISIBLE);
     } else {
-      icon.setVisibility(View.GONE);
+      icon.setVisibility(View.INVISIBLE);
       icon.setImageDrawable(null);
     }
     text.setText(textString);
@@ -234,8 +239,17 @@ class NavigationDrawerListAdapter extends BaseAdapter {
     text.setTextColor(Utils.createActivatedColor(textColor, activeColor));
     if (badgeString != null) {
       badge.setText(badgeString);
-      Utils.setBackground(badge, Utils.createRoundRect(context, badgeColor));
-      badge.setTextColor(Utils.computeTextColor(context, badgeColor));
+      if (badgeColor == 0) {
+        badge.setBackgroundColor(0);
+        badge.setTextAppearance(context, R.style.TextAppearance_MaterialNavigationDrawer_Badge_NoBackground);
+        int textColorSecondary = Utils.getColor(context, android.R.attr.textColorSecondary, 0x89000000);
+        ColorStateList badgeTextColor = Utils.createActivatedColor(textColorSecondary, textColor);
+        badge.setTextColor(badgeTextColor);
+      } else {
+        Utils.setBackground(badge, Utils.createRoundRect(context, badgeColor));
+        badge.setTextAppearance(context, R.style.TextAppearance_MaterialNavigationDrawer_Badge);
+        badge.setTextColor(Utils.computeTextColor(context, badgeColor));
+      }
       badge.setVisibility(View.VISIBLE);
     } else {
       badge.setVisibility(View.GONE);

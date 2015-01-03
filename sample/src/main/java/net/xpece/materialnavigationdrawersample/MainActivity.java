@@ -33,32 +33,33 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
   static {
     NavigationSectionDescriptor section = new NavigationSectionDescriptor()
         .addItem(new NavigationItemDescriptor(1).text("Goodbye").badge("Hello").sticky()
-            .icon(R.drawable.ic_star_black_24dp)
-            .activeColorResource(R.color.material_indigo_500)
+            .iconResource(R.drawable.ic_star_black_24dp)
+            .activeColorResource(R.color.material_pink_500)
             .badgeColorResource(R.color.material_red_500))
         .addItem(new NavigationItemDescriptor(2).text("Yes").badge("No").sticky()
-            .icon(R.drawable.ic_star_black_24dp)
-            .activeColorResource(R.color.material_indigo_500)
+            .iconResource(R.drawable.ic_star_black_24dp)
+            .activeColorResource(R.color.material_pink_500)
             .badgeColorResource(R.color.material_amber_500))
         .addItem(new NavigationItemDescriptor(3).text("Stop").badge("Go, go, go").sticky()
-            .icon(R.drawable.ic_star_black_24dp)
-            .activeColorResource(R.color.material_indigo_500)
+//            .iconResource(R.drawable.ic_star_black_24dp)
+            .activeColorResource(R.color.material_pink_500)
             .badgeColorResource(R.color.material_light_green_500))
         .addItem(new NavigationItemDescriptor(4).text("Why").badge("I don't know").sticky()
-            .icon(R.drawable.ic_star_black_24dp)
-            .activeColorResource(R.color.material_indigo_500)
+//            .iconResource(R.drawable.ic_star_black_24dp)
+            .activeColorResource(R.color.material_pink_500)
             .badgeColorResource(R.color.material_light_blue_500));
     SECTIONS.add(section);
     NavigationSectionDescriptor section2 = new NavigationSectionDescriptor().heading("Want more?")
-        .addItem(new NavigationItemDescriptor(5).text("Oh no")
-            .icon(R.drawable.ic_star_black_24dp)
-            .passiveColorResource(R.color.material_amber_500));
-//    SECTIONS.add(section2);
+        .addItem(new NavigationItemDescriptor(5).text("Oh no").sticky()
+            .badge("99+").badgeColor(0)
+            .iconResource(R.drawable.ic_star_black_24dp)
+            .passiveColorResource(R.color.material_amber_500).iconColorAlwaysPassiveOn());
+    SECTIONS.add(section2);
     NavigationSectionDescriptor section3 = new NavigationSectionDescriptor()
         .addItem(new NavigationItemDescriptor(6).text("Settings")
-            .icon(R.drawable.ic_settings_black_24dp))
+            .iconResource(R.drawable.ic_settings_black_24dp))
         .addItem(new NavigationItemDescriptor(7).text("Help & feedback")
-            .icon(R.drawable.ic_help_black_24dp));
+            .iconResource(R.drawable.ic_help_black_24dp));
     PINNED_SECTION = section3;
   }
 

@@ -18,6 +18,9 @@ public class NavigationItemDescriptor {
   /** Icon resource ID. Gets colored appropriately. */
   @DrawableRes
   private int iconId = 0;
+  private Drawable icon = null;
+  /** Whether the icon should be tinted. */
+  private boolean tintIcon = true;
   /** Item label. */
   private String text = null;
   @StringRes
@@ -26,6 +29,12 @@ public class NavigationItemDescriptor {
   private String badge = null;
   @StringRes
   private int badgeId = 0;
+
+  /**
+   * Whether the passive colors have been modified.
+   * If not use primary text color for icon in case of dark theme.
+   */
+  private boolean customPassiveColor = false;
 
   /** Color of item icon and text when selected. */
   private int activeColor = 0xff000000;
@@ -58,8 +67,15 @@ public class NavigationItemDescriptor {
     return this.id;
   }
 
-  public NavigationItemDescriptor icon(@DrawableRes int icon) {
+//  public NavigationItemDescriptor icon(Drawable icon) {
+//    this.icon = icon;
+//    this.iconId = 0;
+//    return this;
+//  }
+
+  public NavigationItemDescriptor iconResource(@DrawableRes int icon) {
     this.iconId = icon;
+    this.icon = null;
     return this;
   }
 
@@ -67,8 +83,22 @@ public class NavigationItemDescriptor {
     if (iconId != 0) {
       return context.getResources().getDrawable(iconId).mutate();
     } else {
-      return null;
+      return icon;
     }
+  }
+
+  public NavigationItemDescriptor iconColorAlwaysPassiveOff() {
+    this.tintIcon = true;
+    return this;
+  }
+
+  public NavigationItemDescriptor iconColorAlwaysPassiveOn() {
+    this.tintIcon = false;
+    return this;
+  }
+
+  public boolean getTintIcon() {
+    return this.tintIcon;
   }
 
   public NavigationItemDescriptor text(String text) {
@@ -125,7 +155,7 @@ public class NavigationItemDescriptor {
     return this;
   }
 
-  public NavigationItemDescriptor activeColorAttr(@AttrRes int color) {
+  public NavigationItemDescriptor activeColorAttribute(@AttrRes int color) {
     this.activeColorAttr = color;
     this.activeColorId = 0;
     this.activeColor = 0;
@@ -143,6 +173,7 @@ public class NavigationItemDescriptor {
   }
 
   public NavigationItemDescriptor passiveColor(int color) {
+    this.customPassiveColor = true;
     this.passiveColor = color;
     this.passiveColorId = 0;
     this.passiveColorAttr = 0;
@@ -150,13 +181,15 @@ public class NavigationItemDescriptor {
   }
 
   public NavigationItemDescriptor passiveColorResource(@ColorRes int color) {
+    this.customPassiveColor = true;
     this.passiveColorId = color;
     this.passiveColorAttr = 0;
     this.passiveColor = 0;
     return this;
   }
 
-  public NavigationItemDescriptor passiveColorAttr(@AttrRes int color) {
+  public NavigationItemDescriptor passiveColorAttribute(@AttrRes int color) {
+    this.customPassiveColor = true;
     this.passiveColorAttr = color;
     this.passiveColorId = 0;
     this.passiveColor = 0;
@@ -164,7 +197,15 @@ public class NavigationItemDescriptor {
   }
 
   public int getPassiveColor(Context context) {
-    if (passiveColorAttr != 0) {
+    if (!customPassiveColor) {
+      // icons in dark themes should be 100% white
+      final int secondary = Utils.getColor(context, android.R.attr.textColorSecondary, 0xde000000);
+      if ((secondary & 0xffffff) == 0xffffff) {
+        return Utils.getColor(context, android.R.attr.textColorPrimary, 0xffffffff);
+      } else {
+        return secondary;
+      }
+    } else if (passiveColorAttr != 0) {
       return Utils.getColor(context, passiveColorAttr, 0xde000000);
     } else if (passiveColorId != 0) {
       return context.getResources().getColor(passiveColorId);
@@ -187,7 +228,7 @@ public class NavigationItemDescriptor {
     return this;
   }
 
-  public NavigationItemDescriptor badgeColorAttr(@AttrRes int color) {
+  public NavigationItemDescriptor badgeColorAttribute(@AttrRes int color) {
     this.badgeColorAttr = color;
     this.badgeColorId = 0;
     this.badgeColor = 0;

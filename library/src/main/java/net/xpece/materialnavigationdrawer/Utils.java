@@ -97,6 +97,15 @@ class Utils {
         new int[]{active, passive});
   }
 
+  public static boolean getBoolean(Context context, @AttrRes int attr, boolean fallback) {
+    TypedArray ta = context.obtainStyledAttributes(new int[]{attr});
+    try {
+      return ta.getBoolean(0, fallback);
+    } finally {
+      ta.recycle();
+    }
+  }
+
   public static int getColor(Context context, @AttrRes int attr, int fallback) {
     TypedArray ta = context.obtainStyledAttributes(new int[]{attr});
     try {

@@ -43,11 +43,9 @@ public class NavigationDrawerFragment extends Fragment implements
 
   private final ViewTreeObserver.OnGlobalLayoutListener mPinnedContainerOnGlobalLayoutListener = new ViewTreeObserver.OnGlobalLayoutListener() {
     @Override
-    @DebugLog
     public void onGlobalLayout() {
       // Problem: in portrait the list has extra space at the bottom (5dp, 8px)
       // Solution: calculate the extra space and subtract it from padding
-      // Solution part 2: ask for actual list's adapter to account for headers and footers
       int fix = 0;
       final int lastVisible = mListView.getLastVisiblePosition();
       final int lastPosition = mListView.getAdapter().getCount() - 1; // mAdapter.getCount() - 1;
@@ -71,23 +69,30 @@ public class NavigationDrawerFragment extends Fragment implements
       }
 
       // if pinned section is at the very bottom elevate it
+      if (getView() == null) return;
       final int parentHeight = getView().getHeight();
       final int pinnedBottom = mPinnedContainer.getBottom();
       if (pinnedBottom >= parentHeight) {
-        ViewCompat.setElevation(mPinnedContainer, getActivity().getResources().getDimension(R.dimen.mnd_unit));
-        if (Build.VERSION.SDK_INT >= 21) {
-          mPinnedDivider.setVisibility(View.GONE);
-        } else {
+        // there is not enough room, the section will be pinned
+        int colorBackground = Utils.getColor(getView().getContext(), android.R.attr.colorBackground, 0);
+        if (Build.VERSION.SDK_INT < 21 || (colorBackground & 0xffffff) < 0xffffff / 2) {
+          // on API lower than 21 and on dark theme show the line instead of shadow
+          ViewCompat.setElevation(mPinnedContainer, 0);
           mPinnedDivider.setVisibility(View.VISIBLE);
+        } else {
+          // on light theme on API 21 show shadow instead of line
+          ViewCompat.setElevation(mPinnedContainer, getActivity().getResources().getDimension(R.dimen.mnd_unit));
+          mPinnedDivider.setVisibility(View.GONE);
         }
       } else {
+        // there is enough room, the section will not be pinned
         ViewCompat.setElevation(mPinnedContainer, 0);
         mPinnedDivider.setVisibility(View.VISIBLE);
       }
     }
   };
 
-  private NavigationDrawerListAdapter mAdapter;
+  private NavigationListAdapter mAdapter;
   private int mLastSelected = -1;
 
   private List<NavigationSectionDescriptor> mSections = new ArrayList<>(0);
@@ -142,7 +147,7 @@ public class NavigationDrawerFragment extends Fragment implements
 
     mPinnedDivider.setBackgroundColor(Utils.createDividerColor(getActivity()));
 
-    mAdapter = new NavigationDrawerListAdapter();
+    mAdapter = new NavigationListAdapter();
     mAdapter.setActivatedItem(mLastSelected);
     updatePinnedSection();
     updateSections();
@@ -212,9 +217,9 @@ public class NavigationDrawerFragment extends Fragment implements
       final View view;
       if (i < currentCount) {
         view = mPinnedContainer.getChildAt(i + offset);
-        NavigationDrawerListAdapter.loadNavigationItem(view, item, false);
+        NavigationListAdapter.loadNavigationItem(view, item, false);
       } else {
-        view = NavigationDrawerListAdapter.createNavigationItem(getActivity(), mPinnedContainer, item);
+        view = NavigationListAdapter.createNavigationItem(getActivity(), mPinnedContainer, item);
         Utils.setBackground(view, Utils.getDrawable(getActivity(), android.R.attr.selectableItemBackground));
         mPinnedContainer.addView(view);
       }

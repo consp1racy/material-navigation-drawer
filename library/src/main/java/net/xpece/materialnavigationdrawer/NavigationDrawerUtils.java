@@ -1,6 +1,11 @@
 package net.xpece.materialnavigationdrawer;
 
 import android.content.Context;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffColorFilter;
+import android.graphics.drawable.Drawable;
+import android.support.annotation.ColorRes;
+import android.support.annotation.DrawableRes;
 import android.support.v4.widget.DrawerLayout;
 import android.view.View;
 import android.view.ViewTreeObserver;
@@ -41,12 +46,32 @@ public class NavigationDrawerUtils {
       public void onGlobalLayout() {
         Utils.removeOnGlobalLayoutListener(view, this);
 
+        int smallestWidthPx = context.getResources().getDisplayMetrics().widthPixels
+            < context.getResources().getDisplayMetrics().heightPixels
+            ? context.getResources().getDisplayMetrics().widthPixels
+            : context.getResources().getDisplayMetrics().heightPixels;
+        int drawerMargin = context.getResources().getDimensionPixelOffset(R.dimen.mnd_drawer_margin);
+
         view.getLayoutParams().width = Math.min(
             context.getResources().getDimensionPixelSize(R.dimen.mnd_drawer_max_width),
-            context.getResources().getDisplayMetrics().widthPixels - context.getResources().getDimensionPixelOffset(R.dimen.mnd_drawer_margin)
+//            context.getResources().getDisplayMetrics().widthPixels
+            smallestWidthPx - drawerMargin
         );
         view.requestLayout();
       }
     });
   }
+
+  public static Drawable tintDrawable(Context context, @DrawableRes int drawableId, @ColorRes int colorId) {
+    Drawable d = context.getResources().getDrawable(drawableId);
+    int c = context.getResources().getColor(colorId);
+    return tintDrawable(d, c);
+  }
+
+  public static Drawable tintDrawable(Drawable d, int c) {
+    PorterDuffColorFilter cf = new PorterDuffColorFilter(c, PorterDuff.Mode.SRC_IN);
+    d.mutate().setColorFilter(cf);
+    return d;
+  }
+
 }
