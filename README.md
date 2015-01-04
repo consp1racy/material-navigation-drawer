@@ -28,17 +28,31 @@ The project depends on support-v4 library version 21.0.3.
 Customization
 -------------
 
+**The drawer has too big right margin!**
+
 As of support-v4 library 21.0.3 there is a hardocded margin of 64dp in a `DrawerLayout`. Use `NavigationDrawerUtils.fixMinDrawerMargin(DrawerLayout)` to remove this limitation. Use this right after you obtain a drawer layout instance typically in `Activity.onCreate(Bundle)`. Why is this an issue? Specs say the margin should be only 56dp on phones.
+
+**I want the drawer to have a standard width!**
 
 To set proper drawer width according to specs call `NavigationDrawerUtils.setProperNavigationDrawerWidth(View)` on your instance of `NavigationDrawerFragment.getView()`. This is not handled automatically to allow developers to reuse the fragment outside of `DrawerLayout` with custom width.
 
-You can modify the navigation list background by accessing one of `NavigationDrawerFragment.setBackground()` methods.
+The width will be one of the following:
+- On phones: Smallest screen width minus 56dp, maximum 280dp. The width is same in both portrait and landscape.
+- On tablets: Effectively always 320dp.
+
+**I want the drawer to have a different background!**
+
+You can modify the navigation list background by accessing one of `NavigationDrawerFragment.setBackground()` methods. Please note that the same background will be used for the pinned section. So if you use the pinned section always use a fully opaque color for background.
+
+**How do i build sections?**
 
 `NavigationSectionDescriptor`
 
  - Use `heading(String)` to set optional section heading.
  - Use `addItem(NavigationItemDescriptor)` or `addItems(List<NavigationItemDescriptor>)`. These allow you to chain calls as opposed to standard `List` methods.
  
+**How do I build items?**
+
 `NavigationItemDescriptor`
 
 - Use `sticky()` and `notSticky()` to specify whether the item should stay selected on click or not.
