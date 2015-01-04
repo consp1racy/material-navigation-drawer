@@ -3,8 +3,6 @@ Material Navigation Drawer
 
 Navigation Drawer according to Material Design spec.
 
-Screenshots here: https://bintray.com/consp1racy/maven/net.xpece.material%3Anavigation-drawer/view
-
 How it works
 ------------
 
@@ -94,3 +92,14 @@ Work TBD
 --------
 
  - Better API, factories, copying element prototypes.
+
+Screenshots
+-----------
+
+![Lollipop Portrait](./docs/device-2015-01-03-0.3.0-v21-port.png)
+
+![Jellybean Portrait](./docs/device-2015-01-03-0.3.0-v16-port.png)
+
+![Lollipop Landscape](./docs/device-2015-01-03-0.3.0-v21-land.png)
+
+![Lollipop Landscape Dark](./docs/device-2015-01-03-0.3.0-v21-land-black.png)
