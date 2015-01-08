@@ -9,6 +9,7 @@
 
 #Custom rules
 .idea
+Thumbs.db
 
 # Built application files
 *.apk
