@@ -106,6 +106,8 @@ Work TBD
 --------
 
  - Better API, factories, copying element prototypes.
+ - Custom list view types
+ - Collapsed layout option on tablets
 
 Screenshots
 -----------
