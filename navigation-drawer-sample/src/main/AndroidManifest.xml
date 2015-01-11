@@ -12,7 +12,7 @@
       android:theme="@style/AppTheme"
       tools:ignore="UnusedAttribute">
     <activity
-        android:name=".MainActivity"
+        android:name="net.xpece.material.navigationdrawer.sample.ui.MainActivity"
         android:label="@string/app_name">
       <intent-filter>
         <action android:name="android.intent.action.MAIN"/>

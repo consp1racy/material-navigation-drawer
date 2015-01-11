@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:paddingLeft="@dimen/mnd_padding_horizontal"
+    android:paddingRight="@dimen/mnd_padding_horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/mnd_list_item_height_small">
+
+  <ImageView
+      android:visibility="gone"
+      tools:visibility="visible"
+      tools:src="@android:drawable/ic_delete"
+      android:id="@+id/icon"
+      android:layout_width="@dimen/mnd_icon_size_medium"
+      android:layout_height="wrap_content"
+      android:scaleType="fitStart"
+      android:layout_marginLeft="@dimen/mnd_unit_double"
+      android:layout_marginStart="@dimen/mnd_unit_double"
+      android:layout_centerVertical="true"
+      tools:ignore="ContentDescription"/>
+
+  <TextView
+      android:layout_marginLeft="@dimen/mnd_unit_double"
+      android:layout_marginStart="@dimen/mnd_unit_double"
+      android:layout_marginRight="@dimen/mnd_unit"
+      android:layout_marginEnd="@dimen/mnd_unit"
+      tools:text="@android:string/untitled"
+      android:id="@+id/text"
+      android:ellipsize="end"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_toRightOf="@+id/icon"
+      android:layout_toEndOf="@+id/icon"
+      android:layout_alignParentRight="true"
+      android:layout_alignParentEnd="true"
+      android:layout_alignWithParentIfMissing="true"
+      android:layout_centerVertical="true"
+      android:textAppearance="@style/TextAppearance.MaterialNavigationDrawer.Item"
+      android:maxLines="1"/>
+</RelativeLayout>

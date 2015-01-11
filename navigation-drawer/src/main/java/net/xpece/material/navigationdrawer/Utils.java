@@ -1,4 +1,4 @@
-package net.xpece.materialnavigationdrawer;
+package net.xpece.material.navigationdrawer;
 
 import android.annotation.TargetApi;
 import android.content.Context;
@@ -19,6 +19,8 @@ import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewTreeObserver;
 
+import net.xpece.materialnavigationdrawer.R;
+
 /**
  * Created by pechanecjr on 14. 12. 2014.
  */
@@ -26,10 +28,10 @@ class Utils {
   private Utils() {
   }
 
-  public static Drawable createRoundRect(Context context, int color) {
+  public static Drawable createRoundRect(Context context, int color, int cornerDp) {
     GradientDrawable gd = new GradientDrawable();
     gd.setColor(color);
-    gd.setCornerRadius(Utils.dpToPixel(context, 1));
+    gd.setCornerRadius(Utils.dpToPixel(context, cornerDp));
     return gd;
   }
 
@@ -160,6 +162,10 @@ class Utils {
   }
 
   public static int createDividerColor(Context context) {
+    return Utils.getColor(context, android.R.attr.colorForeground, 0) & 0x1effffff;
+  }
+
+  public static int createActivatedColor(Context context) {
     return Utils.getColor(context, android.R.attr.colorForeground, 0) & 0x1effffff;
   }
 

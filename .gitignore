@@ -9,6 +9,7 @@
 
 #Custom rules
 .idea
+*.iml
 Thumbs.db
 
 # Built application files

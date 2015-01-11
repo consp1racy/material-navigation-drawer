@@ -1,4 +1,4 @@
-package net.xpece.materialnavigationdrawer;
+package net.xpece.material.navigationdrawer;
 
 import android.util.SparseArray;
 import android.view.View;

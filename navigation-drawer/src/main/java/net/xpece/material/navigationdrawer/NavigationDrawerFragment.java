@@ -1,4 +1,4 @@
-package net.xpece.materialnavigationdrawer;
+package net.xpece.material.navigationdrawer;
 
 import android.app.Activity;
 import android.graphics.drawable.Drawable;
@@ -17,6 +17,8 @@ import android.view.ViewTreeObserver;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import net.xpece.materialnavigationdrawer.R;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,7 +33,7 @@ public class NavigationDrawerFragment extends Fragment implements
 
   private static final Callbacks DUMMY_CALLBACKS = new Callbacks() {
     @Override
-    public void onNavigationItemSelected(View view, int position, long id, NavigationItemDescriptor item) {
+    public void onNavigationItemSelected(View view, int position, long id, AbsNavigationItemDescriptor item) {
       //
     }
   };
@@ -56,7 +58,7 @@ public class NavigationDrawerFragment extends Fragment implements
 //        Timber.d("listHeight=%s, lastBottom=%s", listHeight, lastBottom);
         // if last item ends before the list ends there's extra space
         if (lastBottom < listHeight) {
-          fix = listHeight - lastBottom;
+          fix = Math.max(0, listHeight - lastBottom - mListView.getPaddingBottom());
         }
       }
       // modify padding only after pinned section has been measured and it changed
@@ -89,6 +91,11 @@ public class NavigationDrawerFragment extends Fragment implements
         ViewCompat.setElevation(mPinnedContainer, 0);
         mPinnedDivider.setVisibility(View.VISIBLE);
       }
+
+      if (paddingBottom == pinnedHeight) {
+        // my work here is done
+        Utils.removeOnGlobalLayoutListener(mPinnedContainer, mPinnedContainerOnGlobalLayoutListener);
+      }
     }
   };
 
@@ -96,7 +103,7 @@ public class NavigationDrawerFragment extends Fragment implements
   private int mLastSelected = -1;
 
   private List<NavigationSectionDescriptor> mSections = new ArrayList<>(0);
-  private List<NavigationItemDescriptor> mPinnedSection = null;
+  private List<AbsNavigationItemDescriptor> mPinnedSection = null;
   private View mHeader = null;
 
   public NavigationDrawerFragment() {
@@ -143,28 +150,25 @@ public class NavigationDrawerFragment extends Fragment implements
     }
 
 //    NavigationDrawerUtils.setProperNavigationDrawerWidth(view);
-    mPinnedContainer.getViewTreeObserver().addOnGlobalLayoutListener(mPinnedContainerOnGlobalLayoutListener);
-
+//    mPinnedContainer.getViewTreeObserver().addOnGlobalLayoutListener(mPinnedContainerOnGlobalLayoutListener);
     mPinnedDivider.setBackgroundColor(Utils.createDividerColor(getActivity()));
 
-    mAdapter = new NavigationListAdapter();
-    mAdapter.setActivatedItem(mLastSelected);
-    updatePinnedSection();
-    updateSections();
+//    if (savedInstanceState != null) {
+//      updatePinnedSection();
+//      updateSections();
+//    }
 
-    if (mHeader != null) mListView.addHeaderView(mHeader);
-    mListView.setAdapter(mAdapter);
     mListView.setOnItemClickListener(this);
     mListView.setSelection(mLastSelected);
   }
 
   @Override
   public void onDestroyView() {
-    Utils.removeOnGlobalLayoutListener(mPinnedContainer, mPinnedContainerOnGlobalLayoutListener);
+//    Utils.removeOnGlobalLayoutListener(mPinnedContainer, mPinnedContainerOnGlobalLayoutListener);
     super.onDestroyView();
   }
 
-  public void setItems(List<NavigationItemDescriptor> items) {
+  public void setItems(List<? extends AbsNavigationItemDescriptor> items) {
     NavigationSectionDescriptor section = new NavigationSectionDescriptor().addItems(items);
     List<NavigationSectionDescriptor> sections = new ArrayList<>(1);
     sections.add(section);
@@ -178,14 +182,24 @@ public class NavigationDrawerFragment extends Fragment implements
    */
   public void setSections(List<NavigationSectionDescriptor> sections) {
     mSections = sections;
-    if (mAdapter != null) {
-      updateSections();
-    }
+    updateSections();
   }
 
   @DebugLog
   private void updateSections() {
-    mAdapter.setSections(mSections);
+    if (getView() == null) return;
+
+    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) {
+      mListView.setAdapter(null);
+    }
+    mAdapter = new NavigationListAdapter(mSections);
+    mAdapter.setActivatedItem(mLastSelected);
+    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) {
+      if (mHeader != null) mListView.addHeaderView(mHeader);
+    }
+    mListView.setAdapter(mAdapter);
+
+    mPinnedContainer.getViewTreeObserver().addOnGlobalLayoutListener(mPinnedContainerOnGlobalLayoutListener);
   }
 
   /**
@@ -204,22 +218,31 @@ public class NavigationDrawerFragment extends Fragment implements
 
   @DebugLog
   private void updatePinnedSection() {
+    if (getView() == null) return;
+
     final int offset = 2; // plus 1 for the divider view plus 1 for padding
     int targetCount = mPinnedSection == null ? 0 : mPinnedSection.size();
-    while (mPinnedContainer.getChildCount() > targetCount + offset) {
+//    while (mPinnedContainer.getChildCount() > targetCount + offset) {
+//      View view = mPinnedContainer.getChildAt(offset);
+//      view.setOnClickListener(null);
+//      mPinnedContainer.removeView(view);
+//    }
+    // TODO temporarily removing all, theres no knowing precise AbsNavItemDesc subtype
+    while (mPinnedContainer.getChildCount() > offset) {
       View view = mPinnedContainer.getChildAt(offset);
       view.setOnClickListener(null);
       mPinnedContainer.removeView(view);
     }
+
     int currentCount = mPinnedContainer.getChildCount() - offset;
     for (int i = 0; i < targetCount; i++) {
-      final NavigationItemDescriptor item = mPinnedSection.get(i);
+      final AbsNavigationItemDescriptor item = mPinnedSection.get(i);
       final View view;
       if (i < currentCount) {
         view = mPinnedContainer.getChildAt(i + offset);
-        NavigationListAdapter.loadNavigationItem(view, item, false);
+        item.loadInto(view, false);
       } else {
-        view = NavigationListAdapter.createNavigationItem(getActivity(), mPinnedContainer, item);
+        view = item.createView(getActivity(), mPinnedContainer);
         Utils.setBackground(view, Utils.getDrawable(getActivity(), android.R.attr.selectableItemBackground));
         mPinnedContainer.addView(view);
       }
@@ -237,6 +260,8 @@ public class NavigationDrawerFragment extends Fragment implements
     } else {
       mPinnedContainer.setVisibility(View.GONE);
     }
+
+    mPinnedContainer.getViewTreeObserver().addOnGlobalLayoutListener(mPinnedContainerOnGlobalLayoutListener);
   }
 
   /**
@@ -248,17 +273,21 @@ public class NavigationDrawerFragment extends Fragment implements
    */
   public void setHeaderView(View view) {
     if (view == mHeader) return;
-    mListView.removeHeaderView(view);
-    mHeader = view;
-    if (mListView != null) {
-      if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) {
-        if (mListView.getAdapter() != null) mListView.setAdapter(null);
-        mListView.addHeaderView(mHeader);
-        if (mAdapter != null) mListView.setAdapter(mAdapter);
-      } else {
-        mListView.addHeaderView(mHeader);
+    if (mHeader != null) {
+      mListView.removeHeaderView(mHeader);
+    }
+    if (view != null) {
+      if (mListView != null) {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) {
+          if (mListView.getAdapter() != null) mListView.setAdapter(null);
+          mListView.addHeaderView(view);
+          if (mAdapter != null) mListView.setAdapter(mAdapter);
+        } else {
+          mListView.addHeaderView(view);
+        }
       }
     }
+    mHeader = view;
   }
 
   /**
@@ -352,7 +381,7 @@ public class NavigationDrawerFragment extends Fragment implements
       mLastSelected = -1;
       return;
     }
-    NavigationItemDescriptor item = (NavigationItemDescriptor) mAdapter.getItem(itemPosition);
+    AbsNavigationItemDescriptor item = (AbsNavigationItemDescriptor) mAdapter.getItem(itemPosition);
     if (item != null && item.isSticky()) {
       mListView.setItemChecked(mLastSelected, false);
       mListView.setItemChecked(listPosition, true);
@@ -376,12 +405,15 @@ public class NavigationDrawerFragment extends Fragment implements
    */
   @Override
   public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-    NavigationItemDescriptor item = (NavigationItemDescriptor) parent.getItemAtPosition(position);
+    AbsNavigationItemDescriptor item = (AbsNavigationItemDescriptor) parent.getItemAtPosition(position);
+
+    if (item != null) item.onClick(view);
+
     onItemClick(view, position, id, item);
 //    parent.setSelection(position);
   }
 
-  private void onItemClick(View view, int position, long id, NavigationItemDescriptor item) {
+  private void onItemClick(View view, int position, long id, AbsNavigationItemDescriptor item) {
     // header views and items from pinned section are not sticky, don't even try
     if (position >= 0 && position < mListView.getHeaderViewsCount()) {
 //        || position > mListView.getHeaderViewsCount() + mAdapter.getCount()) {
@@ -398,6 +430,6 @@ public class NavigationDrawerFragment extends Fragment implements
    * has been selected.
    */
   public static interface Callbacks {
-    public void onNavigationItemSelected(View view, int position, long id, NavigationItemDescriptor item);
+    public void onNavigationItemSelected(View view, int position, long id, AbsNavigationItemDescriptor item);
   }
 }

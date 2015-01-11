@@ -1,4 +1,4 @@
-package net.xpece.materialnavigationdrawer;
+package net.xpece.material.navigationdrawer;
 
 import android.content.Context;
 import android.graphics.PorterDuff;
@@ -9,6 +9,8 @@ import android.support.annotation.DrawableRes;
 import android.support.v4.widget.DrawerLayout;
 import android.view.View;
 import android.view.ViewTreeObserver;
+
+import net.xpece.materialnavigationdrawer.R;
 
 import java.lang.reflect.Field;
 

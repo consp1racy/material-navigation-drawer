@@ -1,4 +1,4 @@
-package net.xpece.materialnavigationdrawersample;
+package net.xpece.material.navigationdrawer.sample.ui;
 
 import android.content.res.Configuration;
 import android.os.Bundle;
@@ -10,10 +10,15 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
-import net.xpece.materialnavigationdrawer.NavigationDrawerFragment;
-import net.xpece.materialnavigationdrawer.NavigationDrawerUtils;
-import net.xpece.materialnavigationdrawer.NavigationItemDescriptor;
-import net.xpece.materialnavigationdrawer.NavigationSectionDescriptor;
+import net.xpece.material.navigationdrawer.AbsNavigationItemDescriptor;
+import net.xpece.material.navigationdrawer.BaseNavigationItemDescriptor;
+import net.xpece.material.navigationdrawer.NavigationDrawerFragment;
+import net.xpece.material.navigationdrawer.NavigationDrawerUtils;
+import net.xpece.material.navigationdrawer.NavigationSectionDescriptor;
+import net.xpece.material.navigationdrawer.SimpleNavigationItemDescriptor;
+import net.xpece.material.navigationdrawer.sample.widget.ToggleNavigationItemDescriptor;
+import net.xpece.materialnavigationdrawersample.BuildConfig;
+import net.xpece.materialnavigationdrawersample.R;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,6 +26,7 @@ import java.util.List;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.Optional;
+import timber.log.Timber;
 
 public class MainActivity extends ActionBarActivity implements NavigationDrawerFragment.Callbacks {
 
@@ -32,35 +38,41 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
 
   static {
     NavigationSectionDescriptor section = new NavigationSectionDescriptor()
-        .addItem(new NavigationItemDescriptor(1).text("Goodbye").badge("Hello").sticky()
+        .addItem(new SimpleNavigationItemDescriptor(1).text("Goodbye").badge("Hello").sticky()
             .iconResource(R.drawable.ic_star_black_24dp)
             .activeColorResource(R.color.material_pink_500)
             .badgeColorResource(R.color.material_red_500))
-        .addItem(new NavigationItemDescriptor(2).text("Yes").badge("No").sticky()
+        .addItem(new SimpleNavigationItemDescriptor(2).text("Yes").badge("No").sticky()
             .iconResource(R.drawable.ic_star_black_24dp)
             .activeColorResource(R.color.material_pink_500)
             .badgeColorResource(R.color.material_amber_500))
-        .addItem(new NavigationItemDescriptor(3).text("Stop").badge("Go, go, go").sticky()
+        .addItem(new SimpleNavigationItemDescriptor(3).text("Stop").badge("Go, go, go").sticky()
 //            .iconResource(R.drawable.ic_star_black_24dp)
             .activeColorResource(R.color.material_pink_500)
             .badgeColorResource(R.color.material_light_green_500))
-        .addItem(new NavigationItemDescriptor(4).text("Why").badge("I don't know").sticky()
+        .addItem(new SimpleNavigationItemDescriptor(4).text("Why").badge("I don't know").sticky()
 //            .iconResource(R.drawable.ic_star_black_24dp)
-            .activeColorResource(R.color.material_pink_500)
-            .badgeColorResource(R.color.material_light_blue_500));
+//            .activeColorResource(R.color.material_pink_500)
+//            .badgeColorResource(R.color.material_light_blue_500));
+            .iconResource(R.drawable.ic_star_black_24dp)
+            .passiveColorResource(R.color.material_amber_500).iconColorAlwaysPassiveOn()
+            .badgeColor(0));
     SECTIONS.add(section);
     NavigationSectionDescriptor section2 = new NavigationSectionDescriptor().heading("Want more?")
-        .addItem(new NavigationItemDescriptor(5).text("Oh no").sticky()
-            .badge("99+").badgeColor(0)
-            .iconResource(R.drawable.ic_star_black_24dp)
-            .passiveColorResource(R.color.material_amber_500).iconColorAlwaysPassiveOn());
+//        .addItem(new SimpleNavigationItemDescriptor(5).text("Oh no").sticky()
+//            .badge("99+").badgeColor(0)
+//            .iconResource(R.drawable.ic_star_black_24dp)
+//            .passiveColorResource(R.color.material_amber_500).iconColorAlwaysPassiveOn())
+        .addItem(new ToggleNavigationItemDescriptor(8));
     SECTIONS.add(section2);
     NavigationSectionDescriptor section3 = new NavigationSectionDescriptor()
-        .addItem(new NavigationItemDescriptor(6).text("Settings")
+        .addItem(new BaseNavigationItemDescriptor(6).text("Settings")
             .iconResource(R.drawable.ic_settings_black_24dp))
-        .addItem(new NavigationItemDescriptor(7).text("Help & feedback")
+        .addItem(new BaseNavigationItemDescriptor(7).text("Help & feedback")
             .iconResource(R.drawable.ic_help_black_24dp));
     PINNED_SECTION = section3;
+
+    if (BuildConfig.DEBUG) Timber.plant(new Timber.DebugTree());
   }
 
   @Optional
@@ -98,6 +110,7 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
     }
 
     // set up the nav fragment
+    mNavFragment.setHeaderView(View.inflate(this, R.layout.mnd_custom_header, null));
     mNavFragment.setSections(SECTIONS);
     mNavFragment.setPinnedSection(PINNED_SECTION);
 
@@ -157,11 +170,14 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
   }
 
   @Override
-  public void onNavigationItemSelected(View view, int position, long id, NavigationItemDescriptor item) {
+  public void onNavigationItemSelected(View view, int position, long id, AbsNavigationItemDescriptor item) {
     if (mToast != null) mToast.cancel();
     mToast = Toast.makeText(this, "Item #" + id + " on position " + position + " selected!", Toast.LENGTH_SHORT);
     mToast.show();
     mSelectedItem = id;
+
+    if (id == 8) return; // custom toggle does not close the drawer
+
 //    mDrawerLayout.closeDrawers(); // uncomment to close drawer on item selected
   }
 

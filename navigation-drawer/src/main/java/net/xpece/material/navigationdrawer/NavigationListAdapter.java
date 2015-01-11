@@ -1,8 +1,6 @@
-package net.xpece.materialnavigationdrawer;
+package net.xpece.material.navigationdrawer;
 
 import android.content.Context;
-import android.content.res.ColorStateList;
-import android.graphics.drawable.Drawable;
 import android.support.v4.util.LongSparseArray;
 import android.util.SparseArray;
 import android.util.SparseIntArray;
@@ -10,8 +8,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
+
+import net.xpece.materialnavigationdrawer.R;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,10 +20,12 @@ import java.util.List;
  */
 class NavigationListAdapter extends BaseAdapter {
 
-  protected static final int TYPE_ITEM = 0; // 48dp tall item
-  protected static final int TYPE_HEADING = 1; // 48dp tall heading
-  protected static final int TYPE_PADDING = 2; // padding 8dp
-  protected static final int TYPE_SEPARATOR = 3; // padding 8dp including 1dp separator at bottom
+  private static final int TYPE_HEADING = 0; // 48dp tall heading
+  private static final int TYPE_PADDING = 1; // padding 8dp
+  private static final int TYPE_SEPARATOR = 2; // padding 8dp including 1dp separator at bottom
+  private static final int TYPE_ITEM_START = 3;
+
+  private SparseIntArray mItemViewTypeSet = new SparseIntArray();
 
   private List<NavigationSectionDescriptor> mSections = new ArrayList<>(0);
   private SparseIntArray mViewTypes = new SparseIntArray();
@@ -32,7 +33,6 @@ class NavigationListAdapter extends BaseAdapter {
   private LongSparseArray<Integer> mPositions = null;
 
   private boolean mDrawLastDivider = false;
-  private View mLastDividerView = null;
 
   private int mSelectedPosition = -1;
   private long mPendingSelectedId = -1;
@@ -42,19 +42,15 @@ class NavigationListAdapter extends BaseAdapter {
   // items...
   // separator
 
-  public void setSections(List<NavigationSectionDescriptor> sections) {
+  public NavigationListAdapter(List<NavigationSectionDescriptor> sections) {
+    setSections(sections);
+  }
+
+  private void setSections(List<NavigationSectionDescriptor> sections) {
     notifyDataSetInvalidated();
     mSections = sections;
     calculateViewTypesAndItems();
     notifyDataSetChanged();
-  }
-
-  @Deprecated
-  public void setDrawLastDivider(boolean draw) {
-    mDrawLastDivider = draw;
-    if (mLastDividerView != null) {
-      mLastDividerView.setVisibility(draw ? View.VISIBLE : View.INVISIBLE);
-    }
   }
 
   public void setActivatedItem(int position) {
@@ -69,14 +65,7 @@ class NavigationListAdapter extends BaseAdapter {
   public void notifyDataSetInvalidated() {
     mPositions = null;
 
-    mLastDividerView = null;
     super.notifyDataSetInvalidated();
-  }
-
-  @Override
-  public void notifyDataSetChanged() {
-    mLastDividerView = null;
-    super.notifyDataSetChanged();
   }
 
   @Override
@@ -91,7 +80,7 @@ class NavigationListAdapter extends BaseAdapter {
 
   @Override
   public boolean isEnabled(int position) {
-    return getItemViewType(position) == TYPE_ITEM;
+    return getItemViewType(position) >= TYPE_ITEM_START;
   }
 
   @Override
@@ -101,7 +90,7 @@ class NavigationListAdapter extends BaseAdapter {
 
   @Override
   public int getViewTypeCount() {
-    return 4;
+    return TYPE_ITEM_START + mItemViewTypeSet.size();
   }
 
   @Override
@@ -125,15 +114,15 @@ class NavigationListAdapter extends BaseAdapter {
   @Override
   public long getItemId(int position) {
     Object item = getItem(position);
-    if (item instanceof NavigationItemDescriptor) {
-      return ((NavigationItemDescriptor) item).getId();
+    if (item instanceof AbsNavigationItemDescriptor) {
+      return ((AbsNavigationItemDescriptor) item).getId();
     }
     return 0;
   }
 
   @Override
   public View getView(int position, View convertView, ViewGroup parent) {
-    View view = null;
+    View view;
     switch (getItemViewType(position)) {
       case TYPE_PADDING: {
         if (convertView == null) {
@@ -158,26 +147,6 @@ class NavigationListAdapter extends BaseAdapter {
         break;
       }
 
-      case TYPE_ITEM: {
-        if (convertView == null) {
-          view = LayoutInflater.from(parent.getContext()).inflate(R.layout.mnd_item, parent, false);
-        } else {
-          view = convertView;
-        }
-
-        NavigationItemDescriptor item = (NavigationItemDescriptor) getItem(position);
-
-        if (mPendingSelectedId >= 0 && mPendingSelectedId == item.getId()) {
-          mPendingSelectedId = -1;
-          mSelectedPosition = position;
-          if (item.isSticky()) view.setActivated(true);
-        }
-
-        loadNavigationItem(view, item, position == mSelectedPosition);
-
-        break;
-      }
-
       case TYPE_SEPARATOR: {
         if (convertView == null) {
           view = LayoutInflater.from(parent.getContext()).inflate(R.layout.mnd_separator, parent, false);
@@ -190,75 +159,36 @@ class NavigationListAdapter extends BaseAdapter {
         View divider = ViewHolder.get(view, R.id.divider);
         divider.setBackgroundColor(Utils.createDividerColor(context));
         divider.setVisibility(position < lastPosition || mDrawLastDivider ? View.VISIBLE : View.INVISIBLE);
-        if (position == lastPosition) mLastDividerView = divider;
         break;
       }
+
+//      case TYPE_ITEM: {
+      default: {
+        AbsNavigationItemDescriptor item = (AbsNavigationItemDescriptor) getItem(position);
+
+        if (convertView == null) {
+          view = LayoutInflater.from(parent.getContext()).inflate(item.getLayoutId(), parent, false);
+        } else {
+          view = convertView;
+        }
+
+        if (mPendingSelectedId >= 0 && mPendingSelectedId == item.getId()) {
+          mPendingSelectedId = -1;
+          mSelectedPosition = position;
+          if (item.isSticky()) view.setActivated(true);
+        }
+
+        item.loadInto(view, position == mSelectedPosition);
+
+        break;
+      }
+
     }
     return view;
-  }
-
-  public static View createNavigationItem(Context context, ViewGroup parent, NavigationItemDescriptor item) {
-    View view = LayoutInflater.from(context).inflate(R.layout.mnd_item, parent, false);
-    loadNavigationItem(view, item, false);
-    return view;
-  }
-
-  public static void loadNavigationItem(View view, NavigationItemDescriptor item, boolean selected) {
-    Context context = view.getContext();
-
-    ImageView icon = ViewHolder.get(view, R.id.icon);
-    TextView text = ViewHolder.get(view, R.id.text);
-    TextView badge = ViewHolder.get(view, R.id.badge);
-
-    Drawable iconDrawable = item.getIcon(context);
-    boolean tintIcon = item.getTintIcon();
-    int passiveColor = item.getPassiveColor(context);
-    int activeColor = item.getActiveColor(context);
-    int badgeColor = item.getBadgeColor(context);
-    String textString = item.getText(context);
-    String badgeString = item.getBadge(context);
-    int textColor = Utils.getColor(context, android.R.attr.textColorPrimary, 0xde000000);
-
-    if (iconDrawable != null) {
-      if (tintIcon) {
-        icon.setImageDrawable(Utils.createActivatedDrawable(iconDrawable, passiveColor, activeColor));
-      } else {
-        icon.setImageDrawable(Utils.tintDrawable(iconDrawable, passiveColor));
-      }
-      icon.setVisibility(View.VISIBLE);
-    } else {
-      icon.setVisibility(View.INVISIBLE);
-      icon.setImageDrawable(null);
-    }
-    text.setText(textString);
-    if (selected) {
-      text.setTextAppearance(context, R.style.TextAppearance_MaterialNavigationDrawer_Item_Selected);
-    } else {
-      text.setTextAppearance(context, R.style.TextAppearance_MaterialNavigationDrawer_Item);
-    }
-    text.setTextColor(Utils.createActivatedColor(textColor, activeColor));
-    if (badgeString != null) {
-      badge.setText(badgeString);
-      if (badgeColor == 0) {
-        badge.setBackgroundColor(0);
-        badge.setTextAppearance(context, R.style.TextAppearance_MaterialNavigationDrawer_Badge_NoBackground);
-        int textColorSecondary = Utils.getColor(context, android.R.attr.textColorSecondary, 0x89000000);
-        ColorStateList badgeTextColor = Utils.createActivatedColor(textColorSecondary, textColor);
-        badge.setTextColor(badgeTextColor);
-      } else {
-        Utils.setBackground(badge, Utils.createRoundRect(context, badgeColor));
-        badge.setTextAppearance(context, R.style.TextAppearance_MaterialNavigationDrawer_Badge);
-        badge.setTextColor(Utils.computeTextColor(context, badgeColor));
-      }
-      badge.setVisibility(View.VISIBLE);
-    } else {
-      badge.setVisibility(View.GONE);
-    }
-
-    Utils.setBackground(view, Utils.createActivatedDrawable(0, Utils.createDividerColor(context)));
   }
 
   private void calculateViewTypesAndItems() {
+    mItemViewTypeSet.clear();
     mViewTypes.clear();
     mItems.clear();
     if (mSections == null) {
@@ -277,9 +207,20 @@ class NavigationListAdapter extends BaseAdapter {
       position++;
 
       for (int j = 0; j < section.size(); j++) {
-        NavigationItemDescriptor item = section.get(j);
+        AbsNavigationItemDescriptor item = section.get(j);
 
-        mViewTypes.put(position, TYPE_ITEM);
+        int viewType;
+        {
+          int key = item.getLayoutId();
+          if (mItemViewTypeSet.indexOfKey(key) >= 0) {
+            viewType = mItemViewTypeSet.get(key);
+          } else {
+            viewType = TYPE_ITEM_START + mItemViewTypeSet.size();
+            mItemViewTypeSet.put(key, viewType);
+          }
+        }
+
+        mViewTypes.put(position, viewType);
         mItems.put(position, item);
         positions.put(item.getId(), position);
         position++;
