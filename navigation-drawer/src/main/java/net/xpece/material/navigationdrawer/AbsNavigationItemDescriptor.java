@@ -42,7 +42,7 @@ public abstract class AbsNavigationItemDescriptor {
     return ViewHolder.get(view, id);
   }
 
-  protected void onClick(View view) {
-    // no-op
+  protected boolean onClick(View view) {
+    return false;
   }
 }

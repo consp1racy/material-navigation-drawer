@@ -407,10 +407,8 @@ public class NavigationDrawerFragment extends Fragment implements
   public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
     AbsNavigationItemDescriptor item = (AbsNavigationItemDescriptor) parent.getItemAtPosition(position);
 
-    if (item != null) item.onClick(view);
-
-    onItemClick(view, position, id, item);
-//    parent.setSelection(position);
+    if (item == null || !item.onClick(view))
+      onItemClick(view, position, id, item);
   }
 
   private void onItemClick(View view, int position, long id, AbsNavigationItemDescriptor item) {

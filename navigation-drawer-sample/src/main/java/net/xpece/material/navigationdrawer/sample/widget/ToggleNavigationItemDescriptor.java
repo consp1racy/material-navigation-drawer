@@ -7,6 +7,7 @@ import android.support.annotation.AttrRes;
 import android.support.v7.widget.SwitchCompat;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import net.xpece.material.navigationdrawer.AbsNavigationItemDescriptor;
 import net.xpece.materialnavigationdrawersample.R;
@@ -42,6 +43,8 @@ public class ToggleNavigationItemDescriptor extends AbsNavigationItemDescriptor 
 
         // on toggle click - update only text
         updateText(view);
+
+        doWork(view.getContext());
       }
     });
 
@@ -50,16 +53,15 @@ public class ToggleNavigationItemDescriptor extends AbsNavigationItemDescriptor 
 
   @Override
   @DebugLog
-  protected void onClick(View view) {
+  protected boolean onClick(View view) {
     checked = !checked;
 
     // on list item click - update text and toggle
-    toggle(view);
-  }
-
-  private void toggle(View view) {
     updateToggle(view);
     updateText(view);
+
+    doWork(view.getContext());
+    return true;
   }
 
   private void updateToggle(View view) {
@@ -85,5 +87,9 @@ public class ToggleNavigationItemDescriptor extends AbsNavigationItemDescriptor 
     } finally {
       ta.recycle();
     }
+  }
+
+  private void doWork(Context context) {
+    Toast.makeText(context, "Toggled to " + checked, Toast.LENGTH_SHORT).show();
   }
 }
