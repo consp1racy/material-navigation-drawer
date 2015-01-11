@@ -10,7 +10,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import net.xpece.materialnavigationdrawer.R;
+import net.xpece.material.navigationdrawer.R;
 
 /**
  * Created by Eugen on 10. 1. 2015.

@@ -9,7 +9,7 @@ import android.support.annotation.StringRes;
 import android.view.View;
 import android.widget.TextView;
 
-import net.xpece.materialnavigationdrawer.R;
+import net.xpece.material.navigationdrawer.R;
 
 /**
  * Created by pechanecjr on 14. 12. 2014.

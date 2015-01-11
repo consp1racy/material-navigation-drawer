@@ -78,7 +78,7 @@ Extend either `BaseNavigationItemDescriptor` or `AbsNavigationItemDescriptor`. B
 Changelog
 ---------
 
-**0.4.0**
+**0.4.1**
 - *NEW!* Introduced custom view types support
 - Some changes in API (e.g. `NavigationItemDescriptor` is now `SimpleNavigationItemDescriptor`)
 - Changed package name from `net.xpece.materialnavigationdrawer` to `net.xpece.material.navagationdrawer` (so sorry!)

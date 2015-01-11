@@ -10,8 +10,6 @@ import android.support.v4.widget.DrawerLayout;
 import android.view.View;
 import android.view.ViewTreeObserver;
 
-import net.xpece.materialnavigationdrawer.R;
-
 import java.lang.reflect.Field;
 
 /**

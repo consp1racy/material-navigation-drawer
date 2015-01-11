@@ -19,8 +19,6 @@ import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewTreeObserver;
 
-import net.xpece.materialnavigationdrawer.R;
-
 /**
  * Created by pechanecjr on 14. 12. 2014.
  */

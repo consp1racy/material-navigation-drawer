@@ -17,8 +17,6 @@ import android.view.ViewTreeObserver;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
-import net.xpece.materialnavigationdrawer.R;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -406,11 +404,7 @@ public class NavigationDrawerFragment extends Fragment implements
   @Override
   public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
     AbsNavigationItemDescriptor item = (AbsNavigationItemDescriptor) parent.getItemAtPosition(position);
-
-    if (item != null) item.onClick(view);
-
     onItemClick(view, position, id, item);
-//    parent.setSelection(position);
   }
 
   private void onItemClick(View view, int position, long id, AbsNavigationItemDescriptor item) {
@@ -422,7 +416,10 @@ public class NavigationDrawerFragment extends Fragment implements
       final int itemPosition = position - mListView.getHeaderViewsCount();
       trySelectPosition(itemPosition);
     }
-    mCallbacks.onNavigationItemSelected(view, position, id, item);
+
+    if (item == null || !item.onClick(view)) {
+      mCallbacks.onNavigationItemSelected(view, position, id, item);
+    }
   }
 
   /**
