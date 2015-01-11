@@ -6,8 +6,8 @@ Navigation Drawer according to Material Design spec.
 How it works
 ------------
 
- - Icon color defaults to `android:textColorSecondary` when not selected. See `NavigationItemDescriptor`.
- - Text color and selected icon color defaults to `android:textColorPrimary`. See `NavigationItemDescriptor`.
+ - Icon color defaults to `android:textColorSecondary` when not selected. See ~~`NavigationItemDescriptor`~~ `SimpleNavigationItemDescriptor` or `BaseNavigationItemDescriptor`.
+ - Text color and selected icon color defaults to `android:textColorPrimary`. See ~~`NavigationItemDescriptor`~~ `SimpleNavigationItemDescriptor` or `BaseNavigationItemDescriptor`.
  - Activated background is set to 12% of `android:colorForeground`. This currently limits the use to white drawer on white theme or black on black.
  - List background is set to `android:colorForegroundInverse` by default.
  - Divider color is 12% of `android:colorForeground`. You cannot change this currently.
@@ -19,7 +19,7 @@ Minimum API is 11, because activated selector is introduced just then. As recomm
 To use this library add the following to your module's `build.gradle`:
 ```groovy
 dependencies {
-    compile 'net.xpece.material:navigation-drawer:0.3.0@aar'
+    compile 'net.xpece.material:navigation-drawer:0.4.0@aar'
 }
 ```
 
@@ -53,23 +53,40 @@ You can modify the navigation list background by accessing one of `NavigationDra
  
 **How do I build items?**
 
-`NavigationItemDescriptor`
+`BaseNavigationItemDescriptor`
 
 - Use `sticky()` and `notSticky()` to specify whether the item should stay selected on click or not.
 - Use ~~`icon(int)`~~ `iconResource(int)` to specify a drawable resource. Typically this would be a 24dp by 24dp icon. This gets colored automatically. Width limit is 40dp.
 - Use `iconColorAlwaysPassiveOn()` to override the icon color in any state by the passive color.
 - Use `text(String)` or `text(int)` to set item label.
-- Use `badge(String)` or `badge(int)` to set badge text. Badge will be hidden when supplied value is `null`;
 - Use `activeColor(int)` and its derivatives to specify color of selected icon and text.
 - Use `passiveColor(int)` and its derivatives to specify color of unselected icon. Note that unselected text always takes color of `android:textColorPrimary`.
+
+`SimpleNavigationItemDescriptor` extends `BaseNavigationItemDescriptor`
+
+- Use `badge(String)` or `badge(int)` to set badge text. Badge will be hidden when supplied value is `null`;
 - Use `badgeColor(int)` and its derivatives to specify background color of the badge. Text color is calculated automatically.
  
+**NEW! How do I make custom items?**
+
+Extend either `BaseNavigationItemDescriptor` or `AbsNavigationItemDescriptor`. Both require you to implement method `getLayoutId()` which returns your custom layout resource ID. You also need to implement you own `loadInto(View, boolean)` method which is analogous to adapter's `getView(...)`. If you need a view holder pattern call `askViewHolder(View, int)`.
+
+`AbsNavigationItemDescriptor` does nothing for you. What you implement is what you get. See the `ToggleNavigationItemDescriptor` in sample project. Note that this is a quick and crude example.
+
+`BaseNavigationItemDescriptor` allows you to use all the good stuff described above. Your custom layout is required to have a `@id/icon` image view and a `@id/text` text view. It's intended for cases where you need a custom view on the right side of the item.
+
 Changelog
 ---------
 
+**0.4.0**
+- *NEW!* Introduced custom view types support
+- Some changes in API (e.g. `NavigationItemDescriptor` is now `SimpleNavigationItemDescriptor`)
+- Changed package name from `net.xpece.materialnavigationdrawer` to `net.xpece.material.navagationdrawer` (so sorry!)
+- *CRITICAL BUG FIX:* Certain configurations with pinned section caused the list view go apes**t rendering it unusable. 
+
 **0.3.0**
 - Item padding is clamped at 16dp even on tablets (everybody does this and it aligns with the back arrow)
-- Different text style for badges without background (as in Gmail app)
+- *NEW!* Different text style for badges without background (as in Gmail app)
 - Badge minWidth is now 40dp instead of 24dp (as in Gmail app)
 - Badge right margin is set to zero to allow the text to be 16dp from the right edge (as in Gmail app)
 - Better compatibility with dark themes
@@ -88,7 +105,7 @@ Changelog
 
 - Fixed NPE on inflating fragment
 - Dropped appcompat-v7 dependency
-- Introduced pinned navigation list section
+- *NEW!* Introduced pinned navigation list section
 - Updated sample project
 - Minor API changes
 - Navigation list no longer sets its width automatically to allow more control to developer
@@ -112,10 +129,18 @@ Work TBD
 Screenshots
 -----------
 
-![Lollipop Portrait](./docs/device-2015-01-03-0.3.0-v21-port.png)
+v0.4.0 on `LOLLIPOP`
+
+![Lollipop Portrait](./docs/device-2015-01-11-0.4.0-v21-port.png)
+
+v0.3.0 on `JELLYBEAN`
 
 ![Jellybean Portrait](./docs/device-2015-01-03-0.3.0-v16-port.png)
 
-![Lollipop Landscape](./docs/device-2015-01-03-0.3.0-v21-land.png)
+v0.4.0 on `LOLLIPOP` in landscape mode
+
+![Lollipop Landscape](./docs/device-2015-01-11-0.4.0-v21-land.png)
+
+v0.3.0 on `LOLLIPOP` in landscape using a dark theme
 
 ![Lollipop Landscape Dark](./docs/device-2015-01-03-0.3.0-v21-land-black.png)
