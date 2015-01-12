@@ -39,7 +39,7 @@ class NavigationListAdapter extends BaseAdapter {
   private boolean mDrawLastDivider = false;
 
   private int mSelectedPosition = -1;
-  private long mPendingSelectedId = -1;
+//  private long mPendingSelectedId = -1;
 
   // each section consists of the following
   // section heading OR padding
@@ -58,7 +58,7 @@ class NavigationListAdapter extends BaseAdapter {
   }
 
   public void setActivatedItem(int position) {
-    mPendingSelectedId = -1;
+//    mPendingSelectedId = -1;
     if (mSelectedPosition != position) {
       mSelectedPosition = position;
       notifyDataSetChanged();
@@ -176,11 +176,11 @@ class NavigationListAdapter extends BaseAdapter {
           view = convertView;
         }
 
-        if (mPendingSelectedId >= 0 && mPendingSelectedId == item.getId()) {
-          mPendingSelectedId = -1;
-          mSelectedPosition = position;
-          if (item.isSticky()) view.setActivated(true);
-        }
+//        if (mPendingSelectedId >= 0 && mPendingSelectedId == item.getId()) {
+//          mPendingSelectedId = -1;
+//          mSelectedPosition = position;
+//          if (item.isSticky()) view.setActivated(true);
+//        }
 
         item.loadInto(view, position == mSelectedPosition);
 
@@ -237,12 +237,7 @@ class NavigationListAdapter extends BaseAdapter {
     mPositions = positions;
   }
 
-  public int getPositionById(long id) throws Exception {
-    try {
-      return mPositions.get(id, -1);
-    } catch (NullPointerException ex) {
-      mPendingSelectedId = id;
-      throw new IllegalStateException(ex);
-    }
+  public int getPositionById(long id) {
+    return mPositions.get(id, -1);
   }
 }

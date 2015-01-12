@@ -184,4 +184,11 @@ public final class SimpleNavigationItemDescriptor extends BaseNavigationItemDesc
     }
   }
 
+  @Override
+  public String toString() {
+    return "SimpleNavigationItemDescriptor{" +
+        "id=" + id +
+        "sticky=" + sticky +
+        '}';
+  }
 }

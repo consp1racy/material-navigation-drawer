@@ -228,4 +228,12 @@ public class BaseNavigationItemDescriptor extends AbsNavigationItemDescriptor {
     }
     text.setTextColor(Utils.createActivatedColor(textColor, activeColor));
   }
+
+  @Override
+  public String toString() {
+    return "BaseNavigationItemDescriptor{" +
+        "id=" + id +
+        "sticky=" + sticky +
+        '}';
+  }
 }

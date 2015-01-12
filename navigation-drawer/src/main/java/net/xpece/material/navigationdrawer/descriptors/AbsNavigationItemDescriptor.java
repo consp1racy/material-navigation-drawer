@@ -51,4 +51,11 @@ public abstract class AbsNavigationItemDescriptor implements NavigationItemDescr
   public boolean onClick(View view) {
     return false;
   }
+
+  @Override
+  public String toString() {
+    return "AbsNavigationItemDescriptor{" +
+        "id=" + id +
+        '}';
+  }
 }

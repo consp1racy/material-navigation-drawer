@@ -16,6 +16,7 @@ import android.view.ViewTreeObserver;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import net.xpece.material.navigationdrawer.BuildConfig;
 import net.xpece.material.navigationdrawer.R;
 import net.xpece.material.navigationdrawer.descriptors.AbsNavigationItemDescriptor;
 import net.xpece.material.navigationdrawer.descriptors.NavigationItemDescriptor;
@@ -58,24 +59,24 @@ abstract class NavigationListFragmentDelegate implements
       final int paddingBottom = mListView.getPaddingBottom();
       final int lastVisible = mListView.getLastVisiblePosition();
       final int lastPosition = mListView.getAdapter().getCount() - 1; // mAdapter.getCount() - 1;
-      Timber.d("listVisible=%s, lastPosition=%s", lastVisible, lastPosition);
+//      timber("listVisible=%s, lastPosition=%s", lastVisible, lastPosition);
       if (lastVisible == lastPosition) {
         final int listHeight = mListView.getMeasuredHeight() - paddingBottom - mListView.getPaddingTop();
         final int lastBottom = mListView.getChildAt(mListView.getLastVisiblePosition() - mListView.getFirstVisiblePosition()).getBottom();
-        Timber.d("listHeight=%s, lastBottom=%s", listHeight, lastBottom);
+//        timber("listHeight=%s, lastBottom=%s", listHeight, lastBottom);
         // if last item ends before the list ends there's extra space
         if (lastBottom < listHeight) {
           if (paddingBottom == 0) mTheFix = Math.max(0, listHeight - lastBottom);
           fix = mTheFix;
-          Timber.d("extraSpace=" + fix);
+//          timber("extraSpace=" + fix);
         }
       }
       // modify padding only after pinned section has been measured and it changed
       // padding = pinned section height - listview extra space - 1dp divider alignment
       final int pinnedHeight = mPinnedContainer.getMeasuredHeight();
-      Timber.d("pinnedHeight=%s", pinnedHeight);
+//      timber("pinnedHeight=%s", pinnedHeight);
       final int targetPadding = pinnedHeight - fix - Utils.dpToPixelOffset(getActivity(), 1);
-      Timber.d("targetPadding=%s, paddingBottom=%s", targetPadding, paddingBottom);
+//      timber("targetPadding=%s, paddingBottom=%s", targetPadding, paddingBottom);
       if (paddingBottom != targetPadding) {
         mListView.setPadding(0, 0, 0, targetPadding);
       }
@@ -135,7 +136,7 @@ abstract class NavigationListFragmentDelegate implements
 
   @Override
   public void onSaveInstanceState(Bundle outState) {
-    outState.putInt("mLastSelected", mLastSelected);
+    //
   }
 
   @Override
@@ -149,21 +150,10 @@ abstract class NavigationListFragmentDelegate implements
 
   @Override
   public void onViewCreated(final View view, @Nullable Bundle savedInstanceState) {
-    if (savedInstanceState != null) {
-      mLastSelected = savedInstanceState.getInt("mLastSelected");
-    }
-
-//    NavigationDrawerUtils.setProperNavigationDrawerWidth(view);
-//    mPinnedContainer.getViewTreeObserver().addOnGlobalLayoutListener(mPinnedContainerOnGlobalLayoutListener);
     mPinnedDivider.setBackgroundColor(Utils.createDividerColor(getActivity()));
 
-//    if (savedInstanceState != null) {
-//      updatePinnedSection();
-//      updateSections();
-//    }
-
     mListView.setOnItemClickListener(this);
-    mListView.setSelection(mLastSelected);
+//    mListView.setSelection(mLastSelected);
   }
 
   @Override
@@ -198,6 +188,7 @@ abstract class NavigationListFragmentDelegate implements
       if (mHeader != null) mListView.addHeaderView(mHeader);
     }
     mListView.setAdapter(mAdapter);
+//    mListView.setSelection(mLastSelected);
 
     mPinnedContainer.getViewTreeObserver().addOnGlobalLayoutListener(mPinnedContainerOnGlobalLayoutListener);
   }
@@ -366,14 +357,11 @@ abstract class NavigationListFragmentDelegate implements
   @Override
   public void setSelectedItem(long id) {
     if (mAdapter != null) {
-      try {
-        int position = mAdapter.getPositionById(id);
-        trySelectPosition(position);
+
+      int position = mAdapter.getPositionById(id);
+      trySelectPosition(position);
 //        mListView.setSelection(mLastSelected);
-      } catch (Exception ex) {
-        // id has been stored in adapter and the item will be marked accordingly when loaded
-        // TODO the choice will not be preserved on screen orientation change yet
-      }
+
     } else {
       throw new IllegalStateException("No adapter yet!");
     }
@@ -382,7 +370,7 @@ abstract class NavigationListFragmentDelegate implements
   @DebugLog
   private void trySelectPosition(final int itemPosition) {
     final int listPosition = itemPosition + mListView.getHeaderViewsCount();
-    if (listPosition == mLastSelected) return;
+//    if (listPosition == mLastSelected) return;
     if (itemPosition < 0) {
       mListView.setItemChecked(listPosition, false);
       mAdapter.setActivatedItem(-1);
@@ -432,4 +420,7 @@ abstract class NavigationListFragmentDelegate implements
     }
   }
 
+  private static void timber(String s) {
+    if (BuildConfig.DEBUG) Timber.d(s);
+  }
 }
