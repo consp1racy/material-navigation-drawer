@@ -10,12 +10,13 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
-import net.xpece.material.navigationdrawer.AbsNavigationItemDescriptor;
-import net.xpece.material.navigationdrawer.BaseNavigationItemDescriptor;
-import net.xpece.material.navigationdrawer.NavigationDrawerFragment;
 import net.xpece.material.navigationdrawer.NavigationDrawerUtils;
-import net.xpece.material.navigationdrawer.NavigationSectionDescriptor;
-import net.xpece.material.navigationdrawer.SimpleNavigationItemDescriptor;
+import net.xpece.material.navigationdrawer.descriptors.BaseNavigationItemDescriptor;
+import net.xpece.material.navigationdrawer.descriptors.NavigationItemDescriptor;
+import net.xpece.material.navigationdrawer.descriptors.NavigationSectionDescriptor;
+import net.xpece.material.navigationdrawer.descriptors.SimpleNavigationItemDescriptor;
+import net.xpece.material.navigationdrawer.list.NavigationListFragmentCallbacks;
+import net.xpece.material.navigationdrawer.list.SupportNavigationListFragment;
 import net.xpece.material.navigationdrawer.sample.widget.ToggleNavigationItemDescriptor;
 import net.xpece.materialnavigationdrawersample.BuildConfig;
 import net.xpece.materialnavigationdrawersample.R;
@@ -28,7 +29,7 @@ import butterknife.InjectView;
 import butterknife.Optional;
 import timber.log.Timber;
 
-public class MainActivity extends ActionBarActivity implements NavigationDrawerFragment.Callbacks {
+public class MainActivity extends ActionBarActivity implements NavigationListFragmentCallbacks {
 
 //  @InjectView(R.id.app_bar)
 //  Toolbar mToolbar;
@@ -80,7 +81,7 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
   DrawerLayout mDrawerLayout;
 
   ActionBarDrawerToggle mDrawerToggle;
-  NavigationDrawerFragment mNavFragment;
+  SupportNavigationListFragment mNavFragment;
 
   // retain this
   Long mSelectedItem;
@@ -104,10 +105,10 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
     }
 
     // since the fragment is defined in layout, i can call this safely in onCreate
-    mNavFragment = (NavigationDrawerFragment) getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);
-    if (mDrawerLayout != null) {
-      NavigationDrawerUtils.setProperNavigationDrawerWidth(mNavFragment.getView());
-    }
+    mNavFragment = (SupportNavigationListFragment) getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);
+//    if (mDrawerLayout != null) {
+    NavigationDrawerUtils.setProperNavigationDrawerWidth(mNavFragment.getView());
+//    }
 
     // set up the nav fragment
     mNavFragment.setHeaderView(View.inflate(this, R.layout.mnd_custom_header, null));
@@ -170,7 +171,7 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
   }
 
   @Override
-  public void onNavigationItemSelected(View view, int position, long id, AbsNavigationItemDescriptor item) {
+  public void onNavigationItemSelected(View view, int position, long id, NavigationItemDescriptor item) {
     if (mToast != null) mToast.cancel();
     mToast = Toast.makeText(this, "Item #" + id + " on position " + position + " selected!", Toast.LENGTH_SHORT);
     mToast.show();

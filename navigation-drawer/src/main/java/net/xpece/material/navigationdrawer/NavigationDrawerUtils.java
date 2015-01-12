@@ -1,14 +1,11 @@
 package net.xpece.material.navigationdrawer;
 
 import android.content.Context;
-import android.graphics.PorterDuff;
-import android.graphics.PorterDuffColorFilter;
-import android.graphics.drawable.Drawable;
-import android.support.annotation.ColorRes;
-import android.support.annotation.DrawableRes;
 import android.support.v4.widget.DrawerLayout;
 import android.view.View;
 import android.view.ViewTreeObserver;
+
+import net.xpece.material.navigationdrawer.internal.Utils;
 
 import java.lang.reflect.Field;
 
@@ -61,17 +58,4 @@ public class NavigationDrawerUtils {
       }
     });
   }
-
-  public static Drawable tintDrawable(Context context, @DrawableRes int drawableId, @ColorRes int colorId) {
-    Drawable d = context.getResources().getDrawable(drawableId);
-    int c = context.getResources().getColor(colorId);
-    return tintDrawable(d, c);
-  }
-
-  public static Drawable tintDrawable(Drawable d, int c) {
-    PorterDuffColorFilter cf = new PorterDuffColorFilter(c, PorterDuff.Mode.SRC_IN);
-    d.mutate().setColorFilter(cf);
-    return d;
-  }
-
 }

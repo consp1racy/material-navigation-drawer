@@ -1,4 +1,4 @@
-package net.xpece.material.navigationdrawer;
+package net.xpece.material.navigationdrawer.internal;
 
 import android.graphics.ColorFilter;
 import android.graphics.PorterDuff;
@@ -11,7 +11,7 @@ import android.util.SparseArray;
  * @author CC-BY-SA Daniele Segato http://stackoverflow.com/a/19111613/2444099
  * // TODO consider replacing by something similar http://stackoverflow.com/a/23222355/2444099
  */
-class ColorFilterStateListDrawable extends StateListDrawable {
+public class ColorFilterStateListDrawable extends StateListDrawable {
   private SparseArray<ColorFilter> mFilters = new SparseArray<>();
   private int mCount = 0;
   private int mSelected = -1;

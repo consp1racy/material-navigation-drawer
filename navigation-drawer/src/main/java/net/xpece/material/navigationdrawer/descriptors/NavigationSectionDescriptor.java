@@ -1,4 +1,4 @@
-package net.xpece.material.navigationdrawer;
+package net.xpece.material.navigationdrawer.descriptors;
 
 import android.content.Context;
 import android.support.annotation.StringRes;
@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * Created by pechanecjr on 14. 12. 2014.
  */
-public class NavigationSectionDescriptor extends ArrayList<AbsNavigationItemDescriptor> {
+public final class NavigationSectionDescriptor extends ArrayList<NavigationItemDescriptor> {
   private String heading;
   @StringRes
   private int headingId;
@@ -29,12 +29,12 @@ public class NavigationSectionDescriptor extends ArrayList<AbsNavigationItemDesc
     return this;
   }
 
-  public NavigationSectionDescriptor addItems(List<? extends AbsNavigationItemDescriptor> items) {
+  public NavigationSectionDescriptor addItems(List<? extends NavigationItemDescriptor> items) {
     this.addAll(items);
     return this;
   }
 
-  public NavigationSectionDescriptor addItem(AbsNavigationItemDescriptor item) {
+  public NavigationSectionDescriptor addItem(NavigationItemDescriptor item) {
     this.add(item);
     return this;
   }

@@ -1,4 +1,4 @@
-package net.xpece.material.navigationdrawer;
+package net.xpece.material.navigationdrawer.internal;
 
 import android.util.SparseArray;
 import android.view.View;
@@ -6,7 +6,7 @@ import android.view.View;
 /**
  * Sauce: Pierre-Yves Ricau http://www.piwai.info/android-adapter-good-practices/
  */
-class ViewHolder {
+public class ViewHolder {
   @SuppressWarnings("unchecked")
   public static <T extends View> T get(View view, int id) {
     SparseArray<View> viewHolder = (SparseArray<View>) view.getTag();

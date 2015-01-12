@@ -9,7 +9,7 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import net.xpece.material.navigationdrawer.AbsNavigationItemDescriptor;
+import net.xpece.material.navigationdrawer.descriptors.AbsNavigationItemDescriptor;
 import net.xpece.materialnavigationdrawersample.R;
 
 import hugo.weaving.DebugLog;
@@ -53,7 +53,7 @@ public class ToggleNavigationItemDescriptor extends AbsNavigationItemDescriptor 
 
   @Override
   @DebugLog
-  protected boolean onClick(View view) {
+  public boolean onClick(View view) {
     checked = !checked;
 
     // on list item click - update text and toggle

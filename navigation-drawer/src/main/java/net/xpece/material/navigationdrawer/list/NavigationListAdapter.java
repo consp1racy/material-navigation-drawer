@@ -1,4 +1,4 @@
-package net.xpece.material.navigationdrawer;
+package net.xpece.material.navigationdrawer.list;
 
 import android.content.Context;
 import android.support.v4.util.LongSparseArray;
@@ -9,6 +9,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
+
+import net.xpece.material.navigationdrawer.R;
+import net.xpece.material.navigationdrawer.descriptors.NavigationItemDescriptor;
+import net.xpece.material.navigationdrawer.descriptors.NavigationSectionDescriptor;
+import net.xpece.material.navigationdrawer.internal.Utils;
+import net.xpece.material.navigationdrawer.internal.ViewHolder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -112,8 +118,8 @@ class NavigationListAdapter extends BaseAdapter {
   @Override
   public long getItemId(int position) {
     Object item = getItem(position);
-    if (item instanceof AbsNavigationItemDescriptor) {
-      return ((AbsNavigationItemDescriptor) item).getId();
+    if (item instanceof NavigationItemDescriptor) {
+      return ((NavigationItemDescriptor) item).getId();
     }
     return 0;
   }
@@ -162,7 +168,7 @@ class NavigationListAdapter extends BaseAdapter {
 
 //      case TYPE_ITEM: {
       default: {
-        AbsNavigationItemDescriptor item = (AbsNavigationItemDescriptor) getItem(position);
+        NavigationItemDescriptor item = (NavigationItemDescriptor) getItem(position);
 
         if (convertView == null) {
           view = LayoutInflater.from(parent.getContext()).inflate(item.getLayoutId(), parent, false);
@@ -205,7 +211,7 @@ class NavigationListAdapter extends BaseAdapter {
       position++;
 
       for (int j = 0; j < section.size(); j++) {
-        AbsNavigationItemDescriptor item = section.get(j);
+        NavigationItemDescriptor item = section.get(j);
 
         int viewType;
         {

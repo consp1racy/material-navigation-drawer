@@ -1,4 +1,4 @@
-package net.xpece.material.navigationdrawer;
+package net.xpece.material.navigationdrawer.internal;
 
 import android.annotation.TargetApi;
 import android.content.Context;
@@ -19,12 +19,19 @@ import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewTreeObserver;
 
+import net.xpece.material.navigationdrawer.R;
+
 /**
  * Created by pechanecjr on 14. 12. 2014.
  */
-class Utils {
+public class Utils {
   private Utils() {
   }
+
+//  @TargetApi(21)
+//  public static void setElevation(View view, float elevation) {
+//    if (Build.VERSION.SDK_INT >= 21) view.setElevation(elevation);
+//  }
 
   public static Drawable createRoundRect(Context context, int color, int cornerDp) {
     GradientDrawable gd = new GradientDrawable();

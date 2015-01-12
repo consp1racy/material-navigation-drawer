@@ -1,4 +1,4 @@
-package net.xpece.material.navigationdrawer;
+package net.xpece.material.navigationdrawer.descriptors;
 
 import android.content.Context;
 import android.content.res.ColorStateList;
@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import net.xpece.material.navigationdrawer.R;
+import net.xpece.material.navigationdrawer.internal.Utils;
 
 /**
  * Created by pechanecjr on 14. 12. 2014.

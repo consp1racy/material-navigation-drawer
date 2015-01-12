@@ -1,4 +1,4 @@
-package net.xpece.material.navigationdrawer;
+package net.xpece.material.navigationdrawer.descriptors;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import net.xpece.material.navigationdrawer.R;
+import net.xpece.material.navigationdrawer.internal.Utils;
 
 /**
  * Created by Eugen on 10. 1. 2015.

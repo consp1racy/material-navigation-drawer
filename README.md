@@ -19,7 +19,7 @@ Minimum API is 11, because activated selector is introduced just then. As recomm
 To use this library add the following to your module's `build.gradle`:
 ```groovy
 dependencies {
-    compile 'net.xpece.material:navigation-drawer:0.4.1@aar'
+    compile 'net.xpece.material:navigation-drawer:0.4.2@aar'
 }
 ```
 
@@ -78,11 +78,18 @@ Extend either `BaseNavigationItemDescriptor` or `AbsNavigationItemDescriptor`. B
 Changelog
 ---------
 
-**0.4.1**
+**0.4.2**
 - *NEW!* Introduced custom view types support
+- *NEW!* Added native fragment support by `NavigationListFragment`
+- Support-v4 fragment accessible under `SupportNavigationListFragment`
 - Some changes in API (e.g. `NavigationItemDescriptor` is now `SimpleNavigationItemDescriptor`)
 - Changed package name from `net.xpece.materialnavigationdrawer` to `net.xpece.material.navagationdrawer` (so sorry!)
-- *CRITICAL BUG FIX:* Certain configurations with pinned section caused the list view go apes**t rendering it unusable. 
+- More changes in package names (even more sorry, this time it's final)
+- Utilities made public in `net.xpece.material.navigationdrawer.internal` package
+ - Text color calculation based on background
+ - Attribute resolution to colors or drawables
+ - Drawable tinting
+- *CRITICAL BUG FIX:* Certain configurations with pinned section caused the list view go apes**t rendering it unusable.
 
 **0.3.0**
 - Item padding is clamped at 16dp even on tablets (everybody does this and it aligns with the back arrow)
@@ -122,8 +129,8 @@ Changelog
 Work TBD
 --------
 
- - Better API, factories, copying element prototypes.
- - Custom list view types
+ - Better API, factories, copying element prototypes
+ - Custom passive text color
  - Collapsed layout option on tablets
 
 Screenshots
