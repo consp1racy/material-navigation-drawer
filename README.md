@@ -6,8 +6,8 @@ Navigation Drawer according to Material Design spec.
 How it works
 ------------
 
- - Icon color defaults to `android:textColorSecondary` when not selected. See ~~`NavigationItemDescriptor`~~ `SimpleNavigationItemDescriptor` or `BaseNavigationItemDescriptor`.
- - Text color and selected icon color defaults to `android:textColorPrimary`. See ~~`NavigationItemDescriptor`~~ `SimpleNavigationItemDescriptor` or `BaseNavigationItemDescriptor`.
+ - Icon color defaults to `android:textColorSecondary` when not selected. See `SimpleNavigationItemDescriptor` or `BaseNavigationItemDescriptor`.
+ - Text color and selected icon color defaults to `android:textColorPrimary`. See `SimpleNavigationItemDescriptor` or `BaseNavigationItemDescriptor`.
  - Activated background is set to 12% of `android:colorForeground`. This currently limits the use to white drawer on white theme or black on black.
  - List background is set to `android:colorForegroundInverse` by default.
  - Divider color is 12% of `android:colorForeground`. You cannot change this currently.
@@ -19,11 +19,11 @@ Minimum API is 11, because activated selector is introduced just then. As recomm
 To use this library add the following to your module's `build.gradle`:
 ```groovy
 dependencies {
-    compile 'net.xpece.material:navigation-drawer:0.4.0@aar'
+    compile 'net.xpece.material:navigation-drawer:0.4.1@aar'
 }
 ```
 
-The project depends on support-v4 library version 21.0.3.
+The project currently depends on support-v4 library version 21.0.3.
 
 Customization
 -------------
@@ -93,7 +93,7 @@ Changelog
  - Pinned section divider is shown when shadow would not be recognizable
  - Default icon color is 100% white on dark themes
  - Added screenshots to `/docs`
-- Ability to override icon color through `NavigationItemDescriptor.iconColorAlwaysPassiveOn()`
+- Ability to override icon color through `BaseNavigationItemDescriptor.iconColorAlwaysPassiveOn()`
 - Drawer width on phones is now always `smallestWidthDp` minus `56dp` (the `5 * 56dp` limit still applies).
 
 **0.2.2**
