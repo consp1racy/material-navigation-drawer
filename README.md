@@ -19,7 +19,7 @@ Minimum API is 11, because activated selector is introduced just then. As recomm
 To use this library add the following to your module's `build.gradle`:
 ```groovy
 dependencies {
-    compile 'net.xpece.material:navigation-drawer:0.4.2@aar'
+    compile 'net.xpece.material:navigation-drawer:0.4.3@aar'
 }
 ```
 
@@ -78,7 +78,7 @@ Extend either `BaseNavigationItemDescriptor` or `AbsNavigationItemDescriptor`. B
 Changelog
 ---------
 
-**0.4.2**
+**0.4.3**
 - *NEW!* Introduced custom view types support
 - *NEW!* Added native fragment support by `NavigationListFragment`
 - Support-v4 fragment accessible under `SupportNavigationListFragment`
