@@ -3,34 +3,37 @@ Material Navigation Drawer
 
 Navigation Drawer according to Material Design spec.
 
-How it works
-------------
+Contains native and support fragments of expanded and collapsed navigation list for use with `DrawerLayout` or Chiu-Ki Chan's `CrossFadeSlidingPaneLayout` (included).
 
- - Icon color defaults to `android:textColorSecondary` when not selected. See `SimpleNavigationItemDescriptor` or `BaseNavigationItemDescriptor`.
- - Text color and selected icon color defaults to `android:textColorPrimary`. See `SimpleNavigationItemDescriptor` or `BaseNavigationItemDescriptor`.
- - Activated background is set to 12% of `android:colorForeground`. This currently limits the use to white drawer on white theme or black on black.
- - List background is set to `android:colorForegroundInverse` by default.
- - Divider color is 12% of `android:colorForeground`. You cannot change this currently.
+Available from API 11. Lowering is not planned.
 
-Please note that this is not a drawer per se, the fragment can be used as a pinned side bar (e.g. on 10" tablets). For usage example see the `sample `directory.
-
-Minimum API is 11, because activated selector is introduced just then. As recommended minimum is API 14, lowering the requirements is not planned.
+How to get the library?
+-----------------------
 
 To use this library add the following to your module's `build.gradle`:
 ```groovy
 dependencies {
-    compile 'net.xpece.material:navigation-drawer:0.4.3@aar'
+    compile 'net.xpece.material:navigation-drawer:0.5.0@aar'
 }
 ```
 
 The project currently depends on support-v4 library version 21.0.3.
+
+Default behavior
+----------------
+
+ - Icon color defaults to `android:textColorSecondary` when not selected. See `SimpleNavigationItemDescriptor` or `BaseNavigationItemDescriptor`.
+ - Text color and selected icon color defaults to 100% white or 87% black based on background. See `SimpleNavigationItemDescriptor` or `BaseNavigationItemDescriptor`.
+ - Activated background is set to 12% of `android:colorForeground`. This currently limits the use to white drawer on white theme or black on black.
+ - List background is set to `android:colorForegroundInverse` by default.
+ - Divider color is 12% of `android:colorForeground`. You cannot change this currently.
 
 Customization
 -------------
 
 **The drawer has too big right margin!**
 
-As of support-v4 library 21.0.3 there is a hardocded margin of 64dp in a `DrawerLayout`. Use `NavigationDrawerUtils.fixMinDrawerMargin(DrawerLayout)` to remove this limitation. Use this right after you obtain a drawer layout instance typically in `Activity.onCreate(Bundle)`. Why is this an issue? Specs say the margin should be only 56dp on phones.
+As of support-v4 library 21.0.3 there is a hardcoded margin of 64dp in a `DrawerLayout`. Use `NavigationDrawerUtils.fixMinDrawerMargin(DrawerLayout)` to remove this limitation. Use this right after you obtain a drawer layout instance typically in `Activity.onCreate(Bundle)`. Why is this an issue? Specs say the margin should be only 56dp on phones.
 
 **I want the drawer to have a standard width!**
 
@@ -67,7 +70,7 @@ You can modify the navigation list background by accessing one of `NavigationDra
 - Use `badge(String)` or `badge(int)` to set badge text. Badge will be hidden when supplied value is `null`;
 - Use `badgeColor(int)` and its derivatives to specify background color of the badge. Text color is calculated automatically.
  
-**NEW! How do I make custom items?**
+**How do I make custom items?**
 
 Extend either `BaseNavigationItemDescriptor` or `AbsNavigationItemDescriptor`. Both require you to implement method `getLayoutId()` which returns your custom layout resource ID. You also need to implement you own `loadInto(View, boolean)` method which is analogous to adapter's `getView(...)`. If you need a view holder pattern call `askViewHolder(View, int)`.
 
@@ -75,8 +78,17 @@ Extend either `BaseNavigationItemDescriptor` or `AbsNavigationItemDescriptor`. B
 
 `BaseNavigationItemDescriptor` allows you to use all the good stuff described above. Your custom layout is required to have a `@id/icon` image view and a `@id/text` text view. It's intended for cases where you need a custom view on the right side of the item.
 
+**How do I employ partially visible collapsed navigation (like Gmail on tablets)?**
+
+ Please see the example project, mainly `res/layout-sw600dp/activity_main.xml` and `MainActivity.java`.
+ Only descriptors which implement `GraphicNavigationItemDescriptor` will be painted (both base and simple descriptors comply).
+
 Changelog
 ---------
+
+**0.5.0**
+- *NEW!* Introduced collapsed version of navigation list
+- *NEW!* Included Chiu-Ki Chan's [`CrossFadeSlidingPaneLayout`](https://github.com/chiuki/sliding-pane-layout) for convenience
 
 **0.4.3**
 - *NEW!* Introduced custom view types support

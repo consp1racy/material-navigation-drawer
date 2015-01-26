@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import net.xpece.material.navigationdrawer.R;
 import net.xpece.material.navigationdrawer.internal.Utils;
+import net.xpece.material.navigationdrawer.internal.ViewHolder;
 
 /**
  * Created by pechanecjr on 14. 12. 2014.
@@ -159,7 +160,7 @@ public final class SimpleNavigationItemDescriptor extends BaseNavigationItemDesc
 
     Context context = view.getContext();
 
-    TextView badge = askViewHolder(view, R.id.badge);
+    TextView badge = ViewHolder.get(view, R.id.badge);
 
     int badgeColor = getBadgeColor(context);
     String badgeString = getBadge(context);

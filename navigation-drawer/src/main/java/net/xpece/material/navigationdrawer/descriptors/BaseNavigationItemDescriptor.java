@@ -12,11 +12,13 @@ import android.widget.TextView;
 
 import net.xpece.material.navigationdrawer.R;
 import net.xpece.material.navigationdrawer.internal.Utils;
+import net.xpece.material.navigationdrawer.internal.ViewHolder;
 
 /**
  * Created by Eugen on 10. 1. 2015.
  */
-public class BaseNavigationItemDescriptor extends AbsNavigationItemDescriptor {
+public class BaseNavigationItemDescriptor extends AbsNavigationItemDescriptor
+    implements GraphicNavigationItemDescriptor {
   /** Whether item stays active after selecting. */
   protected boolean sticky = false;
 
@@ -58,6 +60,7 @@ public class BaseNavigationItemDescriptor extends AbsNavigationItemDescriptor {
     return this;
   }
 
+  @Override
   public Drawable getIcon(Context context) {
     if (iconId != 0) {
       return context.getResources().getDrawable(iconId).mutate();
@@ -76,6 +79,7 @@ public class BaseNavigationItemDescriptor extends AbsNavigationItemDescriptor {
     return this;
   }
 
+  @Override
   public boolean isIconColorAlwaysPassiveOff() {
     return this.tintIcon;
   }
@@ -92,6 +96,7 @@ public class BaseNavigationItemDescriptor extends AbsNavigationItemDescriptor {
     return this;
   }
 
+  @Override
   public String getText(Context context) {
     if (textId != 0) {
       return context.getString(textId);
@@ -121,6 +126,7 @@ public class BaseNavigationItemDescriptor extends AbsNavigationItemDescriptor {
     return this;
   }
 
+  @Override
   public int getActiveColor(Context context) {
     if (activeColorAttr != 0) {
       return Utils.getColor(context, activeColorAttr, 0xff000000);
@@ -155,6 +161,7 @@ public class BaseNavigationItemDescriptor extends AbsNavigationItemDescriptor {
     return this;
   }
 
+  @Override
   public int getPassiveColor(Context context) {
     if (!customPassiveColor) {
       // icons in dark themes should be 100% white
@@ -199,8 +206,8 @@ public class BaseNavigationItemDescriptor extends AbsNavigationItemDescriptor {
 
     Context context = view.getContext();
 
-    ImageView icon = askViewHolder(view, R.id.icon);
-    TextView text = askViewHolder(view, R.id.text);
+    ImageView icon = ViewHolder.get(view, R.id.icon);
+    TextView text = ViewHolder.get(view, R.id.text);
 
     Drawable iconDrawable = getIcon(context);
     boolean tintIcon = isIconColorAlwaysPassiveOff();

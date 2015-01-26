@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ListView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="?android:colorForegroundInverse"
+    android:id="@+id/mnd_list_compact"
+    android:dividerHeight="0dp"
+    android:divider="@android:color/transparent"
+    android:choiceMode="singleChoice"
+    android:padding="@dimen/mnd_unit"
+    android:clipToPadding="false"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+  <!--android:background="@android:color/transparent"-->
+
+</ListView>

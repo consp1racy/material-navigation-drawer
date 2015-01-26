@@ -6,12 +6,11 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import net.xpece.material.navigationdrawer.internal.Utils;
-import net.xpece.material.navigationdrawer.internal.ViewHolder;
 
 /**
  * Created by Eugen on 10. 1. 2015.
  */
-public abstract class AbsNavigationItemDescriptor implements NavigationItemDescriptor {
+public abstract class AbsNavigationItemDescriptor implements CompositeNavigationItemDescriptor {
   /** Item ID. */
   protected final long id;
 
@@ -43,9 +42,9 @@ public abstract class AbsNavigationItemDescriptor implements NavigationItemDescr
     return view;
   }
 
-  protected static <T extends View> T askViewHolder(View view, int id) {
-    return ViewHolder.get(view, id);
-  }
+//  protected static <T extends View> T askViewHolder(View view, int id) {
+//    return ViewHolder.get(view, id);
+//  }
 
   @Override
   public boolean onClick(View view) {

@@ -27,13 +27,13 @@ android {
 dependencies {
   compile 'com.android.support:support-v4:21.0.3'
   compile 'com.android.support:support-annotations:21.0.3'
-  compile 'com.jakewharton.timber:timber:2.5.0' // logging
+//  compile 'com.jakewharton.timber:timber:2.5.0' // logging
 }
 
 ext {
   PUBLISH_GROUP_ID = 'net.xpece.material'
   PUBLISH_ARTIFACT_ID = 'navigation-drawer'
-  PUBLISH_VERSION = '0.4.3'
+  PUBLISH_VERSION = '0.5.0'
 }
 
 apply from: '../android-release-aar.gradle'

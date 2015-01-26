@@ -10,6 +10,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import net.xpece.material.navigationdrawer.descriptors.AbsNavigationItemDescriptor;
+import net.xpece.material.navigationdrawer.internal.ViewHolder;
 import net.xpece.materialnavigationdrawersample.R;
 
 import hugo.weaving.DebugLog;
@@ -34,7 +35,7 @@ public class ToggleNavigationItemDescriptor extends AbsNavigationItemDescriptor 
   public void loadInto(final View view, final boolean selected) {
     super.loadInto(view, selected);
 
-    SwitchCompat toggle = askViewHolder(view, R.id.toggle);
+    SwitchCompat toggle = ViewHolder.get(view, R.id.toggle);
     toggle.setChecked(checked);
     toggle.setOnClickListener(new View.OnClickListener() {
       @Override
@@ -65,13 +66,13 @@ public class ToggleNavigationItemDescriptor extends AbsNavigationItemDescriptor 
   }
 
   private void updateToggle(View view) {
-    SwitchCompat toggle = askViewHolder(view, R.id.toggle);
+    SwitchCompat toggle = ViewHolder.get(view, R.id.toggle);
     if (toggle.isChecked() != checked) toggle.toggle();
   }
 
   private void updateText(View view) {
     Context context = view.getContext();
-    TextView text = askViewHolder(view, R.id.text);
+    TextView text = ViewHolder.get(view, R.id.text);
     if (checked) {
       text.setTextColor(getColor(context, R.attr.colorAccent, Color.BLACK));
     } else {

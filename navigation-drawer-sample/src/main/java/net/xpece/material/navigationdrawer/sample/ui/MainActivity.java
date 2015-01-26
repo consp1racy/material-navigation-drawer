@@ -1,6 +1,7 @@
 package net.xpece.material.navigationdrawer.sample.ui;
 
 import android.content.res.Configuration;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
@@ -8,14 +9,19 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Toast;
+
+import com.sqisland.android.sliding_pane_layout.CrossFadeSlidingPaneLayout;
 
 import net.xpece.material.navigationdrawer.NavigationDrawerUtils;
 import net.xpece.material.navigationdrawer.descriptors.BaseNavigationItemDescriptor;
 import net.xpece.material.navigationdrawer.descriptors.NavigationItemDescriptor;
 import net.xpece.material.navigationdrawer.descriptors.NavigationSectionDescriptor;
 import net.xpece.material.navigationdrawer.descriptors.SimpleNavigationItemDescriptor;
+import net.xpece.material.navigationdrawer.internal.Utils;
 import net.xpece.material.navigationdrawer.list.NavigationListFragmentCallbacks;
+import net.xpece.material.navigationdrawer.list.SupportCompactNavigationListFragment;
 import net.xpece.material.navigationdrawer.list.SupportNavigationListFragment;
 import net.xpece.material.navigationdrawer.sample.widget.ToggleNavigationItemDescriptor;
 import net.xpece.materialnavigationdrawersample.BuildConfig;
@@ -35,10 +41,11 @@ public class MainActivity extends ActionBarActivity implements NavigationListFra
 //  Toolbar mToolbar;
 
   private static final List<NavigationSectionDescriptor> SECTIONS = new ArrayList<>();
+  private static final NavigationSectionDescriptor PRIMARY_SECTION;
   private static final NavigationSectionDescriptor PINNED_SECTION;
 
   static {
-    NavigationSectionDescriptor section = new NavigationSectionDescriptor()
+    PRIMARY_SECTION = new NavigationSectionDescriptor()
         .addItem(new SimpleNavigationItemDescriptor(1).text("Goodbye").badge("Hello").sticky()
             .iconResource(R.drawable.ic_star_black_24dp)
             .activeColorResource(R.color.material_pink_500)
@@ -49,6 +56,7 @@ public class MainActivity extends ActionBarActivity implements NavigationListFra
             .badgeColorResource(R.color.material_amber_500))
         .addItem(new SimpleNavigationItemDescriptor(3).text("Stop").badge("Go, go, go").sticky()
 //            .iconResource(R.drawable.ic_star_black_24dp)
+            .iconResource(android.R.color.transparent)
             .activeColorResource(R.color.material_pink_500)
             .badgeColorResource(R.color.material_light_green_500))
         .addItem(new SimpleNavigationItemDescriptor(4).text("Why").badge("I don't know").sticky()
@@ -58,7 +66,7 @@ public class MainActivity extends ActionBarActivity implements NavigationListFra
             .iconResource(R.drawable.ic_star_black_24dp)
             .passiveColorResource(R.color.material_amber_500).iconColorAlwaysPassiveOn()
             .badgeColor(0));
-    SECTIONS.add(section);
+    SECTIONS.add(PRIMARY_SECTION);
     NavigationSectionDescriptor section2 = new NavigationSectionDescriptor().heading("Want more?")
 //        .addItem(new SimpleNavigationItemDescriptor(5).text("Oh no").sticky()
 //            .badge("99+").badgeColor(0)
@@ -80,8 +88,21 @@ public class MainActivity extends ActionBarActivity implements NavigationListFra
   @InjectView(R.id.drawer_layout)
   DrawerLayout mDrawerLayout;
 
+  @Optional
+  @InjectView(R.id.sliding_layout)
+  CrossFadeSlidingPaneLayout mSlidingLayout;
+
+  @Optional
+  @InjectView(R.id.navigation_container)
+  ViewGroup mNavigationContainer;
+
+  @InjectView(R.id.content)
+  View mContent;
+
   ActionBarDrawerToggle mDrawerToggle;
+
   SupportNavigationListFragment mNavFragment;
+  SupportCompactNavigationListFragment mNavFragmentCompact;
 
   // retain this
   Long mSelectedItem;
@@ -95,6 +116,7 @@ public class MainActivity extends ActionBarActivity implements NavigationListFra
     setContentView(R.layout.activity_main);
     ButterKnife.inject(this);
 
+    // only setup drawer layout if there is a drawer in current layout (on phones)
     if (mDrawerLayout != null) {
       // setup drawer toggle, because i use native Action Bar and nav drawer below it
       getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -104,16 +126,38 @@ public class MainActivity extends ActionBarActivity implements NavigationListFra
       NavigationDrawerUtils.fixMinDrawerMargin(mDrawerLayout); // apply navigation margin fix
     }
 
+    // only setup sliding layout if there is one in current layout (on tablets)
+    if (mSlidingLayout != null) {
+      mSlidingLayout.setSliderFadeColor(0);
+      mSlidingLayout.setShadowResourceLeft(R.drawable.mnd_shadow_left);
+      mSlidingLayout.setShadowResourceRight(R.drawable.mnd_shadow_right);
+      NavigationDrawerUtils.setProperNavigationDrawerWidth(mNavigationContainer);
+
+      Drawable d = getResources().getDrawable(R.drawable.ic_menu_white_24dp);
+      int c = Utils.getColor(getSupportActionBar().getThemedContext(), R.attr.colorControlNormal, 0);
+      d = Utils.tintDrawable(d, c);
+      getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+      getSupportActionBar().setHomeAsUpIndicator(d);
+    }
+
+    // on phones there is no compact version, so null check is in place
+    mNavFragmentCompact = (SupportCompactNavigationListFragment) getSupportFragmentManager().findFragmentById(R.id.navigation_drawer_compact);
+    if (mNavFragmentCompact != null) {
+      List<NavigationSectionDescriptor> sections = new ArrayList<>();
+      sections.add(PRIMARY_SECTION);
+      sections.add(PINNED_SECTION);
+      mNavFragmentCompact.setSections(sections);
+    }
+
     // since the fragment is defined in layout, i can call this safely in onCreate
     mNavFragment = (SupportNavigationListFragment) getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);
-//    if (mDrawerLayout != null) {
-    NavigationDrawerUtils.setProperNavigationDrawerWidth(mNavFragment.getView());
-//    }
-
-    // set up the nav fragment
-    mNavFragment.setHeaderView(View.inflate(this, R.layout.mnd_custom_header, null));
-    mNavFragment.setSections(SECTIONS);
-    mNavFragment.setPinnedSection(PINNED_SECTION);
+    if (mNavFragment != null) {
+      NavigationDrawerUtils.setProperNavigationDrawerWidth(mNavFragment.getView());
+      // set up the nav fragment
+      mNavFragment.setHeaderView(View.inflate(this, R.layout.mnd_custom_header, null));
+      mNavFragment.setSections(SECTIONS);
+      mNavFragment.setPinnedSection(PINNED_SECTION);
+    }
 
     if (savedInstanceState == null) {
       mSelectedItem = 1l;
@@ -129,7 +173,8 @@ public class MainActivity extends ActionBarActivity implements NavigationListFra
     if (mDrawerToggle != null) mDrawerToggle.syncState();
 
     if (savedInstanceState == null) {
-      mNavFragment.setSelectedItem(mSelectedItem);
+      if (mNavFragment != null) mNavFragment.setSelectedItem(mSelectedItem);
+      if (mNavFragmentCompact != null) mNavFragmentCompact.setSelectedItem(mSelectedItem);
     }
   }
 
@@ -158,6 +203,8 @@ public class MainActivity extends ActionBarActivity implements NavigationListFra
     // Handle action bar item clicks here. The action bar will
     // automatically handle clicks on the Home/Up button, so long
     // as you specify a parent activity in AndroidManifest.xml.
+    // AUTOMATICALLY ONLY ON 4.1+ !!!
+
     int id = item.getItemId();
 
     //noinspection SimplifiableIfStatement
@@ -165,6 +212,11 @@ public class MainActivity extends ActionBarActivity implements NavigationListFra
       return true;
     } else if (id == android.R.id.home) {
       if (mDrawerToggle != null) return mDrawerToggle.onOptionsItemSelected(item);
+      if (mSlidingLayout != null) {
+        if (mSlidingLayout.isOpen()) mSlidingLayout.closePane();
+        else mSlidingLayout.openPane();
+        return true;
+      }
     }
 
     return super.onOptionsItemSelected(item);
@@ -175,11 +227,20 @@ public class MainActivity extends ActionBarActivity implements NavigationListFra
     if (mToast != null) mToast.cancel();
     mToast = Toast.makeText(this, "Item #" + id + " on position " + position + " selected!", Toast.LENGTH_SHORT);
     mToast.show();
-    mSelectedItem = id;
+
+    if (item != null && item.isSticky()) {
+      // if it is sticky, save selected position and mark in all fragments
+      mSelectedItem = id;
+      if (mNavFragment != null) mNavFragment.setSelectedItem(id);
+      if (mNavFragmentCompact != null) mNavFragmentCompact.setSelectedItem(id);
+    } else {
+//      if (mNavFragment != null) mNavFragment.setSelectedItem(id);
+//      if (mNavFragmentCompact != null) mNavFragmentCompact.setSelectedItem(id);
+    }
 
     if (id == 8) return; // custom toggle does not close the drawer
 
-//    mDrawerLayout.closeDrawers(); // uncomment to close drawer on item selected
+//    if (mDrawerLayout != null) mDrawerLayout.closeDrawers(); // uncomment to close drawer on item selected
   }
 
 }

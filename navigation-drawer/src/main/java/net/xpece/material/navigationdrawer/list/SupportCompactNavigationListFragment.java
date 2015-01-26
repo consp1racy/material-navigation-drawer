@@ -20,21 +20,21 @@ import java.util.List;
 /**
  * Created by Eugen on 11. 1. 2015.
  */
-public class SupportNavigationListFragment extends Fragment implements NavigationListFragmentImpl {
+public class SupportCompactNavigationListFragment extends Fragment implements CompactNavigationListFragmentImpl {
 
-  private final NavigationListFragmentDelegate mDelegate = new NavigationListFragmentDelegate() {
+  private final CompactNavigationListFragmentDelegate mDelegate = new CompactNavigationListFragmentDelegate() {
     @Override
     public Activity getActivity() {
-      return SupportNavigationListFragment.this.getActivity();
+      return SupportCompactNavigationListFragment.this.getActivity();
     }
 
     @Override
     public View getView() {
-      return SupportNavigationListFragment.this.getView();
+      return SupportCompactNavigationListFragment.this.getView();
     }
   };
 
-  public SupportNavigationListFragment() {
+  public SupportCompactNavigationListFragment() {
   }
 
   @Override
@@ -45,11 +45,6 @@ public class SupportNavigationListFragment extends Fragment implements Navigatio
   @Override
   public void setSections(List<NavigationSectionDescriptor> sections) {
     mDelegate.setSections(sections);
-  }
-
-  @Override
-  public void setPinnedSection(NavigationSectionDescriptor section) {
-    mDelegate.setPinnedSection(section);
   }
 
   @Override

@@ -1,0 +1,46 @@
+<com.sqisland.android.sliding_pane_layout.CrossFadeSlidingPaneLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/sliding_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+  <FrameLayout
+      android:id="@+id/navigation_container"
+      android:layout_width="wrap_content"
+      android:layout_height="match_parent">
+
+    <fragment
+        android:name="net.xpece.material.navigationdrawer.list.SupportNavigationListFragment"
+        android:id="@+id/navigation_drawer"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        tools:layout="@layout/mnd_list"/>
+
+    <fragment
+        android:name="net.xpece.material.navigationdrawer.list.SupportCompactNavigationListFragment"
+        android:id="@+id/navigation_drawer_compact"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        tools:layout="@layout/mnd_list_compact"/>
+  </FrameLayout>
+
+  <RelativeLayout
+      android:id="@+id/content"
+      android:layout_marginLeft="72dp"
+      android:layout_marginStart="72dp"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:paddingLeft="@dimen/activity_horizontal_margin"
+      android:paddingRight="@dimen/activity_horizontal_margin"
+      android:paddingTop="@dimen/activity_vertical_margin"
+      android:paddingBottom="@dimen/activity_vertical_margin"
+      tools:context=".MainActivity">
+
+    <TextView
+        android:text="@string/hello_world"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+  </RelativeLayout>
+</com.sqisland.android.sliding_pane_layout.CrossFadeSlidingPaneLayout>

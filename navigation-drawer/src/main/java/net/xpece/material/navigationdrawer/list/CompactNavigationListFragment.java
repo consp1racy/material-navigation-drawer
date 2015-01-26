@@ -1,13 +1,13 @@
 package net.xpece.material.navigationdrawer.list;
 
 import android.app.Activity;
+import android.app.Fragment;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.AttrRes;
 import android.support.annotation.ColorRes;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,21 +20,21 @@ import java.util.List;
 /**
  * Created by Eugen on 11. 1. 2015.
  */
-public class SupportNavigationListFragment extends Fragment implements NavigationListFragmentImpl {
+public class CompactNavigationListFragment extends Fragment implements CompactNavigationListFragmentImpl {
 
-  private final NavigationListFragmentDelegate mDelegate = new NavigationListFragmentDelegate() {
+  private final CompactNavigationListFragmentDelegate mDelegate = new CompactNavigationListFragmentDelegate() {
     @Override
     public Activity getActivity() {
-      return SupportNavigationListFragment.this.getActivity();
+      return CompactNavigationListFragment.this.getActivity();
     }
 
     @Override
     public View getView() {
-      return SupportNavigationListFragment.this.getView();
+      return CompactNavigationListFragment.this.getView();
     }
   };
 
-  public SupportNavigationListFragment() {
+  public CompactNavigationListFragment() {
   }
 
   @Override
@@ -45,11 +45,6 @@ public class SupportNavigationListFragment extends Fragment implements Navigatio
   @Override
   public void setSections(List<NavigationSectionDescriptor> sections) {
     mDelegate.setSections(sections);
-  }
-
-  @Override
-  public void setPinnedSection(NavigationSectionDescriptor section) {
-    mDelegate.setPinnedSection(section);
   }
 
   @Override
@@ -95,8 +90,8 @@ public class SupportNavigationListFragment extends Fragment implements Navigatio
 
   @Override
   public void onDetach() {
-    mDelegate.onDetach();
     super.onDetach();
+    mDelegate.onDetach();
   }
 
   @Override
@@ -108,12 +103,8 @@ public class SupportNavigationListFragment extends Fragment implements Navigatio
   @Nullable
   @Override
   public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-    return mDelegate.onCreateView(inflater, container, savedInstanceState);
-  }
-
-  @Override
-  public void onViewCreated(View view, Bundle savedInstanceState) {
-    super.onViewCreated(view, savedInstanceState);
+    View view = mDelegate.onCreateView(inflater, container, savedInstanceState);
     mDelegate.onViewCreated(view, savedInstanceState);
+    return view;
   }
 }

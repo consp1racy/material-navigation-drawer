@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:paddingLeft="@dimen/mnd_padding_horizontal"
@@ -17,31 +17,8 @@
       android:scaleType="fitStart"
       android:layout_marginLeft="@dimen/mnd_unit_double"
       android:layout_marginStart="@dimen/mnd_unit_double"
-      android:layout_centerVertical="true"
+      android:layout_gravity="center_vertical"
       tools:ignore="ContentDescription"/>
-
-  <TextView
-      android:visibility="gone"
-      tools:visibility="visible"
-      tools:text="@android:string/emptyPhoneNumber"
-      android:background="?android:colorForeground"
-      android:textColor="?android:textColorPrimaryInverseNoDisable"
-      android:id="@+id/badge"
-      android:layout_alignParentEnd="true"
-      android:layout_alignParentRight="true"
-      android:layout_marginEnd="@dimen/mnd_unit"
-      android:layout_marginRight="@dimen/mnd_unit"
-      android:layout_centerVertical="true"
-      android:gravity="center"
-      android:textAppearance="@style/TextAppearance.MaterialNavigationDrawer.Badge"
-      android:paddingLeft="@dimen/mnd_unit"
-      android:paddingRight="@dimen/mnd_unit"
-      android:ellipsize="middle"
-      android:maxLines="1"
-      android:minWidth="@dimen/mnd_icon_size_medium"
-      android:layout_width="wrap_content"
-      android:layout_height="@dimen/mnd_icon_size_small"/>
-  <!--android:maxWidth="@dimen/mnd_icon_size_large"-->
 
   <TextView
       android:layout_marginLeft="@dimen/mnd_unit_double"
@@ -53,12 +30,30 @@
       android:ellipsize="end"
       android:layout_width="0dp"
       android:layout_height="wrap_content"
-      android:layout_toRightOf="@+id/icon"
-      android:layout_toEndOf="@+id/icon"
-      android:layout_toLeftOf="@+id/badge"
-      android:layout_toStartOf="@+id/badge"
-      android:layout_alignWithParentIfMissing="true"
-      android:layout_centerVertical="true"
+      android:layout_weight="1"
+      android:layout_gravity="center_vertical"
       android:textAppearance="@style/TextAppearance.MaterialNavigationDrawer.Item"
       android:maxLines="1"/>
-</RelativeLayout>
+
+  <TextView
+      android:visibility="gone"
+      tools:visibility="visible"
+      tools:text="@android:string/emptyPhoneNumber"
+      android:background="?android:colorForeground"
+      android:textColor="?android:textColorPrimaryInverseNoDisable"
+      android:id="@+id/badge"
+      android:layout_gravity="center_vertical"
+      android:gravity="center"
+      android:textAppearance="@style/TextAppearance.MaterialNavigationDrawer.Badge"
+      android:paddingLeft="@dimen/mnd_unit"
+      android:paddingRight="@dimen/mnd_unit"
+      android:ellipsize="middle"
+      android:maxLines="1"
+      android:minWidth="@dimen/mnd_icon_size_medium"
+      android:layout_width="wrap_content"
+      android:layout_height="@dimen/mnd_icon_size_small"/>
+  <!--android:maxWidth="@dimen/mnd_icon_size_large"-->
+  <View
+      android:layout_width="@dimen/mnd_unit"
+      android:layout_height="0dp"/>
+</LinearLayout>
