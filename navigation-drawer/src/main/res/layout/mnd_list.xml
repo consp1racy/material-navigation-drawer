@@ -9,7 +9,7 @@
   <!--android:orientation="vertical"-->
 
   <ListView
-      tools:listitem="@layout/mnd_item"
+      tools:listitem="@layout/mnd_item_simple"
       android:id="@+id/mnd_list"
       android:dividerHeight="0dp"
       android:divider="@android:color/transparent"

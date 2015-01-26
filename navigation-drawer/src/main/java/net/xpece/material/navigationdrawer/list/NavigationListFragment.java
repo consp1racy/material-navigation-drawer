@@ -12,7 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import net.xpece.material.navigationdrawer.descriptors.NavigationItemDescriptor;
+import net.xpece.material.navigationdrawer.descriptors.CompositeNavigationItemDescriptor;
 import net.xpece.material.navigationdrawer.descriptors.NavigationSectionDescriptor;
 
 import java.util.List;
@@ -38,7 +38,7 @@ public class NavigationListFragment extends Fragment implements NavigationListFr
   }
 
   @Override
-  public void setItems(List<? extends NavigationItemDescriptor> items) {
+  public void setItems(List<? extends CompositeNavigationItemDescriptor> items) {
     mDelegate.setItems(items);
   }
 

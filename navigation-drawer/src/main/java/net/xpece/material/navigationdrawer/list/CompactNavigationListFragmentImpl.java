@@ -19,7 +19,7 @@ import java.util.List;
 /**
  * Created by Eugen on 11. 1. 2015.
  */
-interface NavigationListFragmentImpl {
+interface CompactNavigationListFragmentImpl {
   void onAttach(Activity activity);
 
   void onDetach();
@@ -33,8 +33,6 @@ interface NavigationListFragmentImpl {
   void setItems(List<? extends CompositeNavigationItemDescriptor> items);
 
   void setSections(List<NavigationSectionDescriptor> sections);
-
-  void setPinnedSection(NavigationSectionDescriptor section);
 
   void setHeaderView(View view);
 
