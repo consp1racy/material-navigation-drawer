@@ -53,8 +53,8 @@ public class SupportNavigationListFragment extends Fragment implements Navigatio
   }
 
   @Override
-  public void setHeaderView(View view) {
-    mDelegate.setHeaderView(view);
+  public void setHeaderView(View view, boolean clickable) {
+    mDelegate.setHeaderView(view, clickable);
   }
 
   @Override

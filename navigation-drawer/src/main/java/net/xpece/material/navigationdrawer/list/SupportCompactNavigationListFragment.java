@@ -20,7 +20,8 @@ import java.util.List;
 /**
  * Created by Eugen on 11. 1. 2015.
  */
-public class SupportCompactNavigationListFragment extends Fragment implements CompactNavigationListFragmentImpl {
+public class SupportCompactNavigationListFragment extends Fragment
+    implements CompactNavigationListFragmentImpl {
 
   private final CompactNavigationListFragmentDelegate mDelegate = new CompactNavigationListFragmentDelegate() {
     @Override
@@ -48,8 +49,8 @@ public class SupportCompactNavigationListFragment extends Fragment implements Co
   }
 
   @Override
-  public void setHeaderView(View view) {
-    mDelegate.setHeaderView(view);
+  public void setHeaderView(View view, boolean clickable) {
+    mDelegate.setHeaderView(view, clickable);
   }
 
   @Override

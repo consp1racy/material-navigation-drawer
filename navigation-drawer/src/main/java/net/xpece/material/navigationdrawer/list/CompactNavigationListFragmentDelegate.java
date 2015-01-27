@@ -133,7 +133,7 @@ abstract class CompactNavigationListFragmentDelegate implements
    * @param view
    */
   @Override
-  public void setHeaderView(View view) {
+  public void setHeaderView(View view, boolean clickable) {
     if (view == mHeader) return;
     if (mHeader != null) {
       mListView.removeHeaderView(mHeader);
@@ -142,7 +142,7 @@ abstract class CompactNavigationListFragmentDelegate implements
       if (mListView != null) {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) {
           if (mListView.getAdapter() != null) mListView.setAdapter(null);
-          mListView.addHeaderView(view);
+          mListView.addHeaderView(view, null, clickable);
           if (mAdapter != null) mListView.setAdapter(mAdapter);
         } else {
           mListView.addHeaderView(view);

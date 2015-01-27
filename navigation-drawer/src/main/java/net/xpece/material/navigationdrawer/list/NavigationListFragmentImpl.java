@@ -36,7 +36,7 @@ interface NavigationListFragmentImpl {
 
   void setPinnedSection(NavigationSectionDescriptor section);
 
-  void setHeaderView(View view);
+  void setHeaderView(View view, boolean clickable);
 
   void notifyDataSetChanged();
 

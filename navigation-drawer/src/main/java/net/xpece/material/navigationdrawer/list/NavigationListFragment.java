@@ -53,8 +53,8 @@ public class NavigationListFragment extends Fragment implements NavigationListFr
   }
 
   @Override
-  public void setHeaderView(View view) {
-    mDelegate.setHeaderView(view);
+  public void setHeaderView(View view, boolean clickable) {
+    mDelegate.setHeaderView(view, clickable);
   }
 
   @Override

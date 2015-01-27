@@ -48,8 +48,8 @@ public class CompactNavigationListFragment extends Fragment implements CompactNa
   }
 
   @Override
-  public void setHeaderView(View view) {
-    mDelegate.setHeaderView(view);
+  public void setHeaderView(View view, boolean clickable) {
+    mDelegate.setHeaderView(view, clickable);
   }
 
   @Override

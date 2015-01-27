@@ -34,7 +34,7 @@ interface CompactNavigationListFragmentImpl {
 
   void setSections(List<NavigationSectionDescriptor> sections);
 
-  void setHeaderView(View view);
+  void setHeaderView(View view, boolean clickable);
 
   void notifyDataSetChanged();
 

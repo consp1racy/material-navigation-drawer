@@ -154,7 +154,7 @@ public class MainActivity extends ActionBarActivity implements NavigationListFra
     if (mNavFragment != null) {
       NavigationDrawerUtils.setProperNavigationDrawerWidth(mNavFragment.getView());
       // set up the nav fragment
-      mNavFragment.setHeaderView(View.inflate(this, R.layout.mnd_custom_header, null));
+      mNavFragment.setHeaderView(View.inflate(this, R.layout.mnd_custom_header, null), true);
       mNavFragment.setSections(SECTIONS);
       mNavFragment.setPinnedSection(PINNED_SECTION);
     }
