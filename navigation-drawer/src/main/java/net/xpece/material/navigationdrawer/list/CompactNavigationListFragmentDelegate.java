@@ -26,8 +26,6 @@ import net.xpece.material.navigationdrawer.internal.Utils;
 import java.util.ArrayList;
 import java.util.List;
 
-import hugo.weaving.DebugLog;
-
 /**
  * Created by pechanecjr on 14. 12. 2014.
  */
@@ -109,18 +107,17 @@ abstract class CompactNavigationListFragmentDelegate implements
     updateSections();
   }
 
-  @DebugLog
   private void updateSections() {
     if (getView() == null) return;
 
-    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) {
-      mListView.setAdapter(null);
-    }
+//    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) {
+//      mListView.setAdapter(null);
+//    }
     mAdapter = new CompactNavigationListAdapter(mSections);
     mAdapter.setActivatedItem(mLastSelected);
-    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) {
-      if (mHeader != null) mListView.addHeaderView(mHeader);
-    }
+//    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) {
+//      if (mHeader != null) mListView.addHeaderView(mHeader);
+//    }
     mListView.setAdapter(mAdapter);
 //    mListView.setSelection(mLastSelected);
   }
@@ -233,7 +230,6 @@ abstract class CompactNavigationListFragmentDelegate implements
     }
   }
 
-  @DebugLog
   private void trySelectPosition(final int itemPosition) {
     final int listPosition = itemPosition + mListView.getHeaderViewsCount();
 //    if (listPosition == mLastSelected) return;

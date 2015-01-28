@@ -13,7 +13,7 @@ How to get the library?
 To use this library add the following to your module's `build.gradle`:
 ```groovy
 dependencies {
-    compile 'net.xpece.material:navigation-drawer:0.5.0@aar'
+    compile 'net.xpece.material:navigation-drawer:0.5.1@aar'
 }
 ```
 
@@ -86,9 +86,10 @@ Extend either `BaseNavigationItemDescriptor` or `AbsNavigationItemDescriptor`. B
 Changelog
 ---------
 
-**0.5.0**
+**0.5.1**
 - *NEW!* Introduced collapsed version of navigation list
 - *NEW!* Included Chiu-Ki Chan's [`CrossFadeSlidingPaneLayout`](https://github.com/chiuki/sliding-pane-layout) for convenience
+- *CRITICAL BUG FIX:* Header View now works correctly before KITKAT
 
 **0.4.3**
 - *NEW!* Introduced custom view types support
