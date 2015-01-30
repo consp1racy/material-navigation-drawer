@@ -41,7 +41,7 @@ To set proper drawer width according to specs call `NavigationDrawerUtils.setPro
 
 The width will be one of the following:
 - On phones: Smallest screen width minus 56dp, maximum 280dp. The width is same in both portrait and landscape.
-- On tablets: Effectively always 320dp.
+- On tablets: ~~Effectively always 320dp.~~ 280dp. Because it looks better (on 7" tablet the drawer has less than half screen width) and everyone's using it.
 
 **I want the drawer to have a different background!**
 
@@ -144,23 +144,26 @@ Work TBD
 
  - Better API, factories, copying element prototypes
  - Custom passive text color
- - Collapsed layout option on tablets
 
 Screenshots
 -----------
 
-v0.4.0 on `LOLLIPOP`
+`JELLYBEAN` light theme
 
-![Lollipop Portrait](./docs/device-2015-01-11-0.4.0-v21-port.png)
+![Jellybean Portrait](./docs/device-2015-01-03-0.3.0-v16-port.gif)&nbsp;
+![Jellybean Landscape](./docs/device-2015-01-03-0.3.0-v16-land.gif)
 
-v0.3.0 on `JELLYBEAN`
+`LOLLIPOP` light theme
 
-![Jellybean Portrait](./docs/device-2015-01-03-0.3.0-v16-port.png)
+![Lollipop Portrait](./docs/device-2015-01-11-0.4.0-v21-port.gif)&nbsp;
+ ![Lollipop Landscape](./docs/device-2015-01-11-0.4.0-v21-land.gif)
 
-v0.4.0 on `LOLLIPOP` in landscape mode
+`LOLLIPOP` dark theme
 
-![Lollipop Landscape](./docs/device-2015-01-11-0.4.0-v21-land.png)
+![Lollipop Portrait Dark](./docs/device-2015-01-03-0.3.0-v21-port-black.gif)&nbsp;
+ ![Lollipop Landscape Dark](./docs/device-2015-01-03-0.3.0-v21-land-black.gif)
 
-v0.3.0 on `LOLLIPOP` in landscape using a dark theme
+`LOLLIPOP` tablet
 
-![Lollipop Landscape Dark](./docs/device-2015-01-03-0.3.0-v21-land-black.png)
+![Lollipop Tablet Expanded](./docs/device-2015-01-26-0.5.0-v21-port.gif)&nbsp;
+ ![Lollipop Tablet Collapsed](./docs/device-2015-01-30-0.5.1-v21-port.gif)
