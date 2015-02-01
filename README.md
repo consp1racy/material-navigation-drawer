@@ -13,7 +13,7 @@ How to get the library?
 To use this library add the following to your module's `build.gradle`:
 ```groovy
 dependencies {
-    compile 'net.xpece.material:navigation-drawer:0.5.1@aar'
+    compile 'net.xpece.material:navigation-drawer:0.5.2@aar'
 }
 ```
 
@@ -85,6 +85,9 @@ Extend either `BaseNavigationItemDescriptor` or `AbsNavigationItemDescriptor`. B
 
 Changelog
 ---------
+
+**0.5.2**
+- *NEW!* Support from API 4
 
 **0.5.1**
 - *NEW!* Introduced collapsed version of navigation list
@@ -167,3 +170,8 @@ Screenshots
 
 ![Lollipop Tablet Expanded](./docs/device-2015-01-26-0.5.0-v21-port.gif)&nbsp;
  ![Lollipop Tablet Collapsed](./docs/device-2015-01-30-0.5.1-v21-port.gif)
+
+`GINGERBREAD`
+
+![Gingerbread Portrait](./docs/device-2015-01-31-0.5.2-v10-port.gif)&nbsp;
+ ![Gingerbread Landscape](./docs/device-2015-01-31-0.5.2-v10-land.gif)

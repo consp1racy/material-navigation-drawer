@@ -1,6 +1,7 @@
 package net.xpece.material.navigationdrawer.list;
 
 import android.app.Activity;
+import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
@@ -235,8 +236,13 @@ abstract class NavigationListFragmentDelegate implements
         view = mPinnedContainer.getChildAt(i + offset);
         item.loadInto(view, false);
       } else {
-        view = item.createView(getActivity(), mPinnedContainer);
-        Utils.setBackground(view, Utils.getDrawable(getActivity(), android.R.attr.selectableItemBackground));
+        Context context = getActivity();
+        view = item.createView(context, mPinnedContainer);
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB) {
+          Utils.setBackground(view, context.getResources().getDrawable(android.R.drawable.list_selector_background));
+        } else {
+          Utils.setBackground(view, Utils.getDrawable(context, android.R.attr.selectableItemBackground));
+        }
         mPinnedContainer.addView(view);
       }
       final int relativePosition = i;

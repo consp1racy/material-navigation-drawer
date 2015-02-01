@@ -216,9 +216,27 @@ public class BaseNavigationItemDescriptor extends AbsNavigationItemDescriptor
     String textString = getText(context);
     int textColor = Utils.getColor(context, android.R.attr.textColorPrimary, 0xde000000);
 
+    text.setText(textString);
+    if (selected) {
+      text.setTextAppearance(context, R.style.TextAppearance_MaterialNavigationDrawer_Item_Selected);
+      text.setTextColor(activeColor);
+    } else {
+      text.setTextAppearance(context, R.style.TextAppearance_MaterialNavigationDrawer_Item);
+      text.setTextColor(textColor);
+    }
+//    text.setTextColor(Utils.createActivatedColor(textColor, activeColor));
+
     if (iconDrawable != null) {
       if (tintIcon) {
-        icon.setImageDrawable(Utils.createActivatedDrawable(iconDrawable, passiveColor, activeColor));
+//        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB) {
+        if (selected) {
+          icon.setImageDrawable(Utils.tintDrawable(iconDrawable, activeColor));
+        } else {
+          icon.setImageDrawable(Utils.tintDrawable(iconDrawable, passiveColor));
+        }
+//        } else {
+//          icon.setImageDrawable(Utils.createActivatedDrawable(iconDrawable, passiveColor, activeColor));
+//        }
       } else {
         icon.setImageDrawable(Utils.tintDrawable(iconDrawable, passiveColor));
       }
@@ -227,13 +245,6 @@ public class BaseNavigationItemDescriptor extends AbsNavigationItemDescriptor
       icon.setVisibility(View.INVISIBLE);
       icon.setImageDrawable(null);
     }
-    text.setText(textString);
-    if (selected) {
-      text.setTextAppearance(context, R.style.TextAppearance_MaterialNavigationDrawer_Item_Selected);
-    } else {
-      text.setTextAppearance(context, R.style.TextAppearance_MaterialNavigationDrawer_Item);
-    }
-    text.setTextColor(Utils.createActivatedColor(textColor, activeColor));
   }
 
   @Override

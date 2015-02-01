@@ -1,11 +1,13 @@
 package net.xpece.material.navigationdrawer.sample.ui;
 
+import android.annotation.SuppressLint;
 import android.content.res.Configuration;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -110,6 +112,7 @@ public class MainActivity extends ActionBarActivity implements NavigationListFra
   // so I can show new toast immediately
   Toast mToast = null;
 
+  @SuppressLint("RtlHardcoded")
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -123,7 +126,12 @@ public class MainActivity extends ActionBarActivity implements NavigationListFra
       getSupportActionBar().setHomeButtonEnabled(true);
       mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, android.R.string.untitled, android.R.string.untitled);
       mDrawerLayout.setDrawerListener(mDrawerToggle);
+
       NavigationDrawerUtils.fixMinDrawerMargin(mDrawerLayout); // apply navigation margin fix
+
+      // the following are correct the RIGHT drawer drops shadow to LEFT and vice versa
+      mDrawerLayout.setDrawerShadow(R.drawable.mnd_shadow_left, Gravity.RIGHT);
+      mDrawerLayout.setDrawerShadow(R.drawable.mnd_shadow_right, Gravity.LEFT);
     }
 
     // only setup sliding layout if there is one in current layout (on tablets)

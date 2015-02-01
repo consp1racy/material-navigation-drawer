@@ -97,6 +97,8 @@ class CompactNavigationListAdapter extends BaseAdapter {
       view.setMinimumHeight(minSize);
       view.setMinimumWidth(minSize);
       view.setScaleType(ImageView.ScaleType.CENTER);
+
+      Utils.setBackground(view, Utils.createActivatedDrawable(0, Utils.createActivatedColor(context)));
     } else {
       view = (ImageView) convertView;
     }
@@ -118,8 +120,6 @@ class CompactNavigationListAdapter extends BaseAdapter {
 //      throw new IllegalStateException(TAG + ": Provided null drawable for id=" +item.getId());
     }
     view.setContentDescription(textString);
-
-    Utils.setBackground(view, Utils.createActivatedDrawable(0, Utils.createActivatedColor(context)));
 
     // TODO selected position ...?
 

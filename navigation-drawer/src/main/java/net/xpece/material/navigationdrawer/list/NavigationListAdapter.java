@@ -168,10 +168,11 @@ class NavigationListAdapter extends BaseAdapter {
 
 //      case TYPE_ITEM: {
       default: {
+        Context context = parent.getContext();
         CompositeNavigationItemDescriptor item = (CompositeNavigationItemDescriptor) getItem(position);
 
         if (convertView == null) {
-          view = LayoutInflater.from(parent.getContext()).inflate(item.getLayoutId(), parent, false);
+          view = item.createView(context, parent);
         } else {
           view = convertView;
         }

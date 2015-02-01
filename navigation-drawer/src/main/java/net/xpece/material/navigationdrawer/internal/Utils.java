@@ -65,7 +65,7 @@ public class Utils {
     int b = background & 0xff;
     double a = computeTextColorAlgorithm2(r, g, b);
 //    Log.w("#computeTextColor", "r=" + r + ", g=" + g + ", b=" + b + ", contrast=" + a);
-    if ((int)(a * 100) <= 50) // light blue was so close that i just had to do this ^^
+    if ((int) (a * 100) <= 50) // light blue was so close that i just had to do this ^^
       return context.getResources().getColor(R.color.mnd_text_primary_dark);
     else
       return context.getResources().getColor(R.color.mnd_text_primary_light);
@@ -84,6 +84,7 @@ public class Utils {
     return (0.299 * r + 0.587 * g + 0.114 * b) / 255;
   }
 
+  @TargetApi(Build.VERSION_CODES.HONEYCOMB)
   public static Drawable createActivatedDrawable(Drawable drawable, int passive, int active) {
     ColorFilterStateListDrawable stateful = new ColorFilterStateListDrawable();
     stateful.addState(new int[]{android.R.attr.state_activated}, drawable, active);
@@ -91,6 +92,7 @@ public class Utils {
     return stateful;
   }
 
+  @TargetApi(Build.VERSION_CODES.HONEYCOMB)
   public static Drawable createActivatedDrawable(int passive, int active) {
     StateListDrawable stateful = new StateListDrawable();
     stateful.addState(new int[]{android.R.attr.state_activated}, new ColorDrawable(active));
@@ -98,6 +100,7 @@ public class Utils {
     return stateful;
   }
 
+  @TargetApi(Build.VERSION_CODES.HONEYCOMB)
   public static ColorStateList createActivatedColor(int passive, int active) {
     return new ColorStateList(
         new int[][]{new int[]{android.R.attr.state_activated}, StateSet.WILD_CARD},

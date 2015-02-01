@@ -1,7 +1,6 @@
 package net.xpece.material.navigationdrawer.descriptors;
 
 import android.content.Context;
-import android.content.res.ColorStateList;
 import android.support.annotation.AttrRes;
 import android.support.annotation.ColorRes;
 import android.support.annotation.DrawableRes;
@@ -170,10 +169,19 @@ public final class SimpleNavigationItemDescriptor extends BaseNavigationItemDesc
       if (badgeColor == 0) {
         badge.setBackgroundColor(0);
         badge.setTextAppearance(context, R.style.TextAppearance_MaterialNavigationDrawer_Badge_NoBackground);
-        int textColorPrimary = Utils.getColor(context, android.R.attr.textColorPrimary, 0xde000000);
-        int textColorSecondary = Utils.getColor(context, android.R.attr.textColorSecondary, 0x89000000);
-        ColorStateList badgeTextColor = Utils.createActivatedColor(textColorSecondary, textColorPrimary);
-        badge.setTextColor(badgeTextColor);
+
+//        int textColorPrimary = Utils.getColor(context, android.R.attr.textColorPrimary, 0xde000000);
+//        int textColorSecondary = Utils.getColor(context, android.R.attr.textColorSecondary, 0x89000000);
+//        ColorStateList badgeTextColor = Utils.createActivatedColor(textColorSecondary, textColorPrimary);
+//        badge.setTextColor(badgeTextColor);
+
+        int textColor;
+        if (selected) {
+          textColor = Utils.getColor(context, android.R.attr.textColorPrimary, 0xde000000);
+        } else {
+          textColor = Utils.getColor(context, android.R.attr.textColorSecondary, 0x89000000);
+        }
+        badge.setTextColor(textColor);
       } else {
         Utils.setBackground(badge, Utils.createRoundRect(context, badgeColor, 1));
         badge.setTextAppearance(context, R.style.TextAppearance_MaterialNavigationDrawer_Badge);
