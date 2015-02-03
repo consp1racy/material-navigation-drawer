@@ -5,7 +5,7 @@ Navigation Drawer according to Material Design spec.
 
 Contains native and support fragments of expanded and collapsed navigation list for use with `DrawerLayout` or Chiu-Ki Chan's `CrossFadeSlidingPaneLayout` (included).
 
-Available from API 11. Lowering is not planned.
+~~Available from API 11. Lowering is not planned.~~ The library is now available from API 4! *YAY!*
 
 How to get the library?
 -----------------------
