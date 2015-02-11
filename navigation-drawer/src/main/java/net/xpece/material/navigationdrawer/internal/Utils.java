@@ -14,6 +14,7 @@ import android.os.Build;
 import android.support.annotation.AttrRes;
 import android.support.annotation.ColorRes;
 import android.support.annotation.DrawableRes;
+import android.util.Log;
 import android.util.StateSet;
 import android.util.TypedValue;
 import android.view.View;
@@ -25,6 +26,28 @@ import net.xpece.material.navigationdrawer.R;
  * Created by pechanecjr on 14. 12. 2014.
  */
 public class Utils {
+
+  public static final int APPCOMPAT_ATTR_SELECTABLE_ITEM_BACKGROUND;
+  public static final int APPCOMPAT_ATTR_ACTIVATED_BACKGROUND_INDICATOR;
+
+  static {
+    final String clsName = "android.support.v7.appcompat.R$attr";
+    int selectableItemBackground;
+    int activatedBackgroundIndicator;
+    try {
+      selectableItemBackground = Class.forName(clsName).getField("selectableItemBackground").getInt(null);
+    } catch (Exception e) {
+      selectableItemBackground = 0;
+    }
+    try {
+      activatedBackgroundIndicator = Class.forName(clsName).getField("activatedBackgroundIndicator").getInt(null);
+    } catch (Exception e) {
+      activatedBackgroundIndicator = 0;
+    }
+    APPCOMPAT_ATTR_SELECTABLE_ITEM_BACKGROUND = selectableItemBackground;
+    APPCOMPAT_ATTR_ACTIVATED_BACKGROUND_INDICATOR = activatedBackgroundIndicator;
+  }
+
   private Utils() {
   }
 
@@ -175,6 +198,32 @@ public class Utils {
 
   public static int createActivatedColor(Context context) {
     return Utils.getColor(context, android.R.attr.colorForeground, 0) & 0x1effffff;
+  }
+
+  @TargetApi(Build.VERSION_CODES.HONEYCOMB)
+  public static Drawable getSelectorDrawable(Context context) {
+    Drawable d = null;
+    if (APPCOMPAT_ATTR_SELECTABLE_ITEM_BACKGROUND != 0) {
+      Log.d("", APPCOMPAT_ATTR_SELECTABLE_ITEM_BACKGROUND + "");
+      d = getDrawable(context, APPCOMPAT_ATTR_SELECTABLE_ITEM_BACKGROUND);
+    }
+    if (d != null) return d;
+
+    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB) {
+      return context.getResources().getDrawable(android.R.drawable.list_selector_background);
+    } else {
+      return getDrawable(context, android.R.attr.selectableItemBackground);
+    }
+  }
+
+  public static Drawable getActivatedDrawable(Context context) {
+//    return new ColorDrawable(createActivatedColor(context));
+    Drawable active = context.getResources().getDrawable(R.drawable.mnd_selected_item_background);
+    return active;
+//    StateListDrawable result = new StateListDrawable();
+//    result.addState(new int[]{android.R.attr.state_pressed}, new ColorDrawable(0));
+//    result.addState(StateSet.WILD_CARD, active);
+//    return result;
   }
 
 }

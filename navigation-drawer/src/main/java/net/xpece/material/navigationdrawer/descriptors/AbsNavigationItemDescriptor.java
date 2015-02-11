@@ -1,7 +1,8 @@
 package net.xpece.material.navigationdrawer.descriptors;
 
 import android.content.Context;
-import android.os.Build;
+import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,7 +20,7 @@ public abstract class AbsNavigationItemDescriptor implements CompositeNavigation
     this.id = id;
   }
 
-  private int mActive, mPassive;
+  private Drawable mActive, mPassive;
 
   @Override
   public long getId() {
@@ -33,27 +34,21 @@ public abstract class AbsNavigationItemDescriptor implements CompositeNavigation
 
   @Override
   public void loadInto(View view, boolean selected) {
-    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB) {
+//    if (Build.VERSION.SDK_INT < 21) {
       if (selected) {
-        view.setBackgroundColor(mActive);
+        Utils.setBackground(view, mActive);
       } else {
-        view.setBackgroundColor(mPassive);
+        Utils.setBackground(view, new ColorDrawable(0));
       }
-    }
-//    else {
-//      Utils.setBackground(view, Utils.createActivatedDrawable(mPassive, mActive));
 //    }
   }
 
   @Override
   public final View createView(Context context, ViewGroup parent) {
-    mActive = Utils.createActivatedColor(context);
-    mPassive = 0;
+    mActive = Utils.getActivatedDrawable(context);
+//    mPassive = Utils.getSelectorDrawable(context);
 
     View view = LayoutInflater.from(context).inflate(getLayoutId(), parent, false);
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-      Utils.setBackground(view, Utils.createActivatedDrawable(mPassive, mActive));
-    }
     loadInto(view, false);
     return view;
   }

@@ -20,7 +20,6 @@ import android.widget.ListView;
 
 import net.xpece.material.navigationdrawer.BuildConfig;
 import net.xpece.material.navigationdrawer.R;
-import net.xpece.material.navigationdrawer.descriptors.AbsNavigationItemDescriptor;
 import net.xpece.material.navigationdrawer.descriptors.CompositeNavigationItemDescriptor;
 import net.xpece.material.navigationdrawer.descriptors.NavigationItemDescriptor;
 import net.xpece.material.navigationdrawer.descriptors.NavigationSectionDescriptor;
@@ -150,9 +149,17 @@ abstract class NavigationListFragmentDelegate implements
 
   @Override
   public void onViewCreated(final View view, @Nullable Bundle savedInstanceState) {
-    mPinnedDivider.setBackgroundColor(Utils.createDividerColor(getActivity()));
+    Context context = view.getContext();
+
+    mPinnedDivider.setBackgroundColor(Utils.createDividerColor(context));
 
     mListView.setOnItemClickListener(this);
+
+//    if (Build.VERSION.SDK_INT < 21) {
+//      mListView.setSelector(new ColorDrawable(0));
+//    } else {
+      mListView.setSelector(Utils.getSelectorDrawable(context));
+//    }
 
     if (savedInstanceState != null) {
       mLastSelected = savedInstanceState.getInt("mLastSelected");
@@ -214,6 +221,8 @@ abstract class NavigationListFragmentDelegate implements
   private void updatePinnedSection() {
     if (getView() == null) return;
 
+    Drawable selector = Utils.getSelectorDrawable(getView().getContext());
+
     final int offset = 2; // plus 1 for the divider view plus 1 for padding
     int targetCount = mPinnedSection == null ? 0 : mPinnedSection.size();
 //    while (mPinnedContainer.getChildCount() > targetCount + offset) {
@@ -238,11 +247,12 @@ abstract class NavigationListFragmentDelegate implements
       } else {
         Context context = getActivity();
         view = item.createView(context, mPinnedContainer);
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB) {
-          Utils.setBackground(view, context.getResources().getDrawable(android.R.drawable.list_selector_background));
-        } else {
-          Utils.setBackground(view, Utils.getDrawable(context, android.R.attr.selectableItemBackground));
-        }
+//        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB) {
+//          Utils.setBackground(view, context.getResources().getDrawable(android.R.drawable.list_selector_background));
+//        } else {
+//          Utils.setBackground(view, Utils.getDrawable(context, android.R.attr.selectableItemBackground));
+//        }
+        Utils.setBackground(view, selector.getConstantState().newDrawable());
         mPinnedContainer.addView(view);
       }
       final int relativePosition = i;
@@ -376,10 +386,11 @@ abstract class NavigationListFragmentDelegate implements
   }
 
   private void trySelectPosition(final int itemPosition) {
-    final int listPosition = itemPosition + mListView.getHeaderViewsCount();
+    final int listPosition = itemPosition + getHeaderViewsCount();
 //    if (listPosition == mLastSelected) return;
     if (itemPosition < 0) {
       mListView.setItemChecked(listPosition, false);
+      mListView.setSelection(listPosition);
       mAdapter.setActivatedItem(-1);
       mLastSelected = -1;
       return;
@@ -388,6 +399,7 @@ abstract class NavigationListFragmentDelegate implements
     if (item != null && item.isSticky()) {
       mListView.setItemChecked(mLastSelected, false);
       mListView.setItemChecked(listPosition, true);
+      mListView.setSelection(listPosition);
       mAdapter.setActivatedItem(itemPosition);
       mLastSelected = listPosition;
     } else {
@@ -398,27 +410,22 @@ abstract class NavigationListFragmentDelegate implements
   private void selectPreviousPosition(int deselect) {
     mListView.setItemChecked(deselect, false);
     mListView.setItemChecked(mLastSelected, true);
+    mListView.setSelection(mLastSelected);
   }
 
-  /**
-   * @param parent
-   * @param view
-   * @param position
-   * @param id
-   */
   @Override
   public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-    AbsNavigationItemDescriptor item = (AbsNavigationItemDescriptor) parent.getItemAtPosition(position);
+    CompositeNavigationItemDescriptor item = (CompositeNavigationItemDescriptor) parent.getItemAtPosition(position);
     onItemClick(view, position, id, item);
   }
 
   private void onItemClick(View view, int position, long id, CompositeNavigationItemDescriptor item) {
     // header views and items from pinned section are not sticky, don't even try
-    if (position >= 0 && position < mListView.getHeaderViewsCount()) {
+    if (position >= 0 && position < getHeaderViewsCount()) {
 //        || position > mListView.getHeaderViewsCount() + mAdapter.getCount()) {
       selectPreviousPosition(position);
     } else {
-      final int itemPosition = position - mListView.getHeaderViewsCount();
+      final int itemPosition = position - getHeaderViewsCount();
       trySelectPosition(itemPosition);
     }
 
@@ -426,6 +433,8 @@ abstract class NavigationListFragmentDelegate implements
       mCallbacks.onNavigationItemSelected(view, position, id, item);
     }
   }
+
+  private int getHeaderViewsCount() {return mListView.getHeaderViewsCount();}
 
   private static void timber(String s) {
     if (BuildConfig.DEBUG) Log.d(TAG, s);
