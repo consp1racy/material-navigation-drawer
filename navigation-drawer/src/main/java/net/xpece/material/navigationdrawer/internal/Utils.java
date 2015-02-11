@@ -226,4 +226,30 @@ public class Utils {
 //    return result;
   }
 
+  @TargetApi(Build.VERSION_CODES.HONEYCOMB)
+  public static Drawable getSelectorDrawable(Context context) {
+    Drawable d = null;
+    if (APPCOMPAT_ATTR_SELECTABLE_ITEM_BACKGROUND != 0) {
+      Log.d("", APPCOMPAT_ATTR_SELECTABLE_ITEM_BACKGROUND + "");
+      d = getDrawable(context, APPCOMPAT_ATTR_SELECTABLE_ITEM_BACKGROUND);
+    }
+    if (d != null) return d;
+
+    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB) {
+      return context.getResources().getDrawable(android.R.drawable.list_selector_background);
+    } else {
+      return getDrawable(context, android.R.attr.selectableItemBackground);
+    }
+  }
+
+  public static Drawable getActivatedDrawable(Context context) {
+//    return new ColorDrawable(createActivatedColor(context));
+    Drawable active = context.getResources().getDrawable(R.drawable.mnd_selected_item_background);
+    return active;
+//    StateListDrawable result = new StateListDrawable();
+//    result.addState(new int[]{android.R.attr.state_pressed}, new ColorDrawable(0));
+//    result.addState(StateSet.WILD_CARD, active);
+//    return result;
+  }
+
 }
