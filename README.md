@@ -147,6 +147,11 @@ Work TBD
 
  - Better API, factories, copying element prototypes
  - Custom passive text color
+ 
+What will be done instead?
+--------------------------
+
+Release `0.6.0` will depend on `recyclerview-v7` library and will use `RecyclerView` instead of `ListView`. The reason for this is that currently the selector overlays the active list item, which looks ugly when using other than grey selector (default SDK 4 to 18 without latest `appcompat-v7`). The `iosched` app does not use `ListView` and handles the items manually, which means no item recycling. The Play Store app displays correct behavior and is using `ListView` for the main menu item list but good luck breaking that. I believe that the `RecyclerView` will allow me to accomplish what I need with relative ease. The price is that the minimum SDK will be raised from 4 to 7. Then again I might implement some sort of my own recycling and ditch the `RecyclerView` dependency...
 
 Screenshots
 -----------
