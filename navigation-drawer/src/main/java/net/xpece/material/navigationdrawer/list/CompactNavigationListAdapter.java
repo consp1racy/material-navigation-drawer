@@ -1,6 +1,7 @@
 package net.xpece.material.navigationdrawer.list;
 
 import android.content.Context;
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.support.v4.util.LongSparseArray;
 import android.util.SparseArray;
@@ -55,6 +56,16 @@ class CompactNavigationListAdapter extends BaseAdapter {
     mPositions = null;
 
     super.notifyDataSetInvalidated();
+  }
+
+  @Override
+  public boolean areAllItemsEnabled() {
+    return false;
+  }
+
+  @Override
+  public boolean isEnabled(int position) {
+    return position != mSelectedPosition;
   }
 
   @Override
@@ -121,7 +132,11 @@ class CompactNavigationListAdapter extends BaseAdapter {
     }
     view.setContentDescription(textString);
 
-    // TODO selected position ...?
+    if (position == mSelectedPosition) {
+      Utils.setBackground(view, Utils.getActivatedDrawable(context));
+    } else {
+      Utils.setBackground(view, new ColorDrawable(0));
+    }
 
     return view;
   }

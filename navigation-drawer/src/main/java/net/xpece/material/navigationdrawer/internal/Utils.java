@@ -2,7 +2,6 @@ package net.xpece.material.navigationdrawer.internal;
 
 import android.annotation.TargetApi;
 import android.content.Context;
-import android.content.res.ColorStateList;
 import android.content.res.TypedArray;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffColorFilter;
@@ -123,13 +122,6 @@ public class Utils {
     return stateful;
   }
 
-  @TargetApi(Build.VERSION_CODES.HONEYCOMB)
-  public static ColorStateList createActivatedColor(int passive, int active) {
-    return new ColorStateList(
-        new int[][]{new int[]{android.R.attr.state_activated}, StateSet.WILD_CARD},
-        new int[]{active, passive});
-  }
-
   public static boolean getBoolean(Context context, @AttrRes int attr, boolean fallback) {
     TypedArray ta = context.obtainStyledAttributes(new int[]{attr});
     try {
@@ -218,11 +210,5 @@ public class Utils {
 
   public static Drawable getActivatedDrawable(Context context) {
     return new ColorDrawable(createActivatedColor(context));
-//    Drawable active = context.getResources().getDrawable(R.drawable.mnd_selected_item_background);
-//    return active;
-//    StateListDrawable result = new StateListDrawable();
-//    result.addState(new int[]{android.R.attr.state_pressed}, new ColorDrawable(0));
-//    result.addState(StateSet.WILD_CARD, active);
-//    return result;
   }
 }

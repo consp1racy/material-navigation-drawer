@@ -7,7 +7,7 @@ android {
   buildToolsVersion "21.1.2"
 
   defaultConfig {
-    minSdkVersion 7
+    minSdkVersion 4
     targetSdkVersion 21
     versionCode 1
     versionName "1.0"
@@ -26,7 +26,6 @@ android {
 
 dependencies {
   compile 'com.android.support:support-v4:21.0.3'
-//  compile 'com.android.support:recyclerview-v7:21.0.3'
   compile 'com.android.support:support-annotations:21.0.3'
 //  compile 'com.jakewharton.timber:timber:2.5.0' // logging
 }
@@ -34,7 +33,7 @@ dependencies {
 ext {
   PUBLISH_GROUP_ID = 'net.xpece.material'
   PUBLISH_ARTIFACT_ID = 'navigation-drawer'
-  PUBLISH_VERSION = '0.5.2'
+  PUBLISH_VERSION = '0.5.3'
 }
 
 apply from: '../android-release-aar.gradle'

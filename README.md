@@ -5,7 +5,7 @@ Navigation Drawer according to Material Design spec.
 
 Contains native and support fragments of expanded and collapsed navigation list for use with `DrawerLayout` or Chiu-Ki Chan's `CrossFadeSlidingPaneLayout` (included).
 
-~~Available from API 11. Lowering is not planned.~~ The library is now available from API 4! *YAY!*
+The library is now available from API 4.
 
 How to get the library?
 -----------------------
@@ -13,7 +13,7 @@ How to get the library?
 To use this library add the following to your module's `build.gradle`:
 ```groovy
 dependencies {
-    compile 'net.xpece.material:navigation-drawer:0.5.2@aar'
+    compile 'net.xpece.material:navigation-drawer:0.5.3'
 }
 ```
 
@@ -86,6 +86,11 @@ Extend either `BaseNavigationItemDescriptor` or `AbsNavigationItemDescriptor`. B
 Changelog
 ---------
 
+**0.5.3**
+- *FIXED:* `.aar` packaging in POM file specified
+- *FIXED:* Currently selected item does not draw selector
+- *FIXED:* `setSelectedItem` not selecting proper item when using headers
+
 **0.5.2**
 - *NEW!* Support from API 4
 
@@ -138,7 +143,7 @@ Changelog
 - First release
 - Navigation list with multiple sections with optional headings
 - Items have a label, optional icon and an optional text badge
-- Icon has a passive color, laber and icon have an active color
+- Icon has a passive color, label and icon have an active color
 - Badge has background color, text color gets calculated automatically
 - Items can remain selected
 
@@ -147,11 +152,6 @@ Work TBD
 
  - Better API, factories, copying element prototypes
  - Custom passive text color
- 
-What will be done instead?
---------------------------
-
-Release `0.6.0` will depend on `recyclerview-v7` library and will use `RecyclerView` instead of `ListView`. The reason for this is that currently the selector overlays the active list item, which looks ugly when using other than grey selector (default SDK 4 to 18 without latest `appcompat-v7`). The `iosched` app does not use `ListView` and handles the items manually, which means no item recycling. The Play Store app displays correct behavior and is using `ListView` for the main menu item list but good luck breaking that. I believe that the `RecyclerView` will allow me to accomplish what I need with relative ease. The price is that the minimum SDK will be raised from 4 to 7. Then again I might implement some sort of my own recycling and ditch the `RecyclerView` dependency...
 
 Screenshots
 -----------

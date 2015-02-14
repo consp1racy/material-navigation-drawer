@@ -20,7 +20,7 @@ public abstract class AbsNavigationItemDescriptor implements CompositeNavigation
     this.id = id;
   }
 
-  private Drawable mActive, mPassive;
+  private Drawable mActive;
 
   @Override
   public long getId() {
@@ -34,28 +34,21 @@ public abstract class AbsNavigationItemDescriptor implements CompositeNavigation
 
   @Override
   public void loadInto(View view, boolean selected) {
-//    if (Build.VERSION.SDK_INT < 21) {
-      if (selected) {
-        Utils.setBackground(view, mActive);
-      } else {
-        Utils.setBackground(view, new ColorDrawable(0));
-      }
-//    }
+    if (selected) {
+      Utils.setBackground(view, mActive);
+    } else {
+      Utils.setBackground(view, new ColorDrawable(0));
+    }
   }
 
   @Override
   public final View createView(Context context, ViewGroup parent) {
     mActive = Utils.getActivatedDrawable(context);
-//    mPassive = Utils.getSelectorDrawable(context);
 
     View view = LayoutInflater.from(context).inflate(getLayoutId(), parent, false);
     loadInto(view, false);
     return view;
   }
-
-//  protected static <T extends View> T askViewHolder(View view, int id) {
-//    return ViewHolder.get(view, id);
-//  }
 
   @Override
   public boolean onClick(View view) {

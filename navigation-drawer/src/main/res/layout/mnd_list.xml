@@ -8,17 +8,24 @@
     tools:ignore="Overdraw">
   <!--android:orientation="vertical"-->
 
-  <android.support.v7.widget.RecyclerView
+  <ListView
+      tools:listitem="@layout/mnd_item_simple"
       android:id="@+id/mnd_list"
+      android:dividerHeight="0px"
+      android:divider="@android:color/transparent"
+      android:choiceMode="none"
+      android:fadingEdge="none"
       android:layout_width="match_parent"
-      android:layout_height="wrap_content"/>
+      android:layout_height="wrap_content">
+
+  </ListView>
 
   <LinearLayout
       android:layout_alignBottom="@+id/mnd_list"
       android:id="@+id/mnd_section_pinned"
+      android:background="?android:colorForegroundInverse"
       android:visibility="gone"
       android:orientation="vertical"
-      android:background="?android:colorForegroundInverse"
       android:paddingBottom="@dimen/mnd_unit"
       android:layout_width="match_parent"
       android:layout_height="wrap_content">
@@ -28,7 +35,6 @@
         android:id="@+id/mnd_divider_pinned"
         android:layout_width="match_parent"
         android:layout_height="1dp"/>
-
     <View
         android:visibility="invisible"
         android:layout_width="0dp"

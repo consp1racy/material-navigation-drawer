@@ -1,6 +1,8 @@
 package com.sqisland.android.sliding_pane_layout;
 
+import android.annotation.TargetApi;
 import android.content.Context;
+import android.os.Build;
 import android.support.v4.widget.SlidingPaneLayout;
 import android.util.AttributeSet;
 import android.view.View;
@@ -85,6 +87,7 @@ public class CrossFadeSlidingPaneLayout extends SlidingPaneLayout {
   }
 
   private SimplePanelSlideListener crossFadeListener = new SimplePanelSlideListener() {
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     @Override
     public void onPanelSlide(View panel, float slideOffset) {
       super.onPanelSlide(panel, slideOffset);

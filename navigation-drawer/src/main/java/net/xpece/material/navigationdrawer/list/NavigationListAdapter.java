@@ -36,8 +36,6 @@ class NavigationListAdapter extends BaseAdapter {
   private SparseArray<Object> mItems = new SparseArray<>();
   private LongSparseArray<Integer> mPositions = null;
 
-  private boolean mDrawLastDivider = false;
-
   private int mSelectedPosition = -1;
 //  private long mPendingSelectedId = -1;
 
@@ -84,7 +82,7 @@ class NavigationListAdapter extends BaseAdapter {
 
   @Override
   public boolean isEnabled(int position) {
-    return getItemViewType(position) >= TYPE_ITEM_START;
+    return getItemViewType(position) >= TYPE_ITEM_START && position != mSelectedPosition;
   }
 
   @Override
@@ -162,7 +160,7 @@ class NavigationListAdapter extends BaseAdapter {
         int lastPosition = getCount() - 1;
         View divider = ViewHolder.get(view, R.id.divider);
         divider.setBackgroundColor(Utils.createDividerColor(context));
-        divider.setVisibility(position < lastPosition || mDrawLastDivider ? View.VISIBLE : View.INVISIBLE);
+        divider.setVisibility(position < lastPosition ? View.VISIBLE : View.INVISIBLE);
         break;
       }
 

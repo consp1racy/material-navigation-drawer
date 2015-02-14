@@ -85,7 +85,6 @@ abstract class CompactNavigationListFragmentDelegate implements
     if (savedInstanceState != null) {
       mLastSelected = savedInstanceState.getInt("mLastSelected");
     }
-//    mListView.setSelection(mLastSelected);
   }
 
   @Override
@@ -110,16 +109,9 @@ abstract class CompactNavigationListFragmentDelegate implements
   private void updateSections() {
     if (getView() == null) return;
 
-//    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) {
-//      mListView.setAdapter(null);
-//    }
     mAdapter = new CompactNavigationListAdapter(mSections);
     mAdapter.setActivatedItem(mLastSelected);
-//    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) {
-//      if (mHeader != null) mListView.addHeaderView(mHeader);
-//    }
     mListView.setAdapter(mAdapter);
-//    mListView.setSelection(mLastSelected);
   }
 
   /**
@@ -223,7 +215,6 @@ abstract class CompactNavigationListFragmentDelegate implements
 
       int position = mAdapter.getPositionById(id);
       trySelectPosition(position);
-//        mListView.setSelection(mLastSelected);
 
     } else {
       throw new IllegalStateException("No adapter yet!");
