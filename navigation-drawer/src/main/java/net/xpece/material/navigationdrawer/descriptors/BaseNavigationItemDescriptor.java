@@ -242,7 +242,7 @@ public class BaseNavigationItemDescriptor extends AbsNavigationItemDescriptor
       }
       icon.setVisibility(View.VISIBLE);
     } else {
-      icon.setVisibility(View.INVISIBLE);
+      icon.setVisibility(View.GONE);
       icon.setImageDrawable(null);
     }
   }
