@@ -2,7 +2,6 @@ package net.xpece.material.navigationdrawer.descriptors;
 
 import android.content.Context;
 import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,8 +19,6 @@ public abstract class AbsNavigationItemDescriptor implements CompositeNavigation
     this.id = id;
   }
 
-  private Drawable mActive;
-
   @Override
   public long getId() {
     return this.id;
@@ -35,7 +32,7 @@ public abstract class AbsNavigationItemDescriptor implements CompositeNavigation
   @Override
   public void loadInto(View view, boolean selected) {
     if (selected) {
-      Utils.setBackground(view, mActive);
+      Utils.setBackground(view, Utils.getActivatedDrawable(view.getContext()));
     } else {
       Utils.setBackground(view, new ColorDrawable(0));
     }
@@ -43,11 +40,13 @@ public abstract class AbsNavigationItemDescriptor implements CompositeNavigation
 
   @Override
   public final View createView(Context context, ViewGroup parent) {
-    mActive = Utils.getActivatedDrawable(context);
-
     View view = LayoutInflater.from(context).inflate(getLayoutId(), parent, false);
-    loadInto(view, false);
+    onViewCreated(view);
     return view;
+  }
+
+  public void onViewCreated(View view) {
+    loadInto(view, false);
   }
 
   @Override

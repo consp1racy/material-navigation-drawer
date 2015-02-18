@@ -13,18 +13,11 @@ How to get the library?
 To use this library add the following to your module's `build.gradle`:
 ```groovy
 dependencies {
-    compile 'net.xpece.material:navigation-drawer:0.5.3'
+    compile 'net.xpece.material:navigation-drawer:0.5.4'
 }
 ```
 
 The project currently depends on support-v4 library version 21.0.3.
-
-**WARNING:** In my case the version 0.5.3 does not mark the second item as active when the activity is first created. If this is your case as well please use the previous version until a fix is released.
-```groovy
-dependencies {
-    compile 'net.xpece.material:navigation-drawer:0.5.2@aar'
-}
-```
 
 Default behavior
 ----------------
@@ -92,6 +85,9 @@ Extend either `BaseNavigationItemDescriptor` or `AbsNavigationItemDescriptor`. B
 
 Changelog
 ---------
+
+**0.5.4**
+- *FIXED:* Some items failed to set activated background. Not anymore!
 
 **0.5.3**
 - *FIXED:* `.aar` packaging in POM file specified

@@ -59,6 +59,11 @@ class CompactNavigationListAdapter extends BaseAdapter {
   }
 
   @Override
+  public boolean hasStableIds() {
+    return true;
+  }
+
+  @Override
   public boolean areAllItemsEnabled() {
     return false;
   }
@@ -109,7 +114,7 @@ class CompactNavigationListAdapter extends BaseAdapter {
       view.setMinimumWidth(minSize);
       view.setScaleType(ImageView.ScaleType.CENTER);
 
-      Utils.setBackground(view, Utils.createActivatedDrawable(0, Utils.createActivatedColor(context)));
+//      Utils.setBackground(view, Utils.createActivatedDrawable(0, Utils.createActivatedColor(context)));
     } else {
       view = (ImageView) convertView;
     }

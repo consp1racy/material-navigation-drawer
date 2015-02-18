@@ -392,8 +392,9 @@ abstract class NavigationListFragmentDelegate implements
     }
     CompositeNavigationItemDescriptor item = (CompositeNavigationItemDescriptor) mAdapter.getItem(itemPosition);
     if (item != null && item.isSticky()) {
-      selectPosition(listPosition, mLastSelected);
+      timber("item=" + item + ", itemPosition=" + itemPosition + ", listPosition=" + listPosition);
       mAdapter.setActivatedItem(itemPosition);
+      selectPosition(listPosition, mLastSelected);
       mLastSelected = listPosition;
       return true;
     } else {

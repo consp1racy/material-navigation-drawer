@@ -13,7 +13,6 @@ import android.os.Build;
 import android.support.annotation.AttrRes;
 import android.support.annotation.ColorRes;
 import android.support.annotation.DrawableRes;
-import android.util.Log;
 import android.util.StateSet;
 import android.util.TypedValue;
 import android.view.View;
@@ -196,7 +195,6 @@ public class Utils {
   public static Drawable getSelectorDrawable(Context context) {
     Drawable d = null;
     if (APPCOMPAT_ATTR_SELECTABLE_ITEM_BACKGROUND != 0) {
-      Log.d("", APPCOMPAT_ATTR_SELECTABLE_ITEM_BACKGROUND + "");
       d = getDrawable(context, APPCOMPAT_ATTR_SELECTABLE_ITEM_BACKGROUND);
     }
     if (d != null) return d;
