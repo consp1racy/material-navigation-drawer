@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.support.annotation.AttrRes;
 import android.support.v7.widget.SwitchCompat;
 import android.view.View;
+import android.widget.CompoundButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,10 +21,19 @@ import hugo.weaving.DebugLog;
  */
 public class ToggleNavigationItemDescriptor extends AbsNavigationItemDescriptor {
 
-  boolean checked = false;
+  private boolean checked = false;
 
   public ToggleNavigationItemDescriptor(long id) {
     super(id);
+  }
+
+  public ToggleNavigationItemDescriptor checked(boolean checked) {
+    this.checked = checked;
+    return this;
+  }
+
+  public boolean isChecked() {
+    return checked;
   }
 
   @Override
@@ -33,41 +43,42 @@ public class ToggleNavigationItemDescriptor extends AbsNavigationItemDescriptor 
 
   @Override
   public void loadInto(final View view, final boolean selected) {
-    super.loadInto(view, selected);
+    super.loadInto(view, false);
 
-    SwitchCompat toggle = ViewHolder.get(view, R.id.toggle);
-    toggle.setChecked(checked);
-    toggle.setOnClickListener(new View.OnClickListener() {
-      @Override
-      public void onClick(View v) {
-        checked = !checked;
-
-        // on toggle click - update only text
-        updateText(view);
-
-        doWork(view.getContext());
-      }
-    });
-
-    updateText(view);
+    setup(view);
   }
 
   @Override
   @DebugLog
   public boolean onClick(View view) {
-    checked = !checked;
-
     // on list item click - update text and toggle
-    updateToggle(view);
-    updateText(view);
-
-    doWork(view.getContext());
+    updateToggle(view, !checked);
+//    updateText(view); // automatically
     return true;
   }
 
-  private void updateToggle(View view) {
+  private void updateToggle(View view, boolean checked) {
     SwitchCompat toggle = ViewHolder.get(view, R.id.toggle);
-    if (toggle.isChecked() != checked) toggle.toggle();
+    if (toggle.isChecked() != checked) {
+      toggle.toggle();
+    }
+  }
+
+  private void setup(final View view) {
+    SwitchCompat toggle = ViewHolder.get(view, R.id.toggle);
+    toggle.setOnCheckedChangeListener(null);
+    toggle.setChecked(checked);
+    toggle.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+      @Override
+      public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+        checked = !checked;
+        updateText(view);
+
+        onChange(view.getContext(), checked);
+      }
+    });
+
+    updateText(view);
   }
 
   private void updateText(View view) {
@@ -88,6 +99,10 @@ public class ToggleNavigationItemDescriptor extends AbsNavigationItemDescriptor 
     } finally {
       ta.recycle();
     }
+  }
+
+  public void onChange(Context context, boolean checked) {
+    doWork(context);
   }
 
   private void doWork(Context context) {

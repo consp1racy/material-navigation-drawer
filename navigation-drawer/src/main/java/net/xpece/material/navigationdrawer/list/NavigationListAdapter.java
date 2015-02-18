@@ -214,7 +214,7 @@ class NavigationListAdapter extends BaseAdapter {
 
         int viewType;
         {
-          int key = item.getLayoutId();
+          int key = item.getClass().hashCode();
           if (mItemViewTypeSet.indexOfKey(key) >= 0) {
             viewType = mItemViewTypeSet.get(key);
           } else {

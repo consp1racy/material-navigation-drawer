@@ -234,6 +234,7 @@ abstract class NavigationListFragmentDelegate implements
       } else {
         Context context = getActivity();
         view = item.createView(context, mPinnedContainer);
+        item.loadInto(view, false);
         mPinnedContainer.addView(view);
       }
       Utils.setBackground(view, selector.getConstantState().newDrawable());

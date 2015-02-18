@@ -188,7 +188,8 @@ public class Utils {
   }
 
   public static int createActivatedColor(Context context) {
-    return Utils.getColor(context, android.R.attr.colorForeground, 0) & 0x12ffffff;
+//    return Utils.getColor(context, android.R.attr.colorForeground, 0) & 0x12ffffff;
+    return Utils.getColor(context, android.R.attr.colorForeground, 0) & 0x1effffff;
   }
 
   @TargetApi(Build.VERSION_CODES.HONEYCOMB)

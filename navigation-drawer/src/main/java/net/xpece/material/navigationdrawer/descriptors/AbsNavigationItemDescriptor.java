@@ -45,8 +45,21 @@ public abstract class AbsNavigationItemDescriptor implements CompositeNavigation
     return view;
   }
 
+  /**
+   * The specified layout will be inflated as view.
+   * @return
+   */
+  public abstract int getLayoutId();
+
+  /**
+   * Setup views in this method. This concerns mainly themeing.
+   * <p/><strong>IMPORTANT!</strong>
+   * The created view must not reflect this objects state.
+   * Do not setup listeners in this method.
+   * @param view
+   */
   public void onViewCreated(View view) {
-    loadInto(view, false);
+//    loadInto(view, false);
   }
 
   @Override
