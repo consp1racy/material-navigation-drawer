@@ -45,7 +45,7 @@ The width will be one of the following:
 
 **I want the drawer to have a different background!**
 
-You can modify the navigation drawer background by accessing one of `NavigationDrawerFragment.setBackground*()` methods. Please note that the same background will be used for the pinned section. So if you use the pinned section either use a fully opaque color for background or follow [this SO post[(http://stackoverflow.com/a/2782035/2444099) to align your bitmap to bottom.
+You can modify the navigation drawer background by accessing one of `NavigationDrawerFragment.setBackground*()` methods. Please note that the same background will be used for the pinned section. So if you use the pinned section either use a fully opaque color for background or follow [this SO post](http://stackoverflow.com/a/2782035/2444099) to align your bitmap to bottom.
 
 **How do I build sections?**
 
