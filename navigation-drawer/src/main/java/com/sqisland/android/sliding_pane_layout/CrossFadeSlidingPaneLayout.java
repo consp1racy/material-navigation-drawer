@@ -8,11 +8,17 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.nineoldandroids.view.ViewHelper;
+
+import net.xpece.material.navigationdrawer.internal.Utils;
+
 /**
  * @author https://github.com/chiuki/sliding-pane-layout
  * @author http://blog.sqisland.com/2015/01/partial-slidingpanelayout.html
  */
 public class CrossFadeSlidingPaneLayout extends SlidingPaneLayout {
+  private static final String TAG = CrossFadeSlidingPaneLayout.class.getSimpleName();
+
   private View partialView = null;
   private View fullView = null;
 
@@ -87,7 +93,6 @@ public class CrossFadeSlidingPaneLayout extends SlidingPaneLayout {
   }
 
   private SimplePanelSlideListener crossFadeListener = new SimplePanelSlideListener() {
-    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     @Override
     public void onPanelSlide(View panel, float slideOffset) {
       super.onPanelSlide(panel, slideOffset);
@@ -96,8 +101,18 @@ public class CrossFadeSlidingPaneLayout extends SlidingPaneLayout {
       }
 
       partialView.setVisibility(isOpen() ? View.GONE : VISIBLE);
-      partialView.setAlpha(1 - slideOffset);
-      fullView.setAlpha(slideOffset);
+      setAlpha(partialView, 1 - slideOffset);
+      setAlpha(fullView, slideOffset);
+      Utils.timber(TAG, "slideOffset=" + slideOffset);
     }
   };
+
+  @TargetApi(11)
+  private static void setAlpha(View view, float alpha) {
+    if (Build.VERSION.SDK_INT < 11) {
+      ViewHelper.setAlpha(view, alpha);
+    } else {
+      view.setAlpha(alpha);
+    }
+  }
 }

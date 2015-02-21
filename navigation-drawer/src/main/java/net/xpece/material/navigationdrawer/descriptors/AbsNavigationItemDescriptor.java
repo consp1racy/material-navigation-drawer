@@ -1,7 +1,6 @@
 package net.xpece.material.navigationdrawer.descriptors;
 
 import android.content.Context;
-import android.graphics.drawable.ColorDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,7 +33,7 @@ public abstract class AbsNavigationItemDescriptor implements CompositeNavigation
     if (selected) {
       Utils.setBackground(view, Utils.getActivatedDrawable(view.getContext()));
     } else {
-      Utils.setBackground(view, new ColorDrawable(0));
+      view.setBackgroundColor(0);
     }
   }
 

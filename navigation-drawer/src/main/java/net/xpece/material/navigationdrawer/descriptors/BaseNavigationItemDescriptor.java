@@ -227,16 +227,8 @@ public class BaseNavigationItemDescriptor extends AbsNavigationItemDescriptor
 //    text.setTextColor(Utils.createActivatedColor(textColor, activeColor));
 
     if (iconDrawable != null) {
-      if (tintIcon) {
-//        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB) {
-        if (selected) {
-          icon.setImageDrawable(Utils.tintDrawable(iconDrawable, activeColor));
-        } else {
-          icon.setImageDrawable(Utils.tintDrawable(iconDrawable, passiveColor));
-        }
-//        } else {
-//          icon.setImageDrawable(Utils.createActivatedDrawable(iconDrawable, passiveColor, activeColor));
-//        }
+      if (tintIcon && selected) {
+        icon.setImageDrawable(Utils.tintDrawable(iconDrawable, activeColor));
       } else {
         icon.setImageDrawable(Utils.tintDrawable(iconDrawable, passiveColor));
       }

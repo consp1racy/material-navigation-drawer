@@ -81,6 +81,7 @@ abstract class CompactNavigationListFragmentDelegate implements
   @Override
   public void onViewCreated(final View view, @Nullable Bundle savedInstanceState) {
     mListView.setOnItemClickListener(this);
+    mListView.setSelector(Utils.getSelectorDrawable(view.getContext()));
 
     if (savedInstanceState != null) {
       mLastSelected = savedInstanceState.getInt("mLastSelected");

@@ -34,4 +34,5 @@ dependencies {
   releaseCompile project(path: ':navigation-drawer', configuration: 'release');
   compile 'com.jakewharton:butterknife:6.0.0'
   compile 'com.jakewharton.timber:timber:2.5.0' // logging
+  compile 'com.nineoldandroids:library:2.4.0'
 }

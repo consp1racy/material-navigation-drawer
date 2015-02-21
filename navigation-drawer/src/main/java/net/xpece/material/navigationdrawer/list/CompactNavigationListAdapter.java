@@ -1,7 +1,6 @@
 package net.xpece.material.navigationdrawer.list;
 
 import android.content.Context;
-import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.support.v4.util.LongSparseArray;
 import android.util.SparseArray;
@@ -124,23 +123,23 @@ class CompactNavigationListAdapter extends BaseAdapter {
     int passiveColor = item.getPassiveColor(context);
     int activeColor = item.getActiveColor(context);
     String textString = item.getText(context);
+    boolean selected = position == mSelectedPosition;
 
     if (iconDrawable != null) {
-      if (tintIcon) {
-        view.setImageDrawable(Utils.createActivatedDrawable(iconDrawable, passiveColor, activeColor));
+      if (tintIcon && selected) {
+        view.setImageDrawable(Utils.tintDrawable(iconDrawable, activeColor));
       } else {
         view.setImageDrawable(Utils.tintDrawable(iconDrawable, passiveColor));
       }
     } else {
       view.setImageDrawable(null);
-//      throw new IllegalStateException(TAG + ": Provided null drawable for id=" +item.getId());
     }
     view.setContentDescription(textString);
 
-    if (position == mSelectedPosition) {
+    if (selected) {
       Utils.setBackground(view, Utils.getActivatedDrawable(context));
     } else {
-      Utils.setBackground(view, new ColorDrawable(0));
+      view.setBackgroundColor(0);
     }
 
     return view;

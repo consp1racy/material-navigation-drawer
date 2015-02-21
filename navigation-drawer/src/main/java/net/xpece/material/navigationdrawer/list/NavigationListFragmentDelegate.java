@@ -10,7 +10,6 @@ import android.support.annotation.ColorRes;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.Nullable;
 import android.support.v4.view.ViewCompat;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,7 +17,6 @@ import android.view.ViewTreeObserver;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
-import net.xpece.material.navigationdrawer.BuildConfig;
 import net.xpece.material.navigationdrawer.R;
 import net.xpece.material.navigationdrawer.descriptors.CompositeNavigationItemDescriptor;
 import net.xpece.material.navigationdrawer.descriptors.NavigationItemDescriptor;
@@ -393,7 +391,7 @@ abstract class NavigationListFragmentDelegate implements
     }
     CompositeNavigationItemDescriptor item = (CompositeNavigationItemDescriptor) mAdapter.getItem(itemPosition);
     if (item != null && item.isSticky()) {
-      timber("item=" + item + ", itemPosition=" + itemPosition + ", listPosition=" + listPosition);
+      Utils.timber(TAG, "item=" + item + ", itemPosition=" + itemPosition + ", listPosition=" + listPosition);
       mAdapter.setActivatedItem(itemPosition);
       selectPosition(listPosition, mLastSelected);
       mLastSelected = listPosition;
@@ -431,8 +429,4 @@ abstract class NavigationListFragmentDelegate implements
   }
 
   private int getHeaderViewsCount() {return mListView.getHeaderViewsCount();}
-
-  private static void timber(String s) {
-    if (BuildConfig.DEBUG) Log.d(TAG, s);
-  }
 }

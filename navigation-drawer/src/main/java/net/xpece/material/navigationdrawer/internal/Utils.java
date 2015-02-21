@@ -13,11 +13,13 @@ import android.os.Build;
 import android.support.annotation.AttrRes;
 import android.support.annotation.ColorRes;
 import android.support.annotation.DrawableRes;
+import android.util.Log;
 import android.util.StateSet;
 import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewTreeObserver;
 
+import net.xpece.material.navigationdrawer.BuildConfig;
 import net.xpece.material.navigationdrawer.R;
 
 /**
@@ -209,5 +211,9 @@ public class Utils {
 
   public static Drawable getActivatedDrawable(Context context) {
     return new ColorDrawable(createActivatedColor(context));
+  }
+
+  public static void timber(String tag, String s) {
+    if (BuildConfig.DEBUG) Log.d(tag, s);
   }
 }
