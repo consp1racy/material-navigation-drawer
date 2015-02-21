@@ -33,7 +33,7 @@ Customization
 
 **The drawer has too big right margin!**
 
-As of support-v4 library 21.0.3 there is a hardcoded margin of 64dp in a `DrawerLayout`. Use `NavigationDrawerUtils.fixMinDrawerMargin(DrawerLayout)` to remove this limitation. Use this right after you obtain a drawer layout instance typically in `Activity.onCreate(Bundle)`. Why is this an issue? Specs say the margin should be only 56dp on phones.
+As of support-v4 library 21.0.3 there is a hardcoded margin of 64dp in a `DrawerLayout`. Use `NavigationDrawerUtils.fixMinDrawerMargin(DrawerLayout)` to remove this limitation. Use this right after you obtain a drawer layout instance typically in `Activity.onCreate(Bundle)`. Why is this an issue? Specs say the margin should be only 56dp on phones. And it does look better.
 
 **I want the drawer to have a standard width!**
 
@@ -41,13 +41,13 @@ To set proper drawer width according to specs call `NavigationDrawerUtils.setPro
 
 The width will be one of the following:
 - On phones: Smallest screen width minus 56dp, maximum 280dp. The width is same in both portrait and landscape.
-- On tablets: ~~Effectively always 320dp.~~ 280dp. Because it looks better (on 7" tablet the drawer has less than half screen width) and everyone's using it.
+- On tablets: Effectively always ~~320dp~~ 280dp. Because it looks better (on 7" tablet the drawer has less than half screen width).
 
 **I want the drawer to have a different background!**
 
-You can modify the navigation list background by accessing one of `NavigationDrawerFragment.setBackground()` methods. Please note that the same background will be used for the pinned section. So if you use the pinned section always use a fully opaque color for background.
+You can modify the navigation drawer background by accessing one of `NavigationDrawerFragment.setBackground*()` methods. Please note that the same background will be used for the pinned section. So if you use the pinned section either use a fully opaque color for background or follow [this SO post](http://stackoverflow.com/a/2782035/2444099) to align your bitmap to bottom.
 
-**How do i build sections?**
+**How do I build sections?**
 
 `NavigationSectionDescriptor`
 
@@ -59,24 +59,24 @@ You can modify the navigation list background by accessing one of `NavigationDra
 `BaseNavigationItemDescriptor`
 
 - Use `sticky()` and `notSticky()` to specify whether the item should stay selected on click or not.
-- Use ~~`icon(int)`~~ `iconResource(int)` to specify a drawable resource. Typically this would be a 24dp by 24dp icon. This gets colored automatically. Width limit is 40dp.
+- Use ~~`icon(int)`~~ `iconResource(int)` to specify a drawable resource. Typically this would be a 24dp by 24dp icon. This gets colored automatically. Width limit is 40dp. A value of `android.R.color.transparent` will result in navigation item with padded text (as if it had an empty icon) and a value of `0` will result in the text being aligned to the left side (no icon).
 - Use `iconColorAlwaysPassiveOn()` to override the icon color in any state by the passive color.
 - Use `text(String)` or `text(int)` to set item label.
 - Use `activeColor(int)` and its derivatives to specify color of selected icon and text.
-- Use `passiveColor(int)` and its derivatives to specify color of unselected icon. Note that unselected text always takes color of `android:textColorPrimary`.
+- Use `passiveColor(int)` and its derivatives to specify color of unselected icon. Note that as of version `0.5.4` unselected text always takes color of `android:textColorPrimary`.
 
 `SimpleNavigationItemDescriptor` extends `BaseNavigationItemDescriptor`
 
-- Use `badge(String)` or `badge(int)` to set badge text. Badge will be hidden when supplied value is `null`;
+- Use `badge(String)` or `badge(int)` to set badge text. Badge will be hidden when supplied value is `null`; Minimum badge width is 40dp and text is center aligned.
 - Use `badgeColor(int)` and its derivatives to specify background color of the badge. Text color is calculated automatically.
  
 **How do I make custom items?**
 
-Extend either `BaseNavigationItemDescriptor` or `AbsNavigationItemDescriptor`. Both require you to implement method `getLayoutId()` which returns your custom layout resource ID. You also need to implement you own `loadInto(View, boolean)` method which is analogous to adapter's `getView(...)`. If you need a view holder pattern call `askViewHolder(View, int)`.
+Extend either `BaseNavigationItemDescriptor` or `AbsNavigationItemDescriptor`. Both require you to implement method `getLayoutId()` which returns your custom layout resource ID. You also need to implement you own `loadInto(View, boolean)` method which is analogous to adapter's `getView(...)`. Optionally you may override `onViewCreated(View)`.
 
-`AbsNavigationItemDescriptor` does nothing for you. What you implement is what you get. See the `ToggleNavigationItemDescriptor` in sample project. Note that this is a quick and crude example.
+`AbsNavigationItemDescriptor` handles only selected background. See the `ToggleNavigationItemDescriptor` in sample project.
 
-`BaseNavigationItemDescriptor` allows you to use all the good stuff described above. Your custom layout is required to have a `@id/icon` image view and a `@id/text` text view. It's intended for cases where you need a custom view on the right side of the item.
+`BaseNavigationItemDescriptor` allows you to use all the good stuff described in previous section. Your custom layout is required to have a `@id/icon` image view and a `@id/text` text view. It's intended for cases where you need a custom view on the right side of the item (such as in `SimpleNavigationItemDescriptor`).
 
 **How do I employ partially visible collapsed navigation (like Gmail on tablets)?**
 
@@ -87,7 +87,9 @@ Changelog
 ---------
 
 **0.5.4**
-- *FIXED:* Some items failed to set activated background. Not anymore!
+- *CRITICAL BUG FIX:* Some items failed to set activated background. Not anymore!
+- *FIXED:* Null icon items now have no margin as intended.
+- *FIXED"* `ToggleNavigationItemDescriptor` in sample project now behaves properly
 
 **0.5.3**
 - *FIXED:* `.aar` packaging in POM file specified

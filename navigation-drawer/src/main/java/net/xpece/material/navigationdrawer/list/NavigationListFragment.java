@@ -1,5 +1,6 @@
 package net.xpece.material.navigationdrawer.list;
 
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.Fragment;
 import android.graphics.drawable.Drawable;
@@ -20,6 +21,7 @@ import java.util.List;
 /**
  * Created by Eugen on 11. 1. 2015.
  */
+@TargetApi(11)
 public class NavigationListFragment extends Fragment implements NavigationListFragmentImpl {
 
   private final NavigationListFragmentDelegate mDelegate = new NavigationListFragmentDelegate() {
