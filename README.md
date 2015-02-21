@@ -13,7 +13,7 @@ How to get the library?
 To use this library add the following to your module's `build.gradle`:
 ```groovy
 dependencies {
-    compile 'net.xpece.material:navigation-drawer:0.5.4'
+    compile 'net.xpece.material:navigation-drawer:0.5.5'
 }
 ```
 
@@ -86,10 +86,13 @@ Extend either `BaseNavigationItemDescriptor` or `AbsNavigationItemDescriptor`. B
 Changelog
 ---------
 
+**0.5.5**
+- *FIXED:* Icons in compact mode now get properly colored
+
 **0.5.4**
 - *CRITICAL BUG FIX:* Some items failed to set activated background. Not anymore!
 - *FIXED:* Null icon items now have no margin as intended.
-- *FIXED"* `ToggleNavigationItemDescriptor` in sample project now behaves properly
+- *FIXED:* `ToggleNavigationItemDescriptor` in sample project now behaves properly
 
 **0.5.3**
 - *FIXED:* `.aar` packaging in POM file specified
@@ -101,7 +104,7 @@ Changelog
 
 **0.5.1**
 - *NEW!* Introduced collapsed version of navigation list
-- *NEW!* Included Chiu-Ki Chan's [`CrossFadeSlidingPaneLayout`](https://github.com/chiuki/sliding-pane-layout) for convenience
+- *NEW!* Included Chiu-Ki Chan's [`CrossFadeSlidingPaneLayout`](https://github.com/chiuki/sliding-pane-layout) for convenience (since API 11)
 - *CRITICAL BUG FIX:* Header View now works correctly before KITKAT
 
 **0.4.3**
@@ -117,7 +120,7 @@ Changelog
  - Drawable tinting
 - *CRITICAL BUG FIX:* Certain configurations with pinned section caused the list view go apes**t rendering it unusable.
 
-**0.3.0**
+**0.3.0** *Deleted*
 - Item padding is clamped at 16dp even on tablets (everybody does this and it aligns with the back arrow)
 - *NEW!* Different text style for badges without background (as in Gmail app)
 - Badge minWidth is now 40dp instead of 24dp (as in Gmail app)
@@ -129,13 +132,11 @@ Changelog
 - Ability to override icon color through `BaseNavigationItemDescriptor.iconColorAlwaysPassiveOn()`
 - Drawer width on phones is now always `smallestWidthDp` minus `56dp` (the `5 * 56dp` limit still applies).
 
-**0.2.2**
-
+**0.2.2** *Deleted*
 - Fixed extra list view spacing when using header views
 - Added `NavigationDrawerItem` to callback + some minor API changes
  
-**0.2.1**
-
+**0.2.1** *Deleted*
 - Fixed NPE on inflating fragment
 - Dropped appcompat-v7 dependency
 - *NEW!* Introduced pinned navigation list section
@@ -143,8 +144,7 @@ Changelog
 - Minor API changes
 - Navigation list no longer sets its width automatically to allow more control to developer
  
-**0.1.1**
-
+**0.1.1** *Deleted*
 - First release
 - Navigation list with multiple sections with optional headings
 - Items have a label, optional icon and an optional text badge
