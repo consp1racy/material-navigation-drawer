@@ -1,8 +1,10 @@
 package net.xpece.material.navigationdrawer.list;
 
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.Fragment;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.AttrRes;
 import android.support.annotation.ColorRes;
@@ -20,6 +22,7 @@ import java.util.List;
 /**
  * Created by Eugen on 11. 1. 2015.
  */
+@TargetApi(Build.VERSION_CODES.HONEYCOMB)
 public class CompactNavigationListFragment extends Fragment implements CompactNavigationListFragmentImpl {
 
   private final CompactNavigationListFragmentDelegate mDelegate = new CompactNavigationListFragmentDelegate() {
