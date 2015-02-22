@@ -135,7 +135,7 @@ abstract class CompactNavigationListFragmentDelegate implements
           mListView.addHeaderView(view, null, clickable);
           if (mAdapter != null) mListView.setAdapter(mAdapter);
         } else {
-          mListView.addHeaderView(view);
+          mListView.addHeaderView(view, null, clickable);
         }
       }
     }

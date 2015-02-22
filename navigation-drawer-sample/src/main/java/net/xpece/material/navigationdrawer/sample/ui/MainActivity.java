@@ -147,6 +147,7 @@ public class MainActivity extends ActionBarActivity implements NavigationListFra
       List<NavigationSectionDescriptor> sections = new ArrayList<>();
       sections.add(PRIMARY_SECTION);
       sections.add(PINNED_SECTION);
+      mNavFragmentCompact.setHeaderView(View.inflate(this, R.layout.mnd_custom_header_compact, null), false);
       mNavFragmentCompact.setSections(sections);
     }
 
@@ -158,6 +159,8 @@ public class MainActivity extends ActionBarActivity implements NavigationListFra
       mNavFragment.setHeaderView(View.inflate(this, R.layout.mnd_custom_header, null), true);
       mNavFragment.setSections(SECTIONS);
       mNavFragment.setPinnedSection(PINNED_SECTION);
+
+      mNavFragment.setBackgroundResource(R.drawable.a7x_aligned);
     }
 
     if (savedInstanceState == null) {

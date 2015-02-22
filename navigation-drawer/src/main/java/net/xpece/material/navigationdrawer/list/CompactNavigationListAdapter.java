@@ -92,30 +92,39 @@ class CompactNavigationListAdapter extends BaseAdapter {
 
   @Override
   public long getItemId(int position) {
-    Object item = getItem(position);
-    if (item instanceof GraphicNavigationItemDescriptor) {
-      return ((GraphicNavigationItemDescriptor) item).getId();
+    GraphicNavigationItemDescriptor item = getItem(position);
+    if (item != null) {
+      return item.getId();
     }
     return 0;
   }
 
   @Override
   public View getView(int position, View convertView, ViewGroup parent) {
-    ImageView view;
+//    FrameLayout view;
+    ImageView imageView;
 
     Context context = parent.getContext();
     GraphicNavigationItemDescriptor item = getItem(position);
 
     if (convertView == null) {
-      view = new ImageView(context);
-      int minSize = context.getResources().getDimensionPixelSize(R.dimen.mnd_list_item_height_normal);
-      view.setMinimumHeight(minSize);
-      view.setMinimumWidth(minSize);
-      view.setScaleType(ImageView.ScaleType.CENTER);
+//      view = new FrameLayout(context);
 
-//      Utils.setBackground(view, Utils.createActivatedDrawable(0, Utils.createActivatedColor(context)));
+      imageView = new ImageView(context);
+      int minSize = context.getResources().getDimensionPixelSize(R.dimen.mnd_list_item_height_normal);
+      imageView.setMinimumHeight(minSize);
+      imageView.setMinimumWidth(minSize);
+      imageView.setScaleType(ImageView.ScaleType.CENTER);
+
+//      view.addView(imageView,
+//          new FrameLayout.LayoutParams(
+//              ViewGroup.LayoutParams.WRAP_CONTENT,
+//              ViewGroup.LayoutParams.WRAP_CONTENT,
+//              Gravity.CENTER));
     } else {
-      view = (ImageView) convertView;
+//      view = (FrameLayout) convertView;
+//      imageView = (ImageView) view.getChildAt(0);
+      imageView = (ImageView) convertView;
     }
 
     Drawable iconDrawable = item.getIcon(context);
@@ -127,22 +136,27 @@ class CompactNavigationListAdapter extends BaseAdapter {
 
     if (iconDrawable != null) {
       if (tintIcon && selected) {
-        view.setImageDrawable(Utils.tintDrawable(iconDrawable, activeColor));
+        imageView.setImageDrawable(Utils.tintDrawable(iconDrawable, activeColor));
       } else {
-        view.setImageDrawable(Utils.tintDrawable(iconDrawable, passiveColor));
+        imageView.setImageDrawable(Utils.tintDrawable(iconDrawable, passiveColor));
       }
     } else {
-      view.setImageDrawable(null);
+      imageView.setImageDrawable(null);
     }
-    view.setContentDescription(textString);
+    imageView.setContentDescription(textString);
 
     if (selected) {
-      Utils.setBackground(view, Utils.getActivatedDrawable(context));
+      Utils.setBackground(imageView, Utils.getActivatedDrawable(context));
     } else {
-      view.setBackgroundColor(0);
+      imageView.setBackgroundColor(0);
+//      Utils.setBackground(imageView, Utils.getSelectorDrawable(context));
     }
 
-    return view;
+//    int unit = context.getResources().getDimensionPixelOffset(R.dimen.mnd_unit);
+//    view.setPadding(unit, position == 0 ? unit : 0, unit, position == getCount() - 1 ? unit : 0);
+//    return view;
+
+    return imageView;
   }
 
   private void calculateViewTypesAndItems() {

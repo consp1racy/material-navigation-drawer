@@ -2,6 +2,7 @@ package net.xpece.material.navigationdrawer.list;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
@@ -41,11 +42,15 @@ abstract class NavigationListFragmentDelegate implements
   };
   private NavigationListFragmentCallbacks mCallbacks = DUMMY_CALLBACKS;
 
+  private View mView;
   private ListView mListView;
   private ViewGroup mPinnedContainer;
   private View mPinnedDivider;
 
   private int mTheFix = 0;
+  private boolean mShouldPinnedSectionHaveBackground = false;
+  private Drawable mBackground = null;
+  private Drawable mPinnedSectionBackground = null;
 
   private final ViewTreeObserver.OnGlobalLayoutListener mPinnedContainerOnGlobalLayoutListener = new ViewTreeObserver.OnGlobalLayoutListener() {
     @Override
@@ -89,16 +94,20 @@ abstract class NavigationListFragmentDelegate implements
           // on API lower than 21 and on dark theme show the line instead of shadow
           ViewCompat.setElevation(mPinnedContainer, 0);
           mPinnedDivider.setVisibility(View.VISIBLE);
+          mShouldPinnedSectionHaveBackground = false;
         } else {
           // on light theme on API 21 show shadow instead of line
           ViewCompat.setElevation(mPinnedContainer, getActivity().getResources().getDimension(R.dimen.mnd_unit));
           mPinnedDivider.setVisibility(View.GONE);
+          mShouldPinnedSectionHaveBackground = true;
         }
       } else {
         // there is enough room, the section will not be pinned
         ViewCompat.setElevation(mPinnedContainer, 0);
         mPinnedDivider.setVisibility(View.VISIBLE);
+        mShouldPinnedSectionHaveBackground = false;
       }
+      updatePinnedSectionBackground();
 
       if (paddingBottom == targetPadding) {
         // my work here is done
@@ -138,11 +147,11 @@ abstract class NavigationListFragmentDelegate implements
 
   @Override
   public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-    View view = inflater.inflate(R.layout.mnd_list, container, false);
-    mListView = (ListView) view.findViewById(R.id.mnd_list);
-    mPinnedContainer = (ViewGroup) view.findViewById(R.id.mnd_section_pinned);
-    mPinnedDivider = view.findViewById(R.id.mnd_divider_pinned);
-    return view;
+    mView = inflater.inflate(R.layout.mnd_list, container, false);
+    mListView = (ListView) mView.findViewById(R.id.mnd_list);
+    mPinnedContainer = (ViewGroup) mView.findViewById(R.id.mnd_section_pinned);
+    mPinnedDivider = mView.findViewById(R.id.mnd_divider_pinned);
+    return mView;
   }
 
   @Override
@@ -275,7 +284,7 @@ abstract class NavigationListFragmentDelegate implements
           mListView.addHeaderView(view, null, clickable);
           if (mAdapter != null) mListView.setAdapter(mAdapter);
         } else {
-          mListView.addHeaderView(view);
+          mListView.addHeaderView(view, null, clickable);
         }
       }
     }
@@ -301,8 +310,11 @@ abstract class NavigationListFragmentDelegate implements
   @Override
   public void setBackgroundColor(int color) {
     if (getView() != null) {
-      getView().setBackgroundColor(color);
-      mPinnedContainer.setBackgroundColor(color);
+//      mView.setBackgroundColor(color);
+//      mPinnedContainer.setBackgroundColor(color);
+
+      mBackground = new ColorDrawable(color);
+      updateBackground();
     }
   }
 
@@ -315,8 +327,11 @@ abstract class NavigationListFragmentDelegate implements
   @Override
   public void setBackground(Drawable drawable) {
     if (getView() != null) {
-      Utils.setBackground(getView(), drawable);
-      Utils.setBackground(mPinnedContainer, drawable);
+//      Utils.setBackground(mView, drawable);
+//      Utils.setBackground(mPinnedContainer, drawable);
+
+      mBackground = drawable;
+      updateBackground();
     }
   }
 
@@ -329,8 +344,11 @@ abstract class NavigationListFragmentDelegate implements
   @Override
   public void setBackgroundResource(@DrawableRes @ColorRes int resource) {
     if (getView() != null) {
-      getView().setBackgroundResource(resource);
-      mPinnedContainer.setBackgroundResource(resource);
+//      mView.setBackgroundResource(resource);
+//      mPinnedContainer.setBackgroundResource(resource);
+
+      mBackground = getView().getResources().getDrawable(resource);
+      updateBackground();
     }
   }
 
@@ -342,8 +360,10 @@ abstract class NavigationListFragmentDelegate implements
    */
   @Override
   public void setBackgroundAttr(@AttrRes int attr) {
-    Drawable d = Utils.getDrawable(getActivity(), attr);
-    setBackground(d);
+    if (getView() != null) {
+      Drawable d = Utils.getDrawable(mView.getContext(), attr);
+      setBackground(d);
+    }
   }
 
   /**
@@ -429,4 +449,18 @@ abstract class NavigationListFragmentDelegate implements
   }
 
   private int getHeaderViewsCount() {return mListView.getHeaderViewsCount();}
+
+  private void updateBackground() {
+    Utils.setBackground(mView, mBackground);
+    mPinnedSectionBackground = mBackground.getConstantState().newDrawable();
+    updatePinnedSectionBackground();
+  }
+
+  private void updatePinnedSectionBackground() {
+    if (mShouldPinnedSectionHaveBackground) {
+      Utils.setBackground(mPinnedContainer, mPinnedSectionBackground);
+    } else {
+      mPinnedContainer.setBackgroundResource(0);
+    }
+  }
 }

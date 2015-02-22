@@ -13,7 +13,7 @@ How to get the library?
 To use this library add the following to your module's `build.gradle`:
 ```groovy
 dependencies {
-    compile 'net.xpece.material:navigation-drawer:0.5.5'
+    compile 'net.xpece.material:navigation-drawer:0.5.6'
 }
 ```
 
@@ -85,6 +85,10 @@ Extend either `BaseNavigationItemDescriptor` or `AbsNavigationItemDescriptor`. B
 
 Changelog
 ---------
+
+**0.5.6**
+- *FIXED:* Non-clickable headers
+- *FIXED:* Pinned section no longer expands to accommodate background image
 
 **0.5.5**
 - *FIXED:* Icons in compact mode now get properly colored

@@ -11,7 +11,7 @@
   <ListView
       tools:listitem="@layout/mnd_item_simple"
       android:id="@+id/mnd_list"
-      android:dividerHeight="0px"
+      android:dividerHeight="0dp"
       android:divider="@android:color/transparent"
       android:choiceMode="none"
       android:fadingEdge="none"
@@ -20,7 +20,7 @@
 
   </ListView>
 
-  <LinearLayout
+  <net.xpece.material.navigationdrawer.internal.NoBackgroundMeasureLinearLayout
       android:layout_alignBottom="@+id/mnd_list"
       android:id="@+id/mnd_section_pinned"
       android:background="?android:colorForegroundInverse"
@@ -39,5 +39,5 @@
         android:visibility="invisible"
         android:layout_width="0dp"
         android:layout_height="7dp"/>
-  </LinearLayout>
+  </net.xpece.material.navigationdrawer.internal.NoBackgroundMeasureLinearLayout>
 </RelativeLayout>

@@ -5,6 +5,7 @@
     android:id="@+id/mnd_list_compact"
     android:dividerHeight="0px"
     android:divider="@android:color/transparent"
+    android:listSelector="@android:color/transparent"
     android:choiceMode="none"
     android:padding="@dimen/mnd_unit"
     android:clipToPadding="false"

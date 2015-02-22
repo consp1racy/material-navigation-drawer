@@ -10,8 +10,6 @@ import android.view.ViewGroup;
 
 import com.nineoldandroids.view.ViewHelper;
 
-import net.xpece.material.navigationdrawer.internal.Utils;
-
 /**
  * @author https://github.com/chiuki/sliding-pane-layout
  * @author http://blog.sqisland.com/2015/01/partial-slidingpanelayout.html
@@ -103,7 +101,6 @@ public class CrossFadeSlidingPaneLayout extends SlidingPaneLayout {
       partialView.setVisibility(isOpen() ? View.GONE : VISIBLE);
       setAlpha(partialView, 1 - slideOffset);
       setAlpha(fullView, slideOffset);
-      Utils.timber(TAG, "slideOffset=" + slideOffset);
     }
   };
 
