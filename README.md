@@ -3,7 +3,7 @@ Material Navigation Drawer
 
 Navigation Drawer according to Material Design spec.
 
-Contains native and support fragments of expanded and collapsed navigation list for use with `DrawerLayout` or Chiu-Ki Chan's `CrossFadeSlidingPaneLayout` (included).
+Contains native and support fragments of expanded and collapsed navigation list for use with `DrawerLayout` or Chiu-Ki Chan's `CrossFadeSlidingPaneLayout` (included, usable without issues since API 11).
 
 The library is now available from API 4.
 
@@ -17,6 +17,16 @@ dependencies {
 }
 ```
 
+If you plan to use the compact version below API 11 you also need Nine Old Androids (animation API backport).
+```groovy
+dependencies {
+    compile 'net.xpece.material:navigation-drawer:0.5.6'
+    compile 'com.nineoldandroids:library:2.4.0'
+}
+```
+
+**WARNING!** Until further notice the use of compact version below API 11 is broken and therefore discouraged.
+
 The project currently depends on support-v4 library version 21.0.3.
 
 Default behavior
@@ -25,7 +35,7 @@ Default behavior
  - Icon color defaults to `android:textColorSecondary` when not selected. See `SimpleNavigationItemDescriptor` or `BaseNavigationItemDescriptor`.
  - Text color and selected icon color defaults to 100% white or 87% black based on background. See `SimpleNavigationItemDescriptor` or `BaseNavigationItemDescriptor`.
  - Activated background is set to 12% of `android:colorForeground`. This currently limits the use to white drawer on white theme or black on black.
- - List background is set to `android:colorForegroundInverse` by default.
+ - List background is set to `android:colorForegroundInverse` by default. Can be changed via API.
  - Divider color is 12% of `android:colorForeground`. You cannot change this currently.
 
 Customization
@@ -40,12 +50,12 @@ As of support-v4 library 21.0.3 there is a hardcoded margin of 64dp in a `Drawer
 To set proper drawer width according to specs call `NavigationDrawerUtils.setProperNavigationDrawerWidth(View)` on your instance of `NavigationDrawerFragment.getView()`. This is not handled automatically to allow developers to reuse the fragment outside of `DrawerLayout` with custom width.
 
 The width will be one of the following:
-- On phones: Smallest screen width minus 56dp, maximum 280dp. The width is same in both portrait and landscape.
-- On tablets: Effectively always ~~320dp~~ 280dp. Because it looks better (on 7" tablet the drawer has less than half screen width).
+- On phones: Smallest screen width minus 56dp, maximum 280dp (5 * 56dp). The width will be the same in both portrait and landscape.
+- On tablets: Effectively always 280dp. Because it looks better (on 7" tablet the drawer has less than half screen width). Officially it should be 5 * 64dp = 320dp;
 
 **I want the drawer to have a different background!**
 
-You can modify the navigation drawer background by accessing one of `NavigationDrawerFragment.setBackground*()` methods. Please note that the same background will be used for the pinned section. So if you use the pinned section either use a fully opaque color for background or follow [this SO post](http://stackoverflow.com/a/2782035/2444099) to align your bitmap to bottom.
+You can modify the navigation drawer background by accessing one of `NavigationDrawerFragment.setBackground*()` methods. Please note that the same background will be used for the pinned section. So if you use the pinned section either use a fully opaque color for background or follow [this SO post](http://stackoverflow.com/a/2782035/2444099) to align your bitmap to bottom. The background is not scrolling.
 
 **How do I build sections?**
 
@@ -63,7 +73,7 @@ You can modify the navigation drawer background by accessing one of `NavigationD
 - Use `iconColorAlwaysPassiveOn()` to override the icon color in any state by the passive color.
 - Use `text(String)` or `text(int)` to set item label.
 - Use `activeColor(int)` and its derivatives to specify color of selected icon and text.
-- Use `passiveColor(int)` and its derivatives to specify color of unselected icon. Note that as of version `0.5.4` unselected text always takes color of `android:textColorPrimary`.
+- Use `passiveColor(int)` and its derivatives to specify color of unselected icon. Unselected text always takes color of `android:textColorPrimary`.
 
 `SimpleNavigationItemDescriptor` extends `BaseNavigationItemDescriptor`
 
