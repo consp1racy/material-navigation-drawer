@@ -24,10 +24,22 @@ dependencies {
     compile 'com.nineoldandroids:library:2.4.0'
 }
 ```
-
 **WARNING!** Until further notice the use of compact version below API 11 is broken and therefore discouraged.
 
-The project currently depends on support-v4 library version 21.0.3.
+**NOTE:** Because the library uses Nine Old Androids on APIs below 11 Proguard will complain if you don't include it in your project. To shut Proguard up add the following line to your module's `proguard-rules.pro` file:
+```proguard
+-dontwarn net.xpece.material.navigationdrawer.**;
+```
+
+**NOTE:** The project currently depends on support-v4 library version 21.0.3 and will include it in your project automatically. If you do not wish so, specify the dependency like this:
+```groovy
+dependencies {
+    compile ('net.xpece.material:navigation-drawer:0.5.6') {
+        transitive = true
+    }
+}
+```
+In this case don't forget to include (presumably) an equal or newer version of the support-v4 library.
 
 Default behavior
 ----------------
@@ -199,3 +211,19 @@ Screenshots
 
 ![Gingerbread Portrait](./docs/device-2015-01-31-0.5.2-v10-port.gif)&nbsp;
  ![Gingerbread Landscape](./docs/device-2015-01-31-0.5.2-v10-land.gif)
+
+License
+-------
+```
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+   http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+```
