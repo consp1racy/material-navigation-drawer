@@ -24,7 +24,7 @@ dependencies {
     compile 'com.nineoldandroids:library:2.4.0'
 }
 ```
-**WARNING!** Until further notice the use of compact version below API 11 is broken and therefore discouraged.
+**WARNING!** ~~Until further notice the use of compact version below API 11 is broken and therefore discouraged.~~ Compact navigation list on its own is fine, but `CrossFadeSlidingPaneLayout` does not propagate clicks to expanded view. I'll look into this. Until further notice do not use included version of `CrossFadeSlidingPaneLayout` below API 11.
 
 **NOTE:** Because the library uses Nine Old Androids on APIs below 11 Proguard will complain if you don't include it in your project. To shut Proguard up add the following line to your module's `proguard-rules.pro` file:
 ```proguard
@@ -67,7 +67,7 @@ The width will be one of the following:
 
 **I want the drawer to have a different background!**
 
-You can modify the navigation drawer background by accessing one of `NavigationDrawerFragment.setBackground*()` methods. Please note that the same background will be used for the pinned section. So if you use the pinned section either use a fully opaque color for background or follow [this SO post](http://stackoverflow.com/a/2782035/2444099) to align your bitmap to bottom. The background is not scrolling.
+You can modify the navigation drawer background by accessing one of `NavigationDrawerFragment.setBackground*()` methods. Please note that the same background will be used for the pinned section. So if you use the pinned section either use a fully opaque color for background or follow [this SO post](http://stackoverflow.com/a/2782035/2444099) to align your bitmap to bottom. The background is not scrolling (which is not very "material design").
 
 **How do I build sections?**
 
@@ -81,8 +81,8 @@ You can modify the navigation drawer background by accessing one of `NavigationD
 `BaseNavigationItemDescriptor`
 
 - Use `sticky()` and `notSticky()` to specify whether the item should stay selected on click or not.
-- Use ~~`icon(int)`~~ `iconResource(int)` to specify a drawable resource. Typically this would be a 24dp by 24dp icon. This gets colored automatically. Width limit is 40dp. A value of `android.R.color.transparent` will result in navigation item with padded text (as if it had an empty icon) and a value of `0` will result in the text being aligned to the left side (no icon).
-- Use `iconColorAlwaysPassiveOn()` to override the icon color in any state by the passive color.
+- Use `iconResource(int)` to specify a drawable resource. Typically this would be a 24dp by 24dp icon. This gets colored automatically. Width limit is 40dp. A value of `android.R.color.transparent` will result in navigation item with padded text (as if it had an empty icon) and a value of `0` will result in the text being aligned to the left side (no icon at all).
+- Use `iconColorAlwaysPassiveOn()` to override the icon color in active state by the passive color.
 - Use `text(String)` or `text(int)` to set item label.
 - Use `activeColor(int)` and its derivatives to specify color of selected icon and text.
 - Use `passiveColor(int)` and its derivatives to specify color of unselected icon. Unselected text always takes color of `android:textColorPrimary`.
