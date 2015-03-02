@@ -94,7 +94,7 @@ abstract class NavigationListFragmentDelegate implements
           // on API lower than 21 and on dark theme show the line instead of shadow
           ViewCompat.setElevation(mPinnedContainer, 0);
           mPinnedDivider.setVisibility(View.VISIBLE);
-          mShouldPinnedSectionHaveBackground = false;
+          mShouldPinnedSectionHaveBackground = true; // the views would be seen about to scroll in
         } else {
           // on light theme on API 21 show shadow instead of line
           ViewCompat.setElevation(mPinnedContainer, getActivity().getResources().getDimension(R.dimen.mnd_unit));
@@ -411,7 +411,7 @@ abstract class NavigationListFragmentDelegate implements
     }
     CompositeNavigationItemDescriptor item = (CompositeNavigationItemDescriptor) mAdapter.getItem(itemPosition);
     if (item != null && item.isSticky()) {
-      Utils.timber(TAG, "item=" + item + ", itemPosition=" + itemPosition + ", listPosition=" + listPosition);
+//      Utils.timber(TAG, "item=" + item + ", itemPosition=" + itemPosition + ", listPosition=" + listPosition);
       mAdapter.setActivatedItem(itemPosition);
       selectPosition(listPosition, mLastSelected);
       mLastSelected = listPosition;

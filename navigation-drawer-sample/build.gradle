@@ -1,5 +1,5 @@
 apply plugin: 'com.android.application'
-apply plugin: 'hugo'
+apply plugin: 'com.jakewharton.hugo'
 
 android {
   compileSdkVersion 21
@@ -7,7 +7,7 @@ android {
 
   defaultConfig {
     applicationId "net.xpece.material.navigationdrawersample"
-    minSdkVersion 9
+    minSdkVersion 7
     targetSdkVersion 21
     versionCode 1
     versionName "1.0"
@@ -32,7 +32,7 @@ dependencies {
   compile 'com.android.support:appcompat-v7:21.0.3'
   debugCompile project(path: ':navigation-drawer', configuration: 'debug');
   releaseCompile project(path: ':navigation-drawer', configuration: 'release');
-  compile 'com.jakewharton:butterknife:6.0.0'
-  compile 'com.jakewharton.timber:timber:2.5.0' // logging
+  compile 'com.jakewharton:butterknife:6.1.0'
+  compile 'com.jakewharton.timber:timber:2.7.1' // logging
   compile 'com.nineoldandroids:library:2.4.0'
 }
