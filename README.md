@@ -3,7 +3,7 @@ Material Navigation Drawer
 
 Navigation Drawer according to Material Design spec.
 
-Contains native and support fragments of expanded and collapsed navigation list for use with `DrawerLayout` or Chiu-Ki Chan's `CrossFadeSlidingPaneLayout` (included, ~~usable without issues since API 11~~ fixed).
+Contains native and support fragments of expanded and collapsed navigation list for use with `DrawerLayout` or Chiu-Ki Chan's `CrossFadeSlidingPaneLayout` (included).
 
 The library is now available from API 4.
 
@@ -17,18 +17,15 @@ dependencies {
 }
 ```
 
-If you plan to use the compact version below API 11 you also need Nine Old Androids (animation API backport).
+If you plan to use the `CrossFadeSlidingPaneLayout` below API 11 you also need Nine Old Androids (animation API backport).
 ```groovy
 dependencies {
     compile 'net.xpece.material:navigation-drawer:0.5.7'
     compile 'com.nineoldandroids:library:2.4.0'
 }
 ```
-**WARNING!** ~~Until further notice the use of compact version below API 11 is broken and therefore discouraged.~~
-~~Compact navigation list on its own is fine, but `CrossFadeSlidingPaneLayout` does not propagate clicks to expanded view. I'll look into this. Until further notice do not use included version of `CrossFadeSlidingPaneLayout` below API 11.~~
-The included copy of `CrossFadeSlidingPaneLayout` is now (since v0.5.7) safe to use below API 11.
 
-**NOTE:** Because the library uses Nine Old Androids on APIs below 11 Proguard will complain if you don't include it in your project. To shut Proguard up add the following line to your module's `proguard-rules.pro` file:
+**NOTE:** Because the library uses Nine Old Androids on APIs below 11 Proguard will complain if you don't include it in your project (this concerns all APIs). To shut Proguard up add the following line to your module's `proguard-rules.pro` file:
 ```proguard
 -dontwarn net.xpece.material.navigationdrawer.**;
 ```
@@ -41,7 +38,7 @@ dependencies {
     }
 }
 ```
-In this case don't forget to include (presumably) an equal or newer version of the support-v4 library.
+In this case don't forget to include (presumably) an equal or newer version of the support-v4 library in your module.
 
 Default behavior
 ----------------
@@ -188,7 +185,7 @@ Work TBD
 --------
 
  - Better API, factories, copying element prototypes
- - Custom passive text color
+ - Custom passive text color, divider color, activated drawable via `theme`-like attribute
 
 Screenshots
 -----------
