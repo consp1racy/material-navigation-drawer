@@ -30,16 +30,6 @@ dependencies {
 -dontwarn net.xpece.material.navigationdrawer.**;
 ```
 
-**NOTE:** The project currently depends on support-v4 library version 21.0.3 and will include it in your project automatically. If you do not wish so, specify the dependency like this:
-```groovy
-dependencies {
-    compile ('net.xpece.material:navigation-drawer:0.5.7') {
-        transitive = true
-    }
-}
-```
-In this case don't forget to include (presumably) an equal or newer version of the support-v4 library in your module.
-
 Default behavior
 ----------------
 
