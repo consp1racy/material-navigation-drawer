@@ -157,11 +157,6 @@ public class CrossFadeSlidingPaneLayout extends SlidingPaneLayout {
 
   @TargetApi(11)
   private static void setAlpha(View view, float alpha) {
-    // keep it separated like this so we don't need to import NineOldAndroids above API 11
-    if (Build.VERSION.SDK_INT < 11) {
       ViewHelper.setAlpha(view, alpha);
-    } else {
-      view.setAlpha(alpha);
-    }
   }
 }

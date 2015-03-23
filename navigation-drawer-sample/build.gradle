@@ -2,23 +2,23 @@ apply plugin: 'com.android.application'
 apply plugin: 'com.jakewharton.hugo'
 
 android {
-  compileSdkVersion 21
-  buildToolsVersion "21.1.2"
+  compileSdkVersion 22
+  buildToolsVersion "22.0.1"
 
   defaultConfig {
-    applicationId "net.xpece.material.navigationdrawersample"
+    applicationId "net.xpece.material.navigationdrawer.sample"
     minSdkVersion 7
-    targetSdkVersion 21
+    targetSdkVersion 22
     versionCode 1
     versionName "1.0"
   }
   buildTypes {
     release {
-      minifyEnabled false
+      minifyEnabled true
       proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
     }
     debug {
-      minifyEnabled true
+      minifyEnabled false
       proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
     }
   }
@@ -28,8 +28,7 @@ android {
 }
 dependencies {
   compile fileTree(dir: 'libs', include: ['*.jar'])
-  compile 'com.android.support:support-v4:21.0.3'
-  compile 'com.android.support:appcompat-v7:21.0.3'
+  compile 'com.android.support:appcompat-v7:22.0.0'
   debugCompile project(path: ':navigation-drawer', configuration: 'debug');
   releaseCompile project(path: ':navigation-drawer', configuration: 'release');
   compile 'com.jakewharton:butterknife:6.1.0'

@@ -12,7 +12,7 @@ import android.widget.Toast;
 
 import net.xpece.material.navigationdrawer.descriptors.AbsNavigationItemDescriptor;
 import net.xpece.material.navigationdrawer.internal.ViewHolder;
-import net.xpece.materialnavigationdrawersample.R;
+import net.xpece.material.navigationdrawer.sample.R;
 
 import hugo.weaving.DebugLog;
 

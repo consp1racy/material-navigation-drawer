@@ -25,9 +25,9 @@ import net.xpece.material.navigationdrawer.internal.Utils;
 import net.xpece.material.navigationdrawer.list.NavigationListFragmentCallbacks;
 import net.xpece.material.navigationdrawer.list.SupportCompactNavigationListFragment;
 import net.xpece.material.navigationdrawer.list.SupportNavigationListFragment;
+import net.xpece.material.navigationdrawer.sample.BuildConfig;
+import net.xpece.material.navigationdrawer.sample.R;
 import net.xpece.material.navigationdrawer.sample.widget.ToggleNavigationItemDescriptor;
-import net.xpece.materialnavigationdrawersample.BuildConfig;
-import net.xpece.materialnavigationdrawersample.R;
 
 import java.util.ArrayList;
 import java.util.List;

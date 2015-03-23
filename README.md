@@ -13,21 +13,17 @@ How to get the library?
 To use this library add the following to your module's `build.gradle`:
 ```groovy
 dependencies {
-    compile 'net.xpece.material:navigation-drawer:0.5.7'
+    compile 'net.xpece.material:navigation-drawer:0.6.0'
 }
 ```
 
-If you plan to use the `CrossFadeSlidingPaneLayout` below API 11 you also need Nine Old Androids (animation API backport).
+This library depends on NineOldAndroids and support-v4. If the above is not sufficient add this:
+
 ```groovy
 dependencies {
-    compile 'net.xpece.material:navigation-drawer:0.5.7'
+    compile 'com.android.support:support-v4:22.0.0'
     compile 'com.nineoldandroids:library:2.4.0'
 }
-```
-
-**NOTE:** Because the library uses Nine Old Androids on APIs below 11 Proguard will complain if you don't include it in your project (this concerns all APIs). To shut Proguard up add the following line to your module's `proguard-rules.pro` file:
-```proguard
--dontwarn net.xpece.material.navigationdrawer.**;
 ```
 
 Default behavior
@@ -96,6 +92,9 @@ Extend either `BaseNavigationItemDescriptor` or `AbsNavigationItemDescriptor`. B
 
 Changelog
 ---------
+
+**0.6.0**
+- Cleaned up and updated dependencies
 
 **0.5.7**
 - *FIXED:* `CrossFadeSlidingPaneLayout` now properly propagates clicks to full list below API 11

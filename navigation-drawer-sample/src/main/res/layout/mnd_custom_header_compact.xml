@@ -10,6 +10,6 @@
       android:layout_height="56dp"
       android:layout_width="56dp"
       android:scaleType="centerCrop"
-      android:src="@drawable/ic_launcher"
+      android:src="@mipmap/ic_launcher"
       android:layout_gravity="center"/>
 </FrameLayout>
