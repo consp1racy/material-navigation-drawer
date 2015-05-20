@@ -9,9 +9,6 @@ Contains native and support fragments of expanded and collapsed navigation list 
 
 The library is now available from API 4.
 
-How to get the library?
------------------------
-
 Screenshots
 -----------
 
@@ -29,6 +26,9 @@ Screenshots
 
 ![Lollipop Tablet Expanded](./docs/device-2015-01-26-0.5.0-v21-port.gif)&nbsp;
 ![Lollipop Tablet Collapsed](./docs/device-2015-01-30-0.5.1-v21-port.gif)
+
+How to get the library?
+-----------------------
 
 To use this library add the following to your module's `build.gradle`:
 ```groovy
