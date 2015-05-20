@@ -29,8 +29,9 @@ android {
 dependencies {
   compile fileTree(dir: 'libs', include: ['*.jar'])
   compile 'com.android.support:appcompat-v7:22.1.1'
-  debugCompile project(path: ':navigation-drawer', configuration: 'debug');
-  releaseCompile project(path: ':navigation-drawer', configuration: 'release');
+//  debugCompile project(path: ':navigation-drawer', configuration: 'debug');
+//  releaseCompile project(path: ':navigation-drawer', configuration: 'release');
+  compile project(":navigation-drawer")
   compile 'com.jakewharton:butterknife:6.1.0'
   compile 'com.jakewharton.timber:timber:2.7.1' // logging
   compile 'com.nineoldandroids:library:2.4.0'

@@ -10,7 +10,7 @@ import android.widget.LinearLayout;
 /**
  * LinearLayout which does not take its background dimensions into account
  * when measuring its dimensions.
- * <p/>
+ * <p></p>
  * Created by Eugen on 22. 2. 2015.
  */
 public class NoBackgroundMeasureLinearLayout extends LinearLayout {

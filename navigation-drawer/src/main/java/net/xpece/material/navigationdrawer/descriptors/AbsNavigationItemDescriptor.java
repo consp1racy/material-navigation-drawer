@@ -52,7 +52,7 @@ public abstract class AbsNavigationItemDescriptor implements CompositeNavigation
 
   /**
    * Setup views in this method. This concerns mainly themeing.
-   * <p/><strong>IMPORTANT!</strong>
+   * <p></p><strong>IMPORTANT!</strong>
    * The created view must not reflect this objects state.
    * Do not setup listeners in this method.
    * @param view

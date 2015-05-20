@@ -7,7 +7,7 @@ import net.xpece.material.navigationdrawer.descriptors.NavigationItemDescriptor;
 /**
  * Let your {@link android.app.Activity} implement this interface so it knows what item
  * has been selected.
- * <p/>
+ * <p></p>
  * Created by Eugen on 11. 1. 2015.
  */
 public interface NavigationListFragmentCallbacks {

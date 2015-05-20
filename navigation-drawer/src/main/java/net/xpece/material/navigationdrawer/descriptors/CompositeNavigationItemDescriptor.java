@@ -18,7 +18,7 @@ public interface CompositeNavigationItemDescriptor extends NavigationItemDescrip
 
   /**
    * View factory. Do not attach view to parent yet.
-   * <p/><strong>IMPORTANT!</strong>
+   * <p></p><strong>IMPORTANT!</strong>
    * The created view must not reflect this objects state.
    * Do not setup listeners in this method.
    * @param context

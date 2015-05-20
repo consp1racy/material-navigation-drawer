@@ -20,8 +20,8 @@ android {
     debug {
     }
   }
-  publishNonDefault true
-  defaultPublishConfig "release"
+//  publishNonDefault true
+//  defaultPublishConfig "release"
 }
 
 dependencies {
@@ -33,7 +33,7 @@ dependencies {
 ext {
   PUBLISH_GROUP_ID = 'net.xpece.material'
   PUBLISH_ARTIFACT_ID = 'navigation-drawer'
-  PUBLISH_VERSION = '0.6.0'
+  PUBLISH_VERSION = '0.7.0'
 }
 
 apply from: '../android-release-aar.gradle'
