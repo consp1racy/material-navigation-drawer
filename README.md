@@ -1,6 +1,8 @@
 Material Navigation Drawer
 ==========================
 
+<img src="./navigation-drawer-sample/src/main/res/mipmap-xxhdpi/ic_launcher.png" align="right" style="margin-left: 1em;"/>
+
 Navigation Drawer according to Material Design spec.
 
 Contains native and support fragments of expanded and collapsed navigation list for use with `DrawerLayout` or Chiu-Ki Chan's `CrossFadeSlidingPaneLayout` (included).
