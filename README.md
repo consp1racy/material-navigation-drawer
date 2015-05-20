@@ -33,7 +33,7 @@ How to get the library?
 To use this library add the following to your module's `build.gradle`:
 ```groovy
 dependencies {
-    compile 'net.xpece.material:navigation-drawer:0.7.0'
+    compile 'net.xpece.material:navigation-drawer:0.7.1'
 }
 ```
 
@@ -112,6 +112,9 @@ Extend either `BaseNavigationItemDescriptor` or `AbsNavigationItemDescriptor`. B
 
 Changelog
 ---------
+
+**0.7.1**
+- *FIXED:* The list now has set `android:cacheColorHint="#0000"` to avoid weird background colors while scrolling on Gingerbread.
 
 **0.7.0**
 - *NEW:* Support for `android:theme`

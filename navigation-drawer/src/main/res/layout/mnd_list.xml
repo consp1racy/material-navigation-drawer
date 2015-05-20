@@ -15,6 +15,7 @@
       android:divider="@android:color/transparent"
       android:choiceMode="none"
       android:fadingEdge="none"
+      android:cacheColorHint="@android:color/transparent"
       android:layout_width="match_parent"
       android:layout_height="wrap_content">
 
