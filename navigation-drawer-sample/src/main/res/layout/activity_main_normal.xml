@@ -28,5 +28,6 @@
       android:id="@+id/navigation_drawer"
       android:layout_width="wrap_content"
       android:layout_height="match_parent"
+      android:theme="@style/Theme.Mnd.Dark"
       tools:layout="@layout/mnd_list"/>
 </android.support.v4.widget.DrawerLayout>

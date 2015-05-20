@@ -7,6 +7,7 @@ import android.support.annotation.AttrRes;
 import android.support.annotation.ColorRes;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.Nullable;
+import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,31 +21,36 @@ import java.util.List;
  * Created by Eugen on 11. 1. 2015.
  */
 interface CompactNavigationListFragmentImpl {
-  void onAttach(Activity activity);
+    void onAttach(Activity activity);
 
-  void onDetach();
+    void onDetach();
 
-  void onSaveInstanceState(Bundle outState);
+    void onSaveInstanceState(Bundle outState);
 
-  View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState);
+    View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState);
 
-  void onViewCreated(View view, @Nullable Bundle savedInstanceState);
+    void onViewCreated(View view, @Nullable Bundle savedInstanceState);
 
-  void setItems(List<? extends CompositeNavigationItemDescriptor> items);
+    void setItems(List<? extends CompositeNavigationItemDescriptor> items);
 
-  void setSections(List<NavigationSectionDescriptor> sections);
+    void setSections(List<NavigationSectionDescriptor> sections);
 
-  void setHeaderView(View view, boolean clickable);
+    void setHeaderView(View view, boolean clickable);
 
-  void notifyDataSetChanged();
+    void notifyDataSetChanged();
 
-  void setBackgroundColor(int color);
+    void setBackgroundColor(int color);
 
-  void setBackground(Drawable drawable);
+    void setBackground(Drawable drawable);
 
-  void setBackgroundResource(@DrawableRes @ColorRes int resource);
+    void setBackgroundResource(@DrawableRes @ColorRes int resource);
 
-  void setBackgroundAttr(@AttrRes int attr);
+    void setBackgroundAttr(@AttrRes int attr);
 
-  void setSelectedItem(long id);
+    void setSelectedItem(long id);
+
+    void onInflate(Activity activity, AttributeSet attrs, Bundle savedInstanceState);
+
+    LayoutInflater getLayoutInflater2();
+
 }

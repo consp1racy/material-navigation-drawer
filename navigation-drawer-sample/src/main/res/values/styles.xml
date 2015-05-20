@@ -1,9 +1,7 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
 
-  <!-- Base application theme. -->
-  <!--<style name="AppTheme" parent="Theme.AppCompat">-->
-  <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-    <!-- Customize your theme here. -->
-  </style>
+    <style name="Theme.MndSample" parent="Theme.AppCompat.Light.DarkActionBar"/>
+
+    <style name="Theme.Mnd.Dark" parent="Theme.AppCompat"/>
 
 </resources>

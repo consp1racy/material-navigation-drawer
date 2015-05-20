@@ -1,41 +1,11 @@
 Material Navigation Drawer
 ==========================
 
-<img src="./navigation-drawer-sample/src/main/res/mipmap-xxhdpi/ic_launcher.png" align="right" style="margin-left: 1em;"/>
-
 Navigation Drawer according to Material Design spec.
 
 Contains native and support fragments of expanded and collapsed navigation list for use with `DrawerLayout` or Chiu-Ki Chan's `CrossFadeSlidingPaneLayout` (included).
 
 The library is now available from API 4.
-
-Screenshots
------------
-
-`JELLYBEAN` light theme
-
-![Jellybean Portrait](./docs/device-2015-01-03-0.3.0-v16-port.gif)&nbsp;
-![Jellybean Landscape](./docs/device-2015-01-03-0.3.0-v16-land.gif)
-
-`LOLLIPOP` light theme
-
-![Lollipop Portrait](./docs/device-2015-01-11-0.4.0-v21-port.gif)&nbsp;
- ![Lollipop Landscape](./docs/device-2015-01-11-0.4.0-v21-land.gif)
-
-`LOLLIPOP` dark theme
-
-![Lollipop Portrait Dark](./docs/device-2015-01-03-0.3.0-v21-port-black.gif)&nbsp;
- ![Lollipop Landscape Dark](./docs/device-2015-01-03-0.3.0-v21-land-black.gif)
-
-`LOLLIPOP` tablet
-
-![Lollipop Tablet Expanded](./docs/device-2015-01-26-0.5.0-v21-port.gif)&nbsp;
- ![Lollipop Tablet Collapsed](./docs/device-2015-01-30-0.5.1-v21-port.gif)
-
-`GINGERBREAD`
-
-![Gingerbread Portrait](./docs/device-2015-01-31-0.5.2-v10-port.gif)&nbsp;
- ![Gingerbread Landscape](./docs/device-2015-01-31-0.5.2-v10-land.gif)
 
 How to get the library?
 -----------------------
@@ -43,7 +13,7 @@ How to get the library?
 To use this library add the following to your module's `build.gradle`:
 ```groovy
 dependencies {
-    compile 'net.xpece.material:navigation-drawer:0.6.0@aar'
+    compile 'net.xpece.material:navigation-drawer:0.7.0'
 }
 ```
 
@@ -51,7 +21,7 @@ This library depends on NineOldAndroids and support-v4. If the above is not suff
 
 ```groovy
 dependencies {
-    compile 'com.android.support:support-v4:22.0.0'
+    compile 'com.android.support:support-v4:22.1.1'
     compile 'com.nineoldandroids:library:2.4.0'
 }
 ```
@@ -90,7 +60,7 @@ You can modify the navigation drawer background by accessing one of `NavigationD
 
  - Use `heading(String)` to set optional section heading.
  - Use `addItem(NavigationItemDescriptor)` or `addItems(List<NavigationItemDescriptor>)`. These allow you to chain calls as opposed to standard `List` methods.
- 
+
 **How do I build items?**
 
 `BaseNavigationItemDescriptor`
@@ -106,7 +76,7 @@ You can modify the navigation drawer background by accessing one of `NavigationD
 
 - Use `badge(String)` or `badge(int)` to set badge text. Badge will be hidden when supplied value is `null`; Minimum badge width is 40dp and text is center aligned.
 - Use `badgeColor(int)` and its derivatives to specify background color of the badge. Text color is calculated automatically.
- 
+
 **How do I make custom items?**
 
 Extend either `BaseNavigationItemDescriptor` or `AbsNavigationItemDescriptor`. Both require you to implement method `getLayoutId()` which returns your custom layout resource ID. You also need to implement you own `loadInto(View, boolean)` method which is analogous to adapter's `getView(...)`. Optionally you may override `onViewCreated(View)`.
@@ -122,6 +92,12 @@ Extend either `BaseNavigationItemDescriptor` or `AbsNavigationItemDescriptor`. B
 
 Changelog
 ---------
+
+**0.7.0**
+- *NEW:* Support for `android:theme`
+    - Allows completely overriding theme just for the drawer with a flick of a switch.
+    - Use `NavigationListFragment.getLayoutInflater2()` to inflate headers.
+    - Only on API 11 and higher.
 
 **0.6.0**
 - Cleaned up and updated dependencies
@@ -163,35 +139,35 @@ Changelog
 - Changed package name from `net.xpece.materialnavigationdrawer` to `net.xpece.material.navagationdrawer` (so sorry!)
 - More changes in package names (even more sorry, this time it's final)
 - Utilities made public in `net.xpece.material.navigationdrawer.internal` package
- - Text color calculation based on background
- - Attribute resolution to colors or drawables
- - Drawable tinting
+    - Text color calculation based on background
+    - Attribute resolution to colors or drawables
+    - Drawable tinting
 - *CRITICAL BUG FIX:* Certain configurations with pinned section caused the list view go apes**t rendering it unusable.
 
 **0.3.0** *Deleted*
-- Item padding is clamped at 16dp even on tablets (everybody does this and it aligns with the back arrow)
 - *NEW!* Different text style for badges without background (as in Gmail app)
+- Item padding is clamped at 16dp even on tablets (everybody does this and it aligns with the back arrow)
 - Badge minWidth is now 40dp instead of 24dp (as in Gmail app)
 - Badge right margin is set to zero to allow the text to be 16dp from the right edge (as in Gmail app)
 - Better compatibility with dark themes
- - Pinned section divider is shown when shadow would not be recognizable
- - Default icon color is 100% white on dark themes
- - Added screenshots to `/docs`
+    - Pinned section divider is shown when shadow would not be recognizable
+    - Default icon color is 100% white on dark themes
+    - Added screenshots to `/docs`
 - Ability to override icon color through `BaseNavigationItemDescriptor.iconColorAlwaysPassiveOn()`
 - Drawer width on phones is now always `smallestWidthDp` minus `56dp` (the `5 * 56dp` limit still applies).
 
 **0.2.2** *Deleted*
 - Fixed extra list view spacing when using header views
 - Added `NavigationDrawerItem` to callback + some minor API changes
- 
+
 **0.2.1** *Deleted*
+- *NEW!* Introduced pinned navigation list section
 - Fixed NPE on inflating fragment
 - Dropped appcompat-v7 dependency
-- *NEW!* Introduced pinned navigation list section
 - Updated sample project
 - Minor API changes
 - Navigation list no longer sets its width automatically to allow more control to developer
- 
+
 **0.1.1** *Deleted*
 - First release
 - Navigation list with multiple sections with optional headings
@@ -204,7 +180,26 @@ Work TBD
 --------
 
  - Better API, factories, copying element prototypes
- - Custom passive text color, divider color, activated drawable via `theme`-like attribute
+ - Fix the bloody annoying 1px overlap of items
+
+Screenshots
+-----------
+
+- Lollipop
+
+![Lollipop, light theme, custom background](./docs/lollipop_light_custom-background.gif)&nbsp;
+![Lollipop, dark, theme, plain background](./docs/lollipop_dark_original-background.gif)
+
+- Kitkat
+
+![Kitkat, light theme, plain background](./docs/device-2015-05-20-195912.png)&nbsp;
+![Kitkat, dark theme, custom background](./docs/device-2015-05-20-200202.png)
+
+- Lollipop tablet using `CrossFadeSlidingPaneLayout` expanded and collapsed
+
+![Lollipop Tablet Expanded](./docs/device-2015-01-26-0.5.0-v21-port.gif)&nbsp;
+![Lollipop Tablet Collapsed](./docs/device-2015-01-30-0.5.1-v21-port.gif)
+
 
 License
 -------

@@ -11,5 +11,5 @@ import net.xpece.material.navigationdrawer.descriptors.NavigationItemDescriptor;
  * Created by Eugen on 11. 1. 2015.
  */
 public interface NavigationListFragmentCallbacks {
-  public void onNavigationItemSelected(View view, int position, long id, NavigationItemDescriptor item);
+    public void onNavigationItemSelected(View view, int position, long id, NavigationItemDescriptor item);
 }

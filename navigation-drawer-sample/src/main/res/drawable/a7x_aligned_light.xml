@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list
+    xmlns:android="http://schemas.android.com/apk/res/android">
+  <item>
+    <!--<color android:color="#000"/>-->
+    <color android:color="#fafafa"/>
+  </item>
+  <item>
+    <bitmap
+
+        android:src="@drawable/a7x_blend"
+        android:gravity="bottom|center_horizontal"/>
+  </item>
+</layer-list>

@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
   <item>
     <!--<color android:color="#000"/>-->
-    <color android:color="#fff"/>
+    <color android:color="#424242"/>
   </item>
   <item>
     <bitmap

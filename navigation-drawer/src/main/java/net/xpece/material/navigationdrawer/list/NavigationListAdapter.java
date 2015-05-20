@@ -124,11 +124,14 @@ class NavigationListAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
+        Context context = parent.getContext();
+        LayoutInflater inflater = LayoutInflater.from(context);
+
         View view;
         switch (getItemViewType(position)) {
             case TYPE_PADDING: {
                 if (convertView == null) {
-                    view = LayoutInflater.from(parent.getContext()).inflate(R.layout.mnd_padding, parent, false);
+                    view = inflater.inflate(R.layout.mnd_padding, parent, false);
                 } else {
                     view = convertView;
                 }
@@ -136,12 +139,11 @@ class NavigationListAdapter extends BaseAdapter {
             }
             case TYPE_HEADING: {
                 if (convertView == null) {
-                    view = LayoutInflater.from(parent.getContext()).inflate(R.layout.mnd_heading, parent, false);
+                    view = inflater.inflate(R.layout.mnd_heading, parent, false);
                 } else {
                     view = convertView;
                 }
 
-                Context context = parent.getContext();
                 NavigationSectionDescriptor section = (NavigationSectionDescriptor) getItem(position);
                 TextView text = (TextView) view;
                 text.setText(section.getHeading(context));
@@ -151,12 +153,11 @@ class NavigationListAdapter extends BaseAdapter {
 
             case TYPE_SEPARATOR: {
                 if (convertView == null) {
-                    view = LayoutInflater.from(parent.getContext()).inflate(R.layout.mnd_separator, parent, false);
+                    view = inflater.inflate(R.layout.mnd_separator, parent, false);
                 } else {
                     view = convertView;
                 }
 
-                Context context = parent.getContext();
                 int lastPosition = getCount() - 1;
                 View divider = ViewHolder.get(view, R.id.divider);
                 divider.setBackgroundColor(Utils.createDividerColor(context));
@@ -166,7 +167,6 @@ class NavigationListAdapter extends BaseAdapter {
 
 //      case TYPE_ITEM: {
             default: {
-                Context context = parent.getContext();
                 CompositeNavigationItemDescriptor item = (CompositeNavigationItemDescriptor) getItem(position);
 
                 if (convertView == null) {
