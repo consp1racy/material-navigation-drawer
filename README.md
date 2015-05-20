@@ -9,6 +9,34 @@ Contains native and support fragments of expanded and collapsed navigation list 
 
 The library is now available from API 4.
 
+Screenshots
+-----------
+
+`JELLYBEAN` light theme
+
+![Jellybean Portrait](./docs/device-2015-01-03-0.3.0-v16-port.gif)&nbsp;
+![Jellybean Landscape](./docs/device-2015-01-03-0.3.0-v16-land.gif)
+
+`LOLLIPOP` light theme
+
+![Lollipop Portrait](./docs/device-2015-01-11-0.4.0-v21-port.gif)&nbsp;
+ ![Lollipop Landscape](./docs/device-2015-01-11-0.4.0-v21-land.gif)
+
+`LOLLIPOP` dark theme
+
+![Lollipop Portrait Dark](./docs/device-2015-01-03-0.3.0-v21-port-black.gif)&nbsp;
+ ![Lollipop Landscape Dark](./docs/device-2015-01-03-0.3.0-v21-land-black.gif)
+
+`LOLLIPOP` tablet
+
+![Lollipop Tablet Expanded](./docs/device-2015-01-26-0.5.0-v21-port.gif)&nbsp;
+ ![Lollipop Tablet Collapsed](./docs/device-2015-01-30-0.5.1-v21-port.gif)
+
+`GINGERBREAD`
+
+![Gingerbread Portrait](./docs/device-2015-01-31-0.5.2-v10-port.gif)&nbsp;
+ ![Gingerbread Landscape](./docs/device-2015-01-31-0.5.2-v10-land.gif)
+
 How to get the library?
 -----------------------
 
@@ -177,34 +205,6 @@ Work TBD
 
  - Better API, factories, copying element prototypes
  - Custom passive text color, divider color, activated drawable via `theme`-like attribute
-
-Screenshots
------------
-
-`JELLYBEAN` light theme
-
-![Jellybean Portrait](./docs/device-2015-01-03-0.3.0-v16-port.gif)&nbsp;
-![Jellybean Landscape](./docs/device-2015-01-03-0.3.0-v16-land.gif)
-
-`LOLLIPOP` light theme
-
-![Lollipop Portrait](./docs/device-2015-01-11-0.4.0-v21-port.gif)&nbsp;
- ![Lollipop Landscape](./docs/device-2015-01-11-0.4.0-v21-land.gif)
-
-`LOLLIPOP` dark theme
-
-![Lollipop Portrait Dark](./docs/device-2015-01-03-0.3.0-v21-port-black.gif)&nbsp;
- ![Lollipop Landscape Dark](./docs/device-2015-01-03-0.3.0-v21-land-black.gif)
-
-`LOLLIPOP` tablet
-
-![Lollipop Tablet Expanded](./docs/device-2015-01-26-0.5.0-v21-port.gif)&nbsp;
- ![Lollipop Tablet Collapsed](./docs/device-2015-01-30-0.5.1-v21-port.gif)
-
-`GINGERBREAD`
-
-![Gingerbread Portrait](./docs/device-2015-01-31-0.5.2-v10-port.gif)&nbsp;
- ![Gingerbread Landscape](./docs/device-2015-01-31-0.5.2-v10-land.gif)
 
 License
 -------
