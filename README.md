@@ -1,6 +1,8 @@
 Material Navigation Drawer
 ==========================
 
+<img src="./navigation-drawer-sample/src/main/res/mipmap-xxhdpi/ic_launcher.png" align="right" style="margin-left: 1em;"/>
+
 Navigation Drawer according to Material Design spec.
 
 Contains native and support fragments of expanded and collapsed navigation list for use with `DrawerLayout` or Chiu-Ki Chan's `CrossFadeSlidingPaneLayout` (included).
@@ -9,6 +11,24 @@ The library is now available from API 4.
 
 How to get the library?
 -----------------------
+
+Screenshots
+-----------
+
+- Lollipop
+
+![Lollipop, light theme, custom background](./docs/lollipop_light_custom-background.gif)&nbsp;
+![Lollipop, dark, theme, plain background](./docs/lollipop_dark_original-background.gif)
+
+- Kitkat
+
+![Kitkat, light theme, plain background](./docs/device-2015-05-20-203407.png)&nbsp;
+![Kitkat, dark theme, custom background](./docs/device-2015-05-20-203239.png)
+
+- Lollipop tablet using `CrossFadeSlidingPaneLayout` expanded and collapsed
+
+![Lollipop Tablet Expanded](./docs/device-2015-01-26-0.5.0-v21-port.gif)&nbsp;
+![Lollipop Tablet Collapsed](./docs/device-2015-01-30-0.5.1-v21-port.gif)
 
 To use this library add the following to your module's `build.gradle`:
 ```groovy
@@ -181,25 +201,6 @@ Work TBD
 
  - Better API, factories, copying element prototypes
  - Fix the bloody annoying 1px overlap of items
-
-Screenshots
------------
-
-- Lollipop
-
-![Lollipop, light theme, custom background](./docs/lollipop_light_custom-background.gif)&nbsp;
-![Lollipop, dark, theme, plain background](./docs/lollipop_dark_original-background.gif)
-
-- Kitkat
-
-![Kitkat, light theme, plain background](./docs/device-2015-05-20-195912.png)&nbsp;
-![Kitkat, dark theme, custom background](./docs/device-2015-05-20-200202.png)
-
-- Lollipop tablet using `CrossFadeSlidingPaneLayout` expanded and collapsed
-
-![Lollipop Tablet Expanded](./docs/device-2015-01-26-0.5.0-v21-port.gif)&nbsp;
-![Lollipop Tablet Collapsed](./docs/device-2015-01-30-0.5.1-v21-port.gif)
-
 
 License
 -------
