@@ -108,6 +108,9 @@ Extend either `BaseNavigationItemDescriptor` or `AbsNavigationItemDescriptor`. B
 Changelog
 ---------
 
+**0.7.2**
+- *FIXED:* A whole lotta leaking views and recently introduced modified layout inflater.
+
 **0.7.1**
 - *FIXED:* The list now has set `android:cacheColorHint="#0000"` to avoid weird background colors while scrolling on Gingerbread.
 
