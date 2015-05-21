@@ -31,6 +31,8 @@ interface CompactNavigationListFragmentImpl {
 
     void onViewCreated(View view, @Nullable Bundle savedInstanceState);
 
+    void onDestroyView();
+
     void setItems(List<? extends CompositeNavigationItemDescriptor> items);
 
     void setSections(List<NavigationSectionDescriptor> sections);

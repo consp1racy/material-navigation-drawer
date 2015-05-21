@@ -40,7 +40,7 @@ public class Utils {
       selectableItemBackground = 0;
     }
     try {
-      activatedBackgroundIndicator = Class.forName(clsName).getField("activatedBackgroundIndicator").getInt(null);
+      activatedBackgroundIndicator = Class.forName(clsName).getField("colorControlActivated").getInt(null);
     } catch (Exception e) {
       activatedBackgroundIndicator = 0;
     }

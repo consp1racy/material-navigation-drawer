@@ -181,6 +181,16 @@ abstract class NavigationListFragmentDelegate implements
     }
 
     @Override
+    public void onDestroyView() {
+        mInflater = null;
+
+        mView = null;
+        mListView = null;
+        mPinnedContainer = null;
+        mPinnedDivider = null;
+    }
+
+    @Override
     public void onInflate(Activity activity, AttributeSet attrs, Bundle savedInstanceState) {
         TypedArray a = activity.obtainStyledAttributes(attrs, R.styleable.NavigationListFragment);
         mTheme = a.getResourceId(R.styleable.NavigationListFragment_android_theme, 0);

@@ -15,6 +15,7 @@
         android:id="@+id/navigation_drawer"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
+        android:theme="@style/Theme.Mnd.Dark"
         tools:layout="@layout/mnd_list"/>
 
     <fragment
@@ -22,6 +23,7 @@
         android:id="@+id/navigation_drawer_compact"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
+        android:theme="@style/Theme.Mnd.Dark"
         tools:layout="@layout/mnd_list_compact"/>
   </FrameLayout>
 

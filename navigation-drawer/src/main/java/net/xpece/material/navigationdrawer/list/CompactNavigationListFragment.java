@@ -114,6 +114,12 @@ public class CompactNavigationListFragment extends Fragment
     }
 
     @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        mDelegate.onDestroyView();
+    }
+
+    @Override
     public void onInflate(Activity activity, AttributeSet attrs, Bundle savedInstanceState) {
         super.onInflate(activity, attrs, savedInstanceState);
         mDelegate.onInflate(activity, attrs, savedInstanceState);
