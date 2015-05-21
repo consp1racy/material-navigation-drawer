@@ -37,14 +37,7 @@ dependencies {
 }
 ```
 
-This library depends on NineOldAndroids and support-v4. If the above is not sufficient add this:
-
-```groovy
-dependencies {
-    compile 'com.android.support:support-v4:22.1.1'
-    compile 'com.nineoldandroids:library:2.4.0'
-}
-```
+This library depends on support-v4 and NineOldAndroids. 
 
 Default behavior
 ----------------
@@ -120,7 +113,7 @@ Changelog
 - *NEW:* Support for `android:theme`
     - Allows completely overriding theme just for the drawer with a flick of a switch.
     - Use `NavigationListFragment.getLayoutInflater2()` to inflate headers.
-    - Only on API 11 and higher.
+    - <s>Only on API 11 and higher.</s> Holy smoke, Dr. Jones, it works on Gingerbread as well!
 
 **0.6.0**
 - Cleaned up and updated dependencies
