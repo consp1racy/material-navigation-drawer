@@ -33,7 +33,7 @@ How to get the library?
 To use this library add the following to your module's `build.gradle`:
 ```groovy
 dependencies {
-    compile 'net.xpece.material:navigation-drawer:0.7.1'
+    compile 'net.xpece.material:navigation-drawer:0.7.2'
 }
 ```
 
@@ -42,18 +42,20 @@ This library depends on support-v4 and NineOldAndroids.
 Default behavior
 ----------------
 
- - Icon color defaults to `android:textColorSecondary` when not selected. See `SimpleNavigationItemDescriptor` or `BaseNavigationItemDescriptor`.
- - Text color and selected icon color defaults to 100% white or 87% black based on background. See `SimpleNavigationItemDescriptor` or `BaseNavigationItemDescriptor`.
- - Activated background is set to 12% of `android:colorForeground`. This currently limits the use to white drawer on white theme or black on black.
- - List background is set to `android:colorForegroundInverse` by default. Can be changed via API.
- - Divider color is 12% of `android:colorForeground`. You cannot change this currently.
+- Icon color defaults to `android:textColorSecondary` when not selected. See `SimpleNavigationItemDescriptor` or `BaseNavigationItemDescriptor`.
+- Text color and selected icon color defaults to 100% white or 87% black based on background. See `SimpleNavigationItemDescriptor` or `BaseNavigationItemDescriptor`.
+- Activated background is set to 12% of `android:colorForeground`.
+    - <s>This currently limits the use to white drawer on white theme or black on black.</s>
+    - You can now specify `android:theme` on the fragment override these values in bulk.
+- List background is set to `android:colorForegroundInverse` by default. Can be changed via API.
+- Divider color is 12% of `android:colorForeground`. You cannot change this currently.
 
 Customization
 -------------
 
 **The drawer has too big right margin!**
 
-As of support-v4 library 21.0.3 there is a hardcoded margin of 64dp in a `DrawerLayout`. Use `NavigationDrawerUtils.fixMinDrawerMargin(DrawerLayout)` to remove this limitation. Use this right after you obtain a drawer layout instance typically in `Activity.onCreate(Bundle)`. Why is this an issue? Specs say the margin should be only 56dp on phones. And it does look better.
+As of support-v4 library <s>21.0.3</s> 22.1.1 there is a hardcoded margin of 64dp in a `DrawerLayout`. Use `NavigationDrawerUtils.fixMinDrawerMargin(DrawerLayout)` to remove this limitation. Use this right after you obtain a drawer layout instance typically in `Activity.onCreate(Bundle)`. Why is this an issue? Specs say the margin should be only 56dp on phones.
 
 **I want the drawer to have a standard width!**
 
@@ -71,8 +73,8 @@ You can modify the navigation drawer background by accessing one of `NavigationD
 
 `NavigationSectionDescriptor`
 
- - Use `heading(String)` to set optional section heading.
- - Use `addItem(NavigationItemDescriptor)` or `addItems(List<NavigationItemDescriptor>)`. These allow you to chain calls as opposed to standard `List` methods.
+- Use `heading(String)` to set optional section heading.
+- Use `addItem(NavigationItemDescriptor)` or `addItems(List<NavigationItemDescriptor>)`. These allow you to chain calls as opposed to standard `List` methods.
 
 **How do I build items?**
 
@@ -195,8 +197,7 @@ Changelog
 Work TBD
 --------
 
- - Better API, factories, copying element prototypes
- - Fix the bloody annoying 1px overlap of items
+- Better API, factories, copying element prototypes
 
 License
 -------
