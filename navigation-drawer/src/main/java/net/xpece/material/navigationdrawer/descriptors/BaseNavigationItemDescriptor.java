@@ -52,7 +52,7 @@ public class BaseNavigationItemDescriptor extends AbsNavigationItemDescriptor
    */
   private boolean customPassiveColor = false;
 
-  public BaseNavigationItemDescriptor(long id) {super(id);}
+  public BaseNavigationItemDescriptor(int id) {super(id);}
 
   public BaseNavigationItemDescriptor iconResource(@DrawableRes int icon) {
     this.iconId = icon;

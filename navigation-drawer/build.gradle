@@ -3,37 +3,41 @@ apply plugin: 'maven'
 //apply plugin: 'com.jakewharton.hugo'
 
 android {
-  compileSdkVersion 22
-  buildToolsVersion "22.0.1"
+    compileSdkVersion 22
+    buildToolsVersion "22.0.1"
 
-  defaultConfig {
-    minSdkVersion 4
-    targetSdkVersion 22
-    versionCode 1
-    versionName "1.0"
-  }
-  buildTypes {
-    release {
-      minifyEnabled false
-      proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+    defaultConfig {
+        minSdkVersion 4
+        targetSdkVersion 22
+        versionCode 1
+        versionName "1.0"
     }
-    debug {
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        debug {
+        }
     }
-  }
 //  publishNonDefault true
 //  defaultPublishConfig "release"
 }
 
 dependencies {
-  compile 'com.android.support:support-v4:22.1.1'
+    compile 'com.android.support:support-v4:22.1.1'
+    compile 'com.android.support:support-annotations:22.1.1'
 //  compile 'com.jakewharton.timber:timber:2.5.0' // logging
-  compile 'com.nineoldandroids:library:2.4.0'
+    compile 'com.nineoldandroids:library:2.4.0'
+
 }
 
+//apply plugin: 'android-aspectj'
+
 ext {
-  PUBLISH_GROUP_ID = 'net.xpece.material'
-  PUBLISH_ARTIFACT_ID = 'navigation-drawer'
-  PUBLISH_VERSION = '0.7.2'
+    PUBLISH_GROUP_ID = 'net.xpece.material'
+    PUBLISH_ARTIFACT_ID = 'navigation-drawer'
+    PUBLISH_VERSION = '0.7.3'
 }
 
 apply from: '../android-release-aar.gradle'

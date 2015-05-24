@@ -84,7 +84,7 @@ public class SupportNavigationListFragment extends Fragment implements Navigatio
     }
 
     @Override
-    public void setSelectedItem(long id) {
+    public void setSelectedItem(int id) {
         mDelegate.setSelectedItem(id);
     }
 

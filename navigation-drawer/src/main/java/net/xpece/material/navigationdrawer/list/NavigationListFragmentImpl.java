@@ -51,7 +51,7 @@ interface NavigationListFragmentImpl {
 
     void setBackgroundAttr(@AttrRes int attr);
 
-    void setSelectedItem(long id);
+    void setSelectedItem(int id);
 
     void onInflate(Activity activity, AttributeSet attrs, Bundle savedInstanceState);
 

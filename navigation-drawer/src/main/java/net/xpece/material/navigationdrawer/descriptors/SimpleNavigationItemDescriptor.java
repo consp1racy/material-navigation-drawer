@@ -28,7 +28,7 @@ public final class SimpleNavigationItemDescriptor extends BaseNavigationItemDesc
   @AttrRes
   int badgeColorAttr = android.R.attr.colorForeground;
 
-  public SimpleNavigationItemDescriptor(long id) {
+  public SimpleNavigationItemDescriptor(int id) {
     super(id);
   }
 

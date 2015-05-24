@@ -2,37 +2,38 @@ apply plugin: 'com.android.application'
 apply plugin: 'com.jakewharton.hugo'
 
 android {
-  compileSdkVersion 22
-  buildToolsVersion "22.0.1"
+    compileSdkVersion 22
+    buildToolsVersion "22.0.1"
 
-  defaultConfig {
-    applicationId "net.xpece.material.navigationdrawer.sample"
-    minSdkVersion 7
-    targetSdkVersion 22
-    versionCode 1
-    versionName "1.0"
-  }
-  buildTypes {
-    release {
-      minifyEnabled true
-      proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+    defaultConfig {
+        applicationId "net.xpece.material.navigationdrawer.sample"
+        minSdkVersion 9
+        targetSdkVersion 22
+        versionCode 1
+        versionName "1.0"
     }
-    debug {
-      minifyEnabled false
-      proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+    buildTypes {
+        release {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
     }
-  }
-  lintOptions {
-    disable 'InvalidPackage'
-  }
+    lintOptions {
+        disable 'InvalidPackage'
+    }
 }
 dependencies {
-  compile fileTree(dir: 'libs', include: ['*.jar'])
-  compile 'com.android.support:appcompat-v7:22.1.1'
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile 'com.android.support:appcompat-v7:22.1.1'
 //  debugCompile project(path: ':navigation-drawer', configuration: 'debug');
 //  releaseCompile project(path: ':navigation-drawer', configuration: 'release');
-  compile project(":navigation-drawer")
-  compile 'com.jakewharton:butterknife:6.1.0'
-  compile 'com.jakewharton.timber:timber:2.7.1' // logging
-  compile 'com.nineoldandroids:library:2.4.0'
+    compile project(":navigation-drawer")
+    compile 'com.jakewharton:butterknife:6.1.0'
+    compile 'com.jakewharton.timber:timber:2.7.1' // logging
+//    debugCompile 'com.squareup.leakcanary:leakcanary-android:1.3.1'
+//    releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.3.1'
 }

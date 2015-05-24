@@ -213,6 +213,16 @@ public class Utils {
     return new ColorDrawable(createActivatedColor(context));
   }
 
+  /**
+   * Sets the base elevation of this view, in pixels.
+   */
+  @TargetApi(21)
+  public static void setElevation(View view, float elevation) {
+    if (Build.VERSION.SDK_INT >= 21) {
+      view.setElevation(elevation);
+    }
+  }
+
   public static void timber(String tag, String s) {
     if (BuildConfig.DEBUG) Log.d(tag, s);
   }

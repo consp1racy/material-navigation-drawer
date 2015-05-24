@@ -2,43 +2,41 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_height="match_parent"
     android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:background="?android:colorForegroundInverse"
     tools:ignore="Overdraw">
-  <!--android:orientation="vertical"-->
+    <!--android:orientation="vertical"-->
 
-  <ListView
-      tools:listitem="@layout/mnd_item_simple"
-      android:id="@+id/mnd_list"
-      android:dividerHeight="0dp"
-      android:divider="@android:color/transparent"
-      android:choiceMode="none"
-      android:fadingEdge="none"
-      android:cacheColorHint="@android:color/transparent"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content">
-
-  </ListView>
-
-  <net.xpece.material.navigationdrawer.internal.NoBackgroundMeasureLinearLayout
-      android:layout_alignBottom="@+id/mnd_list"
-      android:id="@+id/mnd_section_pinned"
-      android:background="?android:colorForegroundInverse"
-      android:visibility="gone"
-      android:orientation="vertical"
-      android:paddingBottom="@dimen/mnd_unit"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content">
-    <!--android:paddingTop="@dimen/mnd_unit"-->
-    <!--android:clipChildren="false"-->
-    <View
-        android:id="@+id/mnd_divider_pinned"
+    <ListView
+        android:id="@+id/mnd_list"
         android:layout_width="match_parent"
-        android:layout_height="1dp"/>
-    <View
-        android:visibility="invisible"
-        android:layout_width="0dp"
-        android:layout_height="7dp"/>
-  </net.xpece.material.navigationdrawer.internal.NoBackgroundMeasureLinearLayout>
+        android:layout_height="wrap_content"
+        android:cacheColorHint="@android:color/transparent"
+        android:choiceMode="none"
+        android:divider="@null"
+        android:fadingEdge="none"
+        tools:listitem="@layout/mnd_item_simple"/>
+
+    <net.xpece.material.navigationdrawer.internal.NoBackgroundMeasureLinearLayout
+        android:id="@+id/mnd_section_pinned"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/mnd_list"
+        android:background="?android:colorForegroundInverse"
+        android:orientation="vertical"
+        android:paddingBottom="@dimen/mnd_unit"
+        android:visibility="gone">
+        <!--android:paddingTop="@dimen/mnd_unit"-->
+        <!--android:clipChildren="false"-->
+        <View
+            android:id="@+id/mnd_divider_pinned"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"/>
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="7dp"
+            android:visibility="invisible"/>
+    </net.xpece.material.navigationdrawer.internal.NoBackgroundMeasureLinearLayout>
 </RelativeLayout>

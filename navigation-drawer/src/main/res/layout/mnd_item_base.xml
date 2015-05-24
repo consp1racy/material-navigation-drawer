@@ -2,35 +2,36 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:paddingLeft="@dimen/mnd_padding_horizontal"
-    android:paddingRight="@dimen/mnd_padding_horizontal"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/mnd_list_item_height_small">
+    android:layout_height="@dimen/mnd_list_item_height_small"
+    android:baselineAligned="false"
+    android:paddingLeft="@dimen/mnd_padding_horizontal"
+    android:paddingRight="@dimen/mnd_padding_horizontal">
 
-  <ImageView
-      android:visibility="gone"
-      tools:visibility="visible"
-      tools:src="@android:drawable/ic_delete"
-      android:id="@+id/icon"
-      android:layout_width="@dimen/mnd_icon_size_medium"
-      android:layout_height="wrap_content"
-      android:scaleType="fitStart"
-      android:layout_marginLeft="@dimen/mnd_unit_double"
-      android:layout_marginStart="@dimen/mnd_unit_double"
-      android:layout_gravity="center_vertical"
-      tools:ignore="ContentDescription"/>
+    <ImageView
+        android:id="@+id/icon"
+        android:layout_width="@dimen/mnd_icon_size_medium"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginLeft="@dimen/mnd_unit_double"
+        android:layout_marginStart="@dimen/mnd_unit_double"
+        android:scaleType="fitStart"
+        android:visibility="gone"
+        tools:ignore="ContentDescription"
+        tools:src="@android:drawable/ic_delete"
+        tools:visibility="visible"/>
 
-  <TextView
-      android:layout_marginLeft="@dimen/mnd_unit_double"
-      android:layout_marginStart="@dimen/mnd_unit_double"
-      android:layout_marginRight="@dimen/mnd_unit_double"
-      android:layout_marginEnd="@dimen/mnd_unit_double"
-      tools:text="@android:string/untitled"
-      android:id="@+id/text"
-      android:ellipsize="end"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_gravity="center_vertical"
-      android:textAppearance="@style/TextAppearance.MaterialNavigationDrawer.Item"
-      android:maxLines="1"/>
+    <TextView
+        android:id="@+id/text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginEnd="@dimen/mnd_unit_double"
+        android:layout_marginLeft="@dimen/mnd_unit_double"
+        android:layout_marginRight="@dimen/mnd_unit_double"
+        android:layout_marginStart="@dimen/mnd_unit_double"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:textAppearance="@style/TextAppearance.MaterialNavigationDrawer.Item"
+        tools:text="@android:string/untitled"/>
 </LinearLayout>

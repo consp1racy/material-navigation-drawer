@@ -39,7 +39,7 @@ abstract class CompactNavigationListFragmentDelegate implements
 
     private static final NavigationListFragmentCallbacks DUMMY_CALLBACKS = new NavigationListFragmentCallbacks() {
         @Override
-        public void onNavigationItemSelected(View view, int position, long id, NavigationItemDescriptor item) {
+        public void onNavigationItemSelected(View view, int position, int id, NavigationItemDescriptor item) {
             //
         }
     };
@@ -243,7 +243,7 @@ abstract class CompactNavigationListFragmentDelegate implements
      * @param id
      */
     @Override
-    public void setSelectedItem(long id) {
+    public void setSelectedItem(int id) {
         if (mAdapter != null) {
 
             int position = mAdapter.getPositionById(id);
@@ -288,10 +288,10 @@ abstract class CompactNavigationListFragmentDelegate implements
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         GraphicNavigationItemDescriptor item = (GraphicNavigationItemDescriptor) parent.getItemAtPosition(position);
-        onItemClick(view, position, id, item);
+        onItemClick(view, position, item.getId(), item);
     }
 
-    private void onItemClick(View view, int position, long id, GraphicNavigationItemDescriptor item) {
+    private void onItemClick(View view, int position, int id, GraphicNavigationItemDescriptor item) {
         // header views and items from pinned section are not sticky, don't even try
         if (position >= 0 && position < mListView.getHeaderViewsCount()) {
 //        || position > mListView.getHeaderViewsCount() + mAdapter.getCount()) {

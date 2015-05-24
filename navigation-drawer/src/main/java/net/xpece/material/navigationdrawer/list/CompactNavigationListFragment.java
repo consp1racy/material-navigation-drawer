@@ -83,7 +83,7 @@ public class CompactNavigationListFragment extends Fragment
     }
 
     @Override
-    public void setSelectedItem(long id) {
+    public void setSelectedItem(int id) {
         mDelegate.setSelectedItem(id);
     }
 

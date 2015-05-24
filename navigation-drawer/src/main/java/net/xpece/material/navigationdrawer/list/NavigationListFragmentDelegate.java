@@ -11,7 +11,6 @@ import android.support.annotation.AttrRes;
 import android.support.annotation.ColorRes;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.Nullable;
-import android.support.v4.view.ViewCompat;
 import android.util.AttributeSet;
 import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
@@ -39,7 +38,7 @@ abstract class NavigationListFragmentDelegate implements
 
     private static final NavigationListFragmentCallbacks DUMMY_CALLBACKS = new NavigationListFragmentCallbacks() {
         @Override
-        public void onNavigationItemSelected(View view, int position, long id, NavigationItemDescriptor item) {
+        public void onNavigationItemSelected(View view, int position, int id, NavigationItemDescriptor item) {
             //
         }
     };
@@ -65,20 +64,24 @@ abstract class NavigationListFragmentDelegate implements
             // Solution: calculate the extra space and subtract it from padding
             int fix = 0;
             final int paddingBottom = mListView.getPaddingBottom();
-            final int lastVisible = mListView.getLastVisiblePosition();
-            final int lastPosition = mListView.getAdapter().getCount() - 1; // mAdapter.getCount() - 1;
-//      timber("listVisible=%s, lastPosition=%s", lastVisible, lastPosition);
-            if (lastVisible == lastPosition) {
-                final int listHeight = mListView.getMeasuredHeight() - paddingBottom - mListView.getPaddingTop();
-                final int lastBottom = mListView.getChildAt(mListView.getLastVisiblePosition() - mListView.getFirstVisiblePosition()).getBottom();
-//        timber("listHeight=%s, lastBottom=%s", listHeight, lastBottom);
-                // if last item ends before the list ends there's extra space
-                if (lastBottom < listHeight) {
-                    if (paddingBottom == 0) mTheFix = Math.max(0, listHeight - lastBottom);
-                    fix = mTheFix;
-//          timber("extraSpace=" + fix);
-                }
-            }
+//            final int lastVisible = mListView.getLastVisiblePosition();
+//            final int lastPosition = mListView.getAdapter().getCount() - 1; // mAdapter.getCount() - 1;
+////      timber("listVisible=%s, lastPosition=%s", lastVisible, lastPosition);
+//            if (lastVisible == lastPosition) {
+//                final int listHeight = mListView.getMeasuredHeight() - paddingBottom - mListView.getPaddingTop();
+//                final int lastBottom = mListView.getChildAt(mListView.getLastVisiblePosition() - mListView.getFirstVisiblePosition()).getBottom();
+////        timber("listHeight=%s, lastBottom=%s", listHeight, lastBottom);
+//                // if last item ends before the list ends there's extra space
+//                if (lastBottom < listHeight) {
+//                    if (paddingBottom == 0) mTheFix = Math.max(0, listHeight - lastBottom);
+//                    fix = mTheFix;
+////          timber("extraSpace=" + fix);
+//                }
+//            }
+            // Cause: Transparent ColorDrawable used as divider had intrinsic height equal to -1
+            //        which effectively moved each item 1px upwards.
+
+
             // modify padding only after pinned section has been measured and it changed
             // padding = pinned section height - listview extra space - 1dp divider alignment
             final int pinnedHeight = mPinnedContainer.getMeasuredHeight();
@@ -98,18 +101,18 @@ abstract class NavigationListFragmentDelegate implements
                 int colorBackground = Utils.getColor(getView().getContext(), android.R.attr.colorBackground, 0);
                 if (Build.VERSION.SDK_INT < 21 || (colorBackground & 0xffffff) < 0xffffff / 2) {
                     // on API lower than 21 and on dark theme show the line instead of shadow
-                    ViewCompat.setElevation(mPinnedContainer, 0);
+                    Utils.setElevation(mPinnedContainer, 0);
                     mPinnedDivider.setVisibility(View.VISIBLE);
                     mShouldPinnedSectionHaveBackground = true; // the views would be seen about to scroll in
                 } else {
                     // on light theme on API 21 show shadow instead of line
-                    ViewCompat.setElevation(mPinnedContainer, getActivity().getResources().getDimension(R.dimen.mnd_unit));
+                    Utils.setElevation(mPinnedContainer, getActivity().getResources().getDimension(R.dimen.mnd_unit));
                     mPinnedDivider.setVisibility(View.GONE);
                     mShouldPinnedSectionHaveBackground = true;
                 }
             } else {
                 // there is enough room, the section will not be pinned
-                ViewCompat.setElevation(mPinnedContainer, 0);
+                Utils.setElevation(mPinnedContainer, 0);
                 mPinnedDivider.setVisibility(View.VISIBLE);
                 mShouldPinnedSectionHaveBackground = false;
             }
@@ -408,7 +411,7 @@ abstract class NavigationListFragmentDelegate implements
      * @param id
      */
     @Override
-    public void setSelectedItem(long id) {
+    public void setSelectedItem(int id) {
         if (mAdapter != null) {
 
             int position = mAdapter.getPositionById(id);
@@ -464,10 +467,10 @@ abstract class NavigationListFragmentDelegate implements
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         CompositeNavigationItemDescriptor item = (CompositeNavigationItemDescriptor) parent.getItemAtPosition(position);
-        onItemClick(view, position, id, item);
+        onItemClick(view, position, item.getId(), item);
     }
 
-    private void onItemClick(View view, int position, long id, CompositeNavigationItemDescriptor item) {
+    private void onItemClick(View view, int position, int id, CompositeNavigationItemDescriptor item) {
         // header views and items from pinned section are not sticky, don't even try
         if (position < getHeaderViewsCount()) {
 //        || position > mListView.getHeaderViewsCount() + mAdapter.getCount()) {

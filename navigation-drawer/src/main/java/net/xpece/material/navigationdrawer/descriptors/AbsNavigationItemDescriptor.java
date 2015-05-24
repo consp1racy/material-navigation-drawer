@@ -12,14 +12,14 @@ import net.xpece.material.navigationdrawer.internal.Utils;
  */
 public abstract class AbsNavigationItemDescriptor implements CompositeNavigationItemDescriptor {
   /** Item ID. */
-  protected long id;
+  protected int id;
 
-  protected AbsNavigationItemDescriptor(long id) {
+  protected AbsNavigationItemDescriptor(int id) {
     this.id = id;
   }
 
   @Override
-  public long getId() {
+  public int getId() {
     return this.id;
   }
 

@@ -33,11 +33,18 @@ How to get the library?
 To use this library add the following to your module's `build.gradle`:
 ```groovy
 dependencies {
-    compile 'net.xpece.material:navigation-drawer:0.7.2'
+    compile 'net.xpece.material:navigation-drawer:0.7.3@aar'
 }
 ```
 
-This library depends on support-v4 and NineOldAndroids. 
+Additionally this library depends on
+- `support-v4` if you'll be using anything related to `DrawerLayout`,
+- `NineOldAndroids` if you'll be using `CrossFadeSlidingPaneLayout` below API 11.
+
+Proguard setup:
+```
+-dontwarn net.xpece.material.navigationdrawer.**
+```
 
 Default behavior
 ----------------
@@ -107,6 +114,14 @@ Extend either `BaseNavigationItemDescriptor` or `AbsNavigationItemDescriptor`. B
 
 Changelog
 ---------
+
+**0.7.3**
+- *FIXED:* Finally fixed the annoying 1px overlap of items!
+- The library core is now independent of `support-v4` and `NineOldAndroids`.
+    - You'll need `support-v4` when working with drawers anyway.
+    - You'll need `NineOldAndroids` when working with `CrossFadeSlidingPaneLayout` below Honeycomb. Pretty much never.
+- Moved `CrossFadeSlidingPaneLayout` to `net.xpece.material.navigationdrawer.list` package to avoid potential clashes.
+- Slight change in API: Item IDs are now `int` instead of `long`.
 
 **0.7.2**
 - *FIXED:* A whole lotta leaking views and recently introduced modified layout inflater.

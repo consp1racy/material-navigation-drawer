@@ -13,7 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.sqisland.android.sliding_pane_layout.CrossFadeSlidingPaneLayout;
+import net.xpece.material.navigationdrawer.list.CrossFadeSlidingPaneLayout;
 
 import net.xpece.material.navigationdrawer.NavigationDrawerUtils;
 import net.xpece.material.navigationdrawer.descriptors.BaseNavigationItemDescriptor;
@@ -99,7 +99,7 @@ public class MainActivity extends AppCompatActivity implements NavigationListFra
     SupportCompactNavigationListFragment mNavFragmentCompact;
 
     // retain this
-    Long mSelectedItem;
+    int mSelectedItem;
 
     // so I can show new toast immediately
     Toast mToast = null;
@@ -167,9 +167,9 @@ public class MainActivity extends AppCompatActivity implements NavigationListFra
         }
 
         if (savedInstanceState == null) {
-            mSelectedItem = 1l;
+            mSelectedItem = 1;
         } else {
-            mSelectedItem = savedInstanceState.getLong("mSelectedItem");
+            mSelectedItem = savedInstanceState.getInt("mSelectedItem");
         }
     }
 
@@ -220,7 +220,7 @@ public class MainActivity extends AppCompatActivity implements NavigationListFra
     }
 
     @Override
-    public void onNavigationItemSelected(View view, int position, long id, NavigationItemDescriptor item) {
+    public void onNavigationItemSelected(View view, int position, int id, NavigationItemDescriptor item) {
         if (mToast != null) mToast.cancel();
         mToast = Toast.makeText(this, "Item #" + id + " on position " + position + " selected!", Toast.LENGTH_SHORT);
         mToast.show();

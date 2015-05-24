@@ -1,7 +1,6 @@
 package net.xpece.material.navigationdrawer.list;
 
 import android.content.Context;
-import android.support.v4.util.LongSparseArray;
 import android.util.SparseArray;
 import android.util.SparseIntArray;
 import android.view.LayoutInflater;
@@ -34,7 +33,7 @@ class NavigationListAdapter extends BaseAdapter {
     private List<NavigationSectionDescriptor> mSections = new ArrayList<>(0);
     private SparseIntArray mViewTypes = new SparseIntArray();
     private SparseArray<Object> mItems = new SparseArray<>();
-    private LongSparseArray<Integer> mPositions = null;
+    private SparseIntArray mPositions = null;
 
     private int mSelectedPosition = -1;
 //  private long mPendingSelectedId = -1;
@@ -189,10 +188,10 @@ class NavigationListAdapter extends BaseAdapter {
         mViewTypes.clear();
         mItems.clear();
         if (mSections == null) {
-            mPositions = new LongSparseArray<>(0);
+            mPositions = new SparseIntArray();
             return;
         }
-        LongSparseArray<Integer> positions = new LongSparseArray<>();
+        SparseIntArray positions = new SparseIntArray();
 
         int position = 0;
         for (int i = 0; i < mSections.size(); i++) {
@@ -230,7 +229,7 @@ class NavigationListAdapter extends BaseAdapter {
         mPositions = positions;
     }
 
-    public int getPositionById(long id) {
+    public int getPositionById(int id) {
         return mPositions.get(id, -1);
     }
 }
