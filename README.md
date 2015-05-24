@@ -215,7 +215,8 @@ Changelog
 Work TBD
 --------
 
-- Better API, factories, copying element prototypes
+- Theming API, ability to replace Material specs with something different with a flick of a switch
+- Better descriptor API, factories, copying element prototypes...
 
 License
 -------
