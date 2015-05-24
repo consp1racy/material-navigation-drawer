@@ -33,7 +33,7 @@ How to get the library?
 To use this library add the following to your module's `build.gradle`:
 ```groovy
 dependencies {
-    compile 'net.xpece.material:navigation-drawer:0.7.3@aar'
+    compile 'net.xpece.material:navigation-drawer:0.7.4@aar'
 }
 ```
 
