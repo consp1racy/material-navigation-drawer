@@ -288,7 +288,7 @@ abstract class CompactNavigationListFragmentDelegate implements
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         GraphicNavigationItemDescriptor item = (GraphicNavigationItemDescriptor) parent.getItemAtPosition(position);
-        onItemClick(view, position, item.getId(), item);
+        onItemClick(view, position, item != null ? item.getId() : (int) id, item);
     }
 
     private void onItemClick(View view, int position, int id, GraphicNavigationItemDescriptor item) {

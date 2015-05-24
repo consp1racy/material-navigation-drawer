@@ -81,7 +81,6 @@ abstract class NavigationListFragmentDelegate implements
             // Cause: Transparent ColorDrawable used as divider had intrinsic height equal to -1
             //        which effectively moved each item 1px upwards.
 
-
             // modify padding only after pinned section has been measured and it changed
             // padding = pinned section height - listview extra space - 1dp divider alignment
             final int pinnedHeight = mPinnedContainer.getMeasuredHeight();
@@ -467,7 +466,7 @@ abstract class NavigationListFragmentDelegate implements
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         CompositeNavigationItemDescriptor item = (CompositeNavigationItemDescriptor) parent.getItemAtPosition(position);
-        onItemClick(view, position, item.getId(), item);
+        onItemClick(view, position, item != null ? item.getId() : (int)id, item);
     }
 
     private void onItemClick(View view, int position, int id, CompositeNavigationItemDescriptor item) {

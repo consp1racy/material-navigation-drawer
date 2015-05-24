@@ -37,7 +37,7 @@ dependencies {
 ext {
     PUBLISH_GROUP_ID = 'net.xpece.material'
     PUBLISH_ARTIFACT_ID = 'navigation-drawer'
-    PUBLISH_VERSION = '0.7.3'
+    PUBLISH_VERSION = '0.7.4'
 }
 
 apply from: '../android-release-aar.gradle'

@@ -115,7 +115,7 @@ Extend either `BaseNavigationItemDescriptor` or `AbsNavigationItemDescriptor`. B
 Changelog
 ---------
 
-**0.7.3**
+**0.7.4**
 - *FIXED:* Finally fixed the annoying 1px overlap of items!
 - The library core is now independent of `support-v4` and `NineOldAndroids`.
     - You'll need `support-v4` when working with drawers anyway.
