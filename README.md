@@ -118,7 +118,7 @@ Changelog
 **0.7.4**
 - *FIXED:* Finally fixed the annoying 1px overlap of items!
 - The library core is now independent of `support-v4` and `NineOldAndroids`.
-    - You'll need `support-v4` when working with drawers anyway.
+    - You'll need `support-v4` when working with drawers anyway. And support fragments.
     - You'll need `NineOldAndroids` when working with `CrossFadeSlidingPaneLayout` below Honeycomb. Pretty much never.
 - Moved `CrossFadeSlidingPaneLayout` to `net.xpece.material.navigationdrawer.list` package to avoid potential clashes.
 - Slight change in API: Item IDs are now `int` instead of `long`.
