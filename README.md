@@ -38,7 +38,7 @@ dependencies {
 ```
 
 Additionally this library depends on
-- `support-v4` if you'll be using anything related to `DrawerLayout`,
+- `support-v4` if you'll be using anything related to `DrawerLayout` or support fragments,
 - `NineOldAndroids` if you'll be using `CrossFadeSlidingPaneLayout` below API 11.
 
 Proguard setup:
