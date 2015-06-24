@@ -129,4 +129,9 @@ public class CompactNavigationListFragment extends Fragment
     public LayoutInflater getLayoutInflater2() {
         return mDelegate.getLayoutInflater2();
     }
+
+    @Override
+    public void setReselectEnabled(boolean reselectEnabled) {
+        mDelegate.setReselectEnabled(reselectEnabled);
+    }
 }

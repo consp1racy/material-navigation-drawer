@@ -134,4 +134,9 @@ public class SupportNavigationListFragment extends Fragment implements Navigatio
     public LayoutInflater getLayoutInflater2() {
         return mDelegate.getLayoutInflater2();
     }
+
+    @Override
+    public void setReselectEnabled(boolean reselectEnabled) {
+        mDelegate.setReselectEnabled(reselectEnabled);
+    }
 }

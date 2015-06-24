@@ -11,6 +11,7 @@ import android.widget.ImageView;
 
 import net.xpece.material.navigationdrawer.R;
 import net.xpece.material.navigationdrawer.descriptors.GraphicNavigationItemDescriptor;
+import net.xpece.material.navigationdrawer.descriptors.IEnabled;
 import net.xpece.material.navigationdrawer.descriptors.NavigationItemDescriptor;
 import net.xpece.material.navigationdrawer.descriptors.NavigationSectionDescriptor;
 import net.xpece.material.navigationdrawer.internal.Utils;
@@ -29,7 +30,8 @@ class CompactNavigationListAdapter extends BaseAdapter {
     private SparseIntArray mPositions = null;
 
     private int mSelectedPosition = -1;
-//  private long mPendingSelectedId = -1;
+    //  private long mPendingSelectedId = -1;
+    private boolean mReselectEnabled = true;
 
     public CompactNavigationListAdapter(List<NavigationSectionDescriptor> sections) {
         setSections(sections);
@@ -48,6 +50,14 @@ class CompactNavigationListAdapter extends BaseAdapter {
             mSelectedPosition = position;
             notifyDataSetChanged();
         }
+    }
+
+    public boolean isReselectEnabled() {
+        return mReselectEnabled;
+    }
+
+    public void setReselectEnabled(boolean reselectEnabled) {
+        mReselectEnabled = reselectEnabled;
     }
 
     @Override
@@ -69,7 +79,15 @@ class CompactNavigationListAdapter extends BaseAdapter {
 
     @Override
     public boolean isEnabled(int position) {
-        return position != mSelectedPosition;
+        return (mReselectEnabled ? true : position != mSelectedPosition) && isItemEnabled(position);
+    }
+
+    private boolean isItemEnabled(int position) {
+        Object item = getItem(position);
+        if (item instanceof IEnabled) {
+            return ((IEnabled) item).isEnabled();
+        }
+        return false;
     }
 
     @Override

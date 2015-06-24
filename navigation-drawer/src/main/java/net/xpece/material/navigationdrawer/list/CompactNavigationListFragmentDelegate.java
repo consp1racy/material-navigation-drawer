@@ -48,12 +48,14 @@ abstract class CompactNavigationListFragmentDelegate implements
     private ListView mListView;
 
     private CompactNavigationListAdapter mAdapter;
+    private boolean mReselectEnabled = true;
     private int mLastSelected = -1;
 
     private List<NavigationSectionDescriptor> mSections = new ArrayList<>(0);
-    private View mHeader = null;
 
+    private View mHeader = null;
     private int mTheme;
+
     private LayoutInflater mInflater;
 
     public CompactNavigationListFragmentDelegate() {
@@ -143,6 +145,7 @@ abstract class CompactNavigationListFragmentDelegate implements
         if (getView() == null) return;
 
         mAdapter = new CompactNavigationListAdapter(mSections);
+        mAdapter.setReselectEnabled(mReselectEnabled);
         mAdapter.setActivatedItem(mLastSelected);
         mListView.setAdapter(mAdapter);
     }
@@ -231,8 +234,10 @@ abstract class CompactNavigationListFragmentDelegate implements
      */
     @Override
     public void setBackgroundAttr(@AttrRes int attr) {
-        Drawable d = Utils.getDrawable(getActivity(), attr);
-        setBackground(d);
+        if (getView() != null) {
+            Drawable d = Utils.getDrawableAttr(getView().getContext(), attr);
+            setBackground(d);
+        }
     }
 
     /**
@@ -302,6 +307,13 @@ abstract class CompactNavigationListFragmentDelegate implements
         }
 
         mCallbacks.onNavigationItemSelected(view, position, id, item);
+    }
+
+    public void setReselectEnabled(boolean reselectEnabled) {
+        mReselectEnabled = reselectEnabled;
+        if (mAdapter != null) {
+            mAdapter.setReselectEnabled(reselectEnabled);
+        }
     }
 
     private static void timber(String s) {

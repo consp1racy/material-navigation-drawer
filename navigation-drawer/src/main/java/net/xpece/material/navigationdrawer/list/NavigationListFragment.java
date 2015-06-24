@@ -132,4 +132,9 @@ public class NavigationListFragment extends Fragment implements NavigationListFr
     public LayoutInflater getLayoutInflater2() {
         return mDelegate.getLayoutInflater2();
     }
+
+    @Override
+    public void setReselectEnabled(boolean reselectEnabled) {
+        mDelegate.setReselectEnabled(reselectEnabled);
+    }
 }

@@ -126,6 +126,7 @@ abstract class NavigationListFragmentDelegate implements
 
     private NavigationListAdapter mAdapter;
     private int mLastSelected = -1;
+    private boolean mReselectEnabled = true;
 
     private List<NavigationSectionDescriptor> mSections = new ArrayList<>(0);
     private List<CompositeNavigationItemDescriptor> mPinnedSection = null;
@@ -227,6 +228,7 @@ abstract class NavigationListFragmentDelegate implements
         if (getView() == null) return;
 
         mAdapter = new NavigationListAdapter(mSections);
+        mAdapter.setReselectEnabled(mReselectEnabled);
         mAdapter.setActivatedItem(mLastSelected - getHeaderViewsCount());
         mListView.setAdapter(mAdapter);
 
@@ -349,8 +351,8 @@ abstract class NavigationListFragmentDelegate implements
 //      mView.setBackgroundColor(color);
 //      mPinnedContainer.setBackgroundColor(color);
 
-            mBackground = new ColorDrawable(color);
-            updateBackground();
+            Drawable d = new ColorDrawable(color);
+            setBackground(d);
         }
     }
 
@@ -383,8 +385,8 @@ abstract class NavigationListFragmentDelegate implements
 //      mView.setBackgroundResource(resource);
 //      mPinnedContainer.setBackgroundResource(resource);
 
-            mBackground = getView().getResources().getDrawable(resource);
-            updateBackground();
+            Drawable d = Utils.getDrawableRes(mView.getContext(), resource);
+            setBackground(d);
         }
     }
 
@@ -397,7 +399,7 @@ abstract class NavigationListFragmentDelegate implements
     @Override
     public void setBackgroundAttr(@AttrRes int attr) {
         if (getView() != null) {
-            Drawable d = Utils.getDrawable(mView.getContext(), attr);
+            Drawable d = Utils.getDrawableAttr(mView.getContext(), attr);
             setBackground(d);
         }
     }
@@ -466,7 +468,7 @@ abstract class NavigationListFragmentDelegate implements
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         CompositeNavigationItemDescriptor item = (CompositeNavigationItemDescriptor) parent.getItemAtPosition(position);
-        onItemClick(view, position, item != null ? item.getId() : (int)id, item);
+        onItemClick(view, position, item != null ? item.getId() : (int) id, item);
     }
 
     private void onItemClick(View view, int position, int id, CompositeNavigationItemDescriptor item) {
@@ -497,6 +499,13 @@ abstract class NavigationListFragmentDelegate implements
             Utils.setBackground(mPinnedContainer, mPinnedSectionBackground);
         } else {
             mPinnedContainer.setBackgroundResource(0);
+        }
+    }
+
+    public void setReselectEnabled(boolean reselectEnabled) {
+        mReselectEnabled = reselectEnabled;
+        if (mAdapter != null) {
+            mAdapter.setReselectEnabled(reselectEnabled);
         }
     }
 }

@@ -33,7 +33,7 @@ How to get the library?
 To use this library add the following to your module's `build.gradle`:
 ```groovy
 dependencies {
-    compile 'net.xpece.material:navigation-drawer:0.7.4@aar'
+    compile 'net.xpece.material:navigation-drawer:0.7.5@aar'
 }
 ```
 
@@ -114,6 +114,9 @@ Extend either `BaseNavigationItemDescriptor` or `AbsNavigationItemDescriptor`. B
 
 Changelog
 ---------
+
+**0.7.5**
+- `setReselectEnabled` on fragments - allows reselecting sticky items.
 
 **0.7.4**
 - *FIXED:* Finally fixed the annoying 1px overlap of items!

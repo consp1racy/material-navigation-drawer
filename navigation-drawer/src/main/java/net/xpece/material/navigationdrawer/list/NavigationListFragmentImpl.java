@@ -57,4 +57,5 @@ interface NavigationListFragmentImpl {
 
     LayoutInflater getLayoutInflater2();
 
+    void setReselectEnabled(boolean reselectEnabled);
 }

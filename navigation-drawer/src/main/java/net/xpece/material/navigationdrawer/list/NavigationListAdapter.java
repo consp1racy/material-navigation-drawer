@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import net.xpece.material.navigationdrawer.R;
 import net.xpece.material.navigationdrawer.descriptors.CompositeNavigationItemDescriptor;
+import net.xpece.material.navigationdrawer.descriptors.IEnabled;
 import net.xpece.material.navigationdrawer.descriptors.NavigationSectionDescriptor;
 import net.xpece.material.navigationdrawer.internal.Utils;
 import net.xpece.material.navigationdrawer.internal.ViewHolder;
@@ -36,7 +37,8 @@ class NavigationListAdapter extends BaseAdapter {
     private SparseIntArray mPositions = null;
 
     private int mSelectedPosition = -1;
-//  private long mPendingSelectedId = -1;
+    //  private long mPendingSelectedId = -1;
+    private boolean mReselectEnabled = true;
 
     // each section consists of the following
     // section heading OR padding
@@ -62,6 +64,14 @@ class NavigationListAdapter extends BaseAdapter {
         }
     }
 
+    public boolean isReselectEnabled() {
+        return mReselectEnabled;
+    }
+
+    public void setReselectEnabled(boolean reselectEnabled) {
+        mReselectEnabled = reselectEnabled;
+    }
+
     @Override
     public void notifyDataSetInvalidated() {
         mPositions = null;
@@ -81,7 +91,15 @@ class NavigationListAdapter extends BaseAdapter {
 
     @Override
     public boolean isEnabled(int position) {
-        return getItemViewType(position) >= TYPE_ITEM_START && position != mSelectedPosition;
+        return getItemViewType(position) >= TYPE_ITEM_START && (mReselectEnabled ? true : position != mSelectedPosition) && isItemEnabled(position);
+    }
+
+    private boolean isItemEnabled(int position) {
+        Object item = getItem(position);
+        if (item instanceof IEnabled) {
+            return ((IEnabled) item).isEnabled();
+        }
+        return false;
     }
 
     @Override

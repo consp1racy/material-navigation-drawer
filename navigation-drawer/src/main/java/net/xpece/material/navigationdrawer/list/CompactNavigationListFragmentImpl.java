@@ -55,4 +55,5 @@ interface CompactNavigationListFragmentImpl {
 
     LayoutInflater getLayoutInflater2();
 
+    void setReselectEnabled(boolean reselectEnabled);
 }
