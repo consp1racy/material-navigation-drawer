@@ -45,8 +45,8 @@ public class ToggleNavigationItemDescriptor extends AbsNavigationItemDescriptor 
     }
 
     @Override
-    public void loadInto(final View view, final boolean selected) {
-        super.loadInto(view, false);
+    public void bindView(final View view, final boolean selected) {
+        super.bindView(view, false);
 
         setup(view);
     }

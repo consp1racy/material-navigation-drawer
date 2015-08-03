@@ -25,11 +25,10 @@ android {
 }
 
 dependencies {
-    compile 'com.android.support:support-v4:22.1.1'
-    compile 'com.android.support:support-annotations:22.1.1'
+    compile 'com.android.support:support-v4:22.2.1'
+    compile 'com.android.support:support-annotations:22.2.1'
 //  compile 'com.jakewharton.timber:timber:2.5.0' // logging
     compile 'com.nineoldandroids:library:2.4.0'
-
 }
 
 //apply plugin: 'android-aspectj'
@@ -37,7 +36,7 @@ dependencies {
 ext {
     PUBLISH_GROUP_ID = 'net.xpece.material'
     PUBLISH_ARTIFACT_ID = 'navigation-drawer'
-    PUBLISH_VERSION = '0.7.4'
+    PUBLISH_VERSION = '0.7.6'
 }
 
 apply from: '../android-release-aar.gradle'

@@ -192,7 +192,7 @@ class NavigationListAdapter extends BaseAdapter {
                     view = convertView;
                 }
 
-                item.loadInto(view, position == mSelectedPosition);
+                item.bindView(view, position == mSelectedPosition);
 
                 break;
             }

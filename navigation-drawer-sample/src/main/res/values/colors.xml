@@ -5,4 +5,9 @@
   <color name="material_amber_500">#FFC107</color>
   <color name="material_light_green_500">#8BC34A</color>
   <color name="material_pink_500">#E91E63</color>
+  <color name="material_red_100">#ffcdd2</color>
+  <color name="material_light_blue_100">#b3e5fc</color>
+  <color name="material_amber_100">#ffecb3</color>
+  <color name="material_light_green_100">#dcedc8</color>
+  <color name="material_pink_100">#f8bbd0</color>
 </resources>

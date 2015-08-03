@@ -275,11 +275,11 @@ abstract class NavigationListFragmentDelegate implements
             final View view;
             if (i < currentCount) {
                 view = mPinnedContainer.getChildAt(i + offset);
-                item.loadInto(view, false);
+                item.bindView(view, false);
             } else {
                 Context context = getLayoutInflater2().getContext();
                 view = item.createView(context, mPinnedContainer);
-                item.loadInto(view, false);
+                item.bindView(view, false);
                 mPinnedContainer.addView(view);
             }
             Utils.setBackground(view, selector.getConstantState().newDrawable());

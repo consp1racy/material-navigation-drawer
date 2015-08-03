@@ -164,7 +164,7 @@ class CompactNavigationListAdapter extends BaseAdapter {
         imageView.setContentDescription(textString);
 
         if (selected) {
-            Utils.setBackground(imageView, Utils.getActivatedDrawable(context));
+            Utils.setBackground(imageView, item.getActivatedBackground(context));
         } else {
             imageView.setBackgroundColor(0);
 //      Utils.setBackground(imageView, Utils.getSelectorDrawable(context));

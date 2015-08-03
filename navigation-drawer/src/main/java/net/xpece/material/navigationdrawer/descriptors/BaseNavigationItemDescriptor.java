@@ -6,6 +6,7 @@ import android.support.annotation.AttrRes;
 import android.support.annotation.ColorRes;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.StringRes;
+import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -35,22 +36,24 @@ public class BaseNavigationItemDescriptor extends AbsNavigationItemDescriptor
     protected int activeColor = 0xff000000;
     @ColorRes
     protected int activeColorId = R.color.mnd_text_primary_light;
-    /** Color of item icon when not selected. Should be 54% black or 100% white. */
-    protected int passiveColor = 0xde000000;
-    @ColorRes
-    protected int passiveColorId = R.color.mnd_text_secondary_light;
     @AttrRes
     int activeColorAttr = android.R.attr.textColorPrimary;
+
+    /** Color of item icon when not selected. Should be 54% black or 100% white. */
+    protected int passiveColor = 0;
+    @ColorRes
+    protected int passiveColorId = 0;
     @AttrRes
-    int passiveColorAttr = android.R.attr.textColorSecondary;
-    private Drawable icon = null;
-    /** Whether the icon should be tinted. */
-    private boolean tintIcon = true;
+    int passiveColorAttr = 0;
     /**
      * Whether the passive colors have been modified.
      * If not use primary text color for icon in case of dark theme.
      */
     private boolean customPassiveColor = false;
+
+    private Drawable icon = null;
+    /** Whether the icon should be tinted. */
+    private boolean tintIcon = true;
 
     private boolean enabled = true;
 
@@ -61,12 +64,14 @@ public class BaseNavigationItemDescriptor extends AbsNavigationItemDescriptor
         return enabled;
     }
 
-    public void enable() {
+    public BaseNavigationItemDescriptor enable() {
         this.enabled = true;
+        return this;
     }
 
-    public void disable() {
+    public BaseNavigationItemDescriptor disable() {
         this.enabled = false;
+        return this;
     }
 
     public BaseNavigationItemDescriptor iconResource(@DrawableRes int icon) {
@@ -78,7 +83,11 @@ public class BaseNavigationItemDescriptor extends AbsNavigationItemDescriptor
     @Override
     public Drawable getIcon(Context context) {
         if (iconId != 0) {
-            return context.getResources().getDrawable(iconId).mutate();
+            Drawable d = ContextCompat.getDrawable(context, iconId);
+            if (d != null) {
+                d.mutate();
+            }
+            return d;
         } else {
             return icon;
         }
@@ -216,8 +225,8 @@ public class BaseNavigationItemDescriptor extends AbsNavigationItemDescriptor
     }
 
     @Override
-    public void loadInto(View view, boolean selected) {
-        super.loadInto(view, selected);
+    public void bindView(View view, boolean selected) {
+        super.bindView(view, selected);
 
         Context context = view.getContext();
 
@@ -260,5 +269,25 @@ public class BaseNavigationItemDescriptor extends AbsNavigationItemDescriptor
             "id=" + id +
             "sticky=" + sticky +
             '}';
+    }
+
+    @Override
+    public BaseNavigationItemDescriptor activatedBackground(Drawable drawable) {
+        return (BaseNavigationItemDescriptor) super.activatedBackground(drawable);
+    }
+
+    @Override
+    public BaseNavigationItemDescriptor activatedBackgroundResource(@ColorRes int drawable) {
+        return (BaseNavigationItemDescriptor) super.activatedBackgroundResource(drawable);
+    }
+
+    @Override
+    public BaseNavigationItemDescriptor activatedBackgroundAttribute(@AttrRes int drawable) {
+        return (BaseNavigationItemDescriptor) super.activatedBackgroundAttribute(drawable);
+    }
+
+    @Override
+    public BaseNavigationItemDescriptor clearActivatedBackground() {
+        return (BaseNavigationItemDescriptor) super.clearActivatedBackground();
     }
 }

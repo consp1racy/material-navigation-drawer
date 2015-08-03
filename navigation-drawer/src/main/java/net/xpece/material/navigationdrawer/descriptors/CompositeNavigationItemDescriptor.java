@@ -9,29 +9,32 @@ import android.view.ViewGroup;
  */
 public interface CompositeNavigationItemDescriptor extends NavigationItemDescriptor {
 
-  /**
-   * Load this object state into specified view.
-   * @param view
-   * @param selected
-   */
-  void loadInto(View view, boolean selected);
+    /**
+     * Load this object state into specified view.
+     *
+     * @param view
+     * @param selected
+     */
+    void bindView(View view, boolean selected);
 
-  /**
-   * View factory. Do not attach view to parent yet.
-   * <p></p><strong>IMPORTANT!</strong>
-   * The created view must not reflect this objects state.
-   * Do not setup listeners in this method.
-   * @param context
-   * @param parent
-   * @return
-   */
-  View createView(Context context, ViewGroup parent);
+    /**
+     * View factory. Do not attach view to parent yet.
+     * <p></p><strong>IMPORTANT!</strong>
+     * The created view must not reflect this objects state.
+     * Do not setup listeners in this method.
+     *
+     * @param context
+     * @param parent
+     * @return
+     */
+    View createView(Context context, ViewGroup parent);
 
-  /**
-   * Callback when the item was clicked.
-   * @param view
-   * @return True if the event was consumed (items with touch sensitive widgets),
-   * false if the list view's callback should be invoked.
-   */
-  boolean onClick(View view);
+    /**
+     * Callback when the item was clicked.
+     *
+     * @param view
+     * @return True if the event was consumed (items with touch sensitive widgets),
+     * false if the list view's callback should be invoked.
+     */
+    boolean onClick(View view);
 }

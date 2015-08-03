@@ -115,6 +115,9 @@ Extend either `BaseNavigationItemDescriptor` or `AbsNavigationItemDescriptor`. B
 Changelog
 ---------
 
+**0.7.6**
+- Use `activatedBackground*(...)` methods to specify sticky item background color when selected.
+
 **0.7.5**
 - `setReselectEnabled` on fragments - allows reselecting sticky items.
 

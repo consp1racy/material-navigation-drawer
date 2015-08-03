@@ -7,13 +7,15 @@ import android.graphics.drawable.Drawable;
  * Created by Eugen on 26. 1. 2015.
  */
 public interface GraphicNavigationItemDescriptor extends NavigationItemDescriptor {
-  Drawable getIcon(Context context);
+    Drawable getIcon(Context context);
 
-  boolean isIconColorAlwaysPassiveOff();
+    boolean isIconColorAlwaysPassiveOff();
 
-  String getText(Context context);
+    String getText(Context context);
 
-  int getActiveColor(Context context);
+    int getActiveColor(Context context);
 
-  int getPassiveColor(Context context);
+    int getPassiveColor(Context context);
+
+    Drawable getActivatedBackground(Context context);
 }
