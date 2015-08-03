@@ -33,7 +33,7 @@ How to get the library?
 To use this library add the following to your module's `build.gradle`:
 ```groovy
 dependencies {
-    compile 'net.xpece.material:navigation-drawer:0.7.5@aar'
+    compile 'net.xpece.material:navigation-drawer:0.7.6@aar'
 }
 ```
 
@@ -93,6 +93,8 @@ You can modify the navigation drawer background by accessing one of `NavigationD
 - Use `text(String)` or `text(int)` to set item label.
 - Use `activeColor(int)` and its derivatives to specify color of selected icon and text.
 - Use `passiveColor(int)` and its derivatives to specify color of unselected icon. Unselected text always takes color of `android:textColorPrimary`.
+- `activatedBackground*(...)`
+- `enable()` and `disable()`
 
 `SimpleNavigationItemDescriptor` extends `BaseNavigationItemDescriptor`
 
