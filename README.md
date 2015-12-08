@@ -1,3 +1,9 @@
+
+# DEPRECATED
+There will (probably) be no more active development of this library. See `NavigationView` which is available as part of the Android Design Support library. This widget should be sufficient for most of your needs.
+
+http://developer.android.com/reference/android/support/design/widget/NavigationView.html
+
 Material Navigation Drawer
 ==========================
 
