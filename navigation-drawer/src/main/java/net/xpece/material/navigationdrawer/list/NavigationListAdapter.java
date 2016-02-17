@@ -186,7 +186,7 @@ class NavigationListAdapter extends BaseAdapter {
             default: {
                 CompositeNavigationItemDescriptor item = (CompositeNavigationItemDescriptor) getItem(position);
 
-                if (convertView == null) {
+                if (convertView == null || !item.isRecyclable()) {
                     view = item.createView(context, parent);
                 } else {
                     view = convertView;

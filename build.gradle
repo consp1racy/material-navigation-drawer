@@ -5,6 +5,7 @@ buildscript {
         jcenter()
     }
     dependencies {
+        // 1.5.0 file path too long on windows.
         classpath 'com.android.tools.build:gradle:1.2.3'
         classpath 'com.jakewharton.hugo:hugo-plugin:1.2.1'
 //        classpath 'com.uphyca.gradle:gradle-android-aspectj-plugin:0.9.+'

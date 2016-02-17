@@ -290,4 +290,9 @@ public class BaseNavigationItemDescriptor extends AbsNavigationItemDescriptor
     public BaseNavigationItemDescriptor clearActivatedBackground() {
         return (BaseNavigationItemDescriptor) super.clearActivatedBackground();
     }
+
+    @Override
+    public boolean isRecyclable() {
+        return true;
+    }
 }

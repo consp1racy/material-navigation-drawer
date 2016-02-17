@@ -70,7 +70,16 @@ public class MainActivity extends AppCompatActivity implements NavigationListFra
                 .activatedBackgroundResource(R.color.material_light_blue_100));
         SECTIONS.add(PRIMARY_SECTION);
         NavigationSectionDescriptor section2 = new NavigationSectionDescriptor().heading("Want more?")
-            .addItem(new ToggleNavigationItemDescriptor(8).checked(true));
+            .addItem(new ToggleNavigationItemDescriptor(8).checked(true).text("Hell no.").textChecked("Bring it!"));
+//            .addItem(new ToggleNavigationItemDescriptor(9).checked(true).text("A0").textChecked("A1"))
+//            .addItem(new ToggleNavigationItemDescriptor(10).checked(true).text("B0").textChecked("B1"))
+//            .addItem(new ToggleNavigationItemDescriptor(11).checked(true).text("C0").textChecked("C1"))
+//            .addItem(new ToggleNavigationItemDescriptor(12).checked(true).text("D0").textChecked("D1"))
+//            .addItem(new ToggleNavigationItemDescriptor(13).checked(true).text("E0").textChecked("E1"))
+//            .addItem(new ToggleNavigationItemDescriptor(14).checked(true).text("F0").textChecked("F1"))
+//            .addItem(new ToggleNavigationItemDescriptor(15).checked(true).text("G0").textChecked("G1"))
+//            .addItem(new ToggleNavigationItemDescriptor(16).checked(true).text("H0").textChecked("H1"))
+//            .addItem(new ToggleNavigationItemDescriptor(17).checked(true).text("I0").textChecked("I1"));
         SECTIONS.add(section2);
         NavigationSectionDescriptor section3 = new NavigationSectionDescriptor()
             .addItem(new BaseNavigationItemDescriptor(6).text("Settings")
@@ -199,7 +208,7 @@ public class MainActivity extends AppCompatActivity implements NavigationListFra
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putLong("mSelectedItem", mSelectedItem);
+        outState.putInt("mSelectedItem", mSelectedItem);
     }
 
     @Override

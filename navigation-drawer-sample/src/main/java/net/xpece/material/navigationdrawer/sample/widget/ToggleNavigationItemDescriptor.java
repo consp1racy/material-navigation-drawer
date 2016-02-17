@@ -6,6 +6,7 @@ import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.os.Build;
 import android.support.annotation.AttrRes;
+import android.support.annotation.StringRes;
 import android.support.v7.widget.SwitchCompat;
 import android.view.View;
 import android.widget.CompoundButton;
@@ -22,6 +23,16 @@ import net.xpece.material.navigationdrawer.sample.R;
 public class ToggleNavigationItemDescriptor extends AbsNavigationItemDescriptor {
 
     private boolean mChecked = false;
+
+    /** Item label. */
+    protected String textChecked = null;
+    @StringRes
+    protected int textIdChecked = 0;
+
+    /** Item label. */
+    protected String text = null;
+    @StringRes
+    protected int textId = 0;
 
     // This should not be here! The descriptor should not hold any means of presentation!
     private Toast mToast = null;
@@ -51,6 +62,46 @@ public class ToggleNavigationItemDescriptor extends AbsNavigationItemDescriptor 
         setup(view);
     }
 
+    public ToggleNavigationItemDescriptor text(String text) {
+        this.text = text;
+        this.textId = 0;
+        return this;
+    }
+
+    public ToggleNavigationItemDescriptor text(@StringRes int text) {
+        this.textId = text;
+        this.text = null;
+        return this;
+    }
+
+    public String getText(Context context) {
+        if (textId != 0) {
+            return context.getString(textId);
+        } else {
+            return text;
+        }
+    }
+
+    public ToggleNavigationItemDescriptor textChecked(String textChecked) {
+        this.textChecked = textChecked;
+        this.textIdChecked = 0;
+        return this;
+    }
+
+    public ToggleNavigationItemDescriptor textChecked(@StringRes int textChecked) {
+        this.textIdChecked = textChecked;
+        this.textChecked = null;
+        return this;
+    }
+
+    public String getTextChecked(Context context) {
+        if (textIdChecked != 0) {
+            return context.getString(textIdChecked);
+        } else {
+            return textChecked;
+        }
+    }
+
     @Override
     public boolean onClick(View view) {
         // on list item click - update text and toggle
@@ -73,7 +124,7 @@ public class ToggleNavigationItemDescriptor extends AbsNavigationItemDescriptor 
         toggle.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                mChecked = !mChecked;
+                mChecked = isChecked;
                 updateText(view);
 
                 onChange(view.getContext(), mChecked);
@@ -91,7 +142,7 @@ public class ToggleNavigationItemDescriptor extends AbsNavigationItemDescriptor 
         } else {
             text.setTextColor(getColor(context, android.R.attr.textColorPrimaryNoDisable, Color.BLACK));
         }
-        text.setText(mChecked ? "Bring it!" : "Hell no!");
+        text.setText(mChecked ? getTextChecked(context) : getText(context));
     }
 
     public static int getColor(Context context, @AttrRes int attr, int fallback) {

@@ -11,4 +11,6 @@ public interface NavigationItemDescriptor extends IEnabled {
   int getId();
 
   boolean isSticky();
+
+  boolean isRecyclable();
 }

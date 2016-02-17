@@ -134,4 +134,9 @@ public abstract class AbsNavigationItemDescriptor implements CompositeNavigation
             "id=" + id +
             '}';
     }
+
+    @Override
+    public boolean isRecyclable() {
+        return false;
+    }
 }
