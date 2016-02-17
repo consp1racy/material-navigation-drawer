@@ -39,7 +39,7 @@ How to get the library?
 To use this library add the following to your module's `build.gradle`:
 ```groovy
 dependencies {
-    compile 'net.xpece.material:navigation-drawer:0.7.6@aar'
+    compile 'net.xpece.material:navigation-drawer:0.7.7@aar'
 }
 ```
 
@@ -122,6 +122,12 @@ Extend either `BaseNavigationItemDescriptor` or `AbsNavigationItemDescriptor`. B
 
 Changelog
 ---------
+
+**0.7.7**
+- Items may mark themselves as not recyclable when `isRecyclable()` returns `false`.
+- Updated `ToggleNavigationItemDescriptor` in sample project:
+  - Not recyclable - fixes incorrect checked state issue.
+  - Custom text via `text(...)` and `textChecked(...)`.
 
 **0.7.6**
 - Use `activatedBackground*(...)` methods to specify sticky item background color when selected.
